@@ -610,11 +610,36 @@ function vh_form_handler() {
 	] );
 }
 
-// ─── 6. ADMIN: SMTP SETTINGS PAGE ───────────────────────────────────────────
-add_action( 'admin_menu', fn() => add_options_page(
-	'VivaHost — Email & SMTP', 'VivaHost Email', 'manage_options', 'vivahost-smtp',
-	fn() => require VH_PATH . '/admin/smtp-settings.php'
-) );
+// ─── 6. ADMIN: SMTP & THEME UPDATES PAGES ───────────────────────────────────
+add_action( 'admin_menu', function () {
+	// Impostazioni → VivaHost Email (solo SMTP ed invio email)
+	add_options_page(
+		'VivaHost — Email & SMTP', 'VivaHost Email', 'manage_options', 'vivahost-smtp',
+		fn() => require VH_PATH . '/admin/smtp-settings.php'
+	);
+
+	// Aparência → Atualizações VivaHost (aggiornamenti del tema da GitHub)
+	add_theme_page(
+		'VivaHost — Atualizações via GitHub', 'Atualizações VivaHost', 'manage_options', 'vivahost-updates',
+		fn() => require VH_PATH . '/admin/updates-settings.php'
+	);
+} );
+
+add_action( 'admin_init', 'vh_updates_save' );
+function vh_updates_save() {
+	if ( ! isset( $_POST['vh_updates_nonce'] ) ) return;
+	if ( ! wp_verify_nonce( $_POST['vh_updates_nonce'], 'vh_updates_save' ) ) return;
+	if ( ! current_user_can( 'manage_options' ) ) return;
+
+	if ( isset( $_POST['vh_github_repo'] ) ) {
+		update_option( 'vh_github_repo', sanitize_text_field( $_POST['vh_github_repo'] ) );
+	}
+	delete_transient( 'vh_gh_update_check' );
+	delete_site_transient( 'update_themes' );
+
+	wp_safe_redirect( admin_url( 'themes.php?page=vivahost-updates&saved=1' ) );
+	exit;
+}
 
 add_action( 'admin_init', 'vh_smtp_save' );
 function vh_smtp_save() {
@@ -623,11 +648,10 @@ function vh_smtp_save() {
 	if ( ! current_user_can( 'manage_options' ) ) return;
 
 	$fields = [ 'vh_smtp_to_email', 'vh_smtp_from_name', 'vh_smtp_from_email',
-	            'vh_smtp_host', 'vh_smtp_port', 'vh_smtp_user', 'vh_smtp_secure', 'vh_github_repo' ];
+	            'vh_smtp_host', 'vh_smtp_port', 'vh_smtp_user', 'vh_smtp_secure' ];
 	foreach ( $fields as $f ) {
 		update_option( $f, sanitize_text_field( $_POST[ $f ] ?? '' ) );
 	}
-	delete_transient( 'vh_gh_update_check' );
 	if ( ! empty( $_POST['vh_smtp_pass'] ) ) {
 		update_option( 'vh_smtp_pass', vh_encrypt( $_POST['vh_smtp_pass'] ) );
 	}

@@ -168,18 +168,6 @@ if ( $result !== false ) delete_transient( 'vh_smtp_test_result' );
       </div>
     </div>
 
-    <!-- GITHUB REPOSITORY / AUTO-UPDATE -->
-    <div class="card">
-      <h2>Atualizações automáticas via GitHub</h2>
-      <div class="vh-field">
-        <label for="vh_github_repo">Repositório GitHub (usuário/repositório)</label>
-        <input type="text" id="vh_github_repo" name="vh_github_repo"
-          value="<?php echo esc_attr( get_option( 'vh_github_repo', '' ) ); ?>"
-          placeholder="ex: seunome/vivahost-tema">
-        <span class="vh-hint">Conecte com seu repositório no GitHub para receber notificações e atualizar o tema com 1 clique direto no painel do WordPress (em <em>Aparência → Temas</em>) quando publicar uma nova Release ou Tag.</span>
-      </div>
-    </div>
-
     <div class="vh-actions">
       <button type="submit" name="vh_smtp_save_only" class="vh-btn vh-btn-primary">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
