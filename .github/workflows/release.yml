@@ -1,0 +1,29 @@
+name: Build & Release Theme ZIP
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Package VivaHost Theme
+        run: |
+          mkdir -p /tmp/vivahost-package/vivahost-tema
+          rsync -av --exclude='.git' --exclude='.github' --exclude='.gitignore' --exclude='*.DS_Store' ./ /tmp/vivahost-package/vivahost-tema/
+          cd /tmp/vivahost-package
+          zip -r vivahost-tema.zip vivahost-tema
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: /tmp/vivahost-package/vivahost-tema.zip
+          generate_release_notes: true

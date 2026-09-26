@@ -1,0 +1,256 @@
+/*
+ * VivaHost Child Theme — Design System v3.5 (Tailwind CSS + daisyUI)
+ * Essential overrides, brand design tokens, header scroll & animation styles.
+ */
+
+/* ── 1. DESIGN TOKENS ──────────────────────────────────────────────────────── */
+:root {
+  --vh-primary:    #ff385c;
+  --vh-primary-rgb: 255, 56, 92;
+  --vh-footer-bg:  #222222;
+  --white:   #FFFFFF;
+  --off:     #F7F7F7;
+  --dark:    #222222;
+  --body:    #484848;
+  --muted:   #717171;
+  --border:  #EBEBEB;
+  --wa:      #25D366;
+  --f:       'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --vh-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --vh-shadow-md: 0 6px 20px rgba(0, 0, 0, 0.08);
+  --vh-shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.12);
+  --vh-radius-sm: 8px;
+  --vh-radius-md: 16px;
+  --vh-radius-lg: 24px;
+}
+
+/* ── 2. BASE & HELLO ELEMENTOR OVERRIDES ───────────────────────────────────── */
+:root, html {
+  color-scheme: light !important;
+}
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--f) !important;
+  -webkit-font-smoothing: antialiased;
+  background-color: #ffffff !important;
+  color: #222222 !important;
+}
+
+/* Hello Elementor — hide its default header/footer on canvas landing */
+body.vivahost-landing #site-header,
+body.vivahost-landing #site-footer,
+body.vivahost-landing .site-header,
+body.vivahost-landing .site-footer { display: none !important; }
+body.vivahost-landing .elementor-section-wrap { margin-top: 0 !important; }
+
+/* Skip-to-content accessibility */
+.vh-skip-link {
+  position: absolute; top: -100px; left: 8px;
+  z-index: 100000;
+  background: var(--dark); color: #fff !important;
+  padding: 8px 16px; border-radius: 0 0 8px 8px;
+  font-size: 13px; font-weight: 600;
+  transition: top .2s;
+}
+.vh-skip-link:focus { top: 0; }
+
+/* ── 3. HEADER & LOGO DYNAMICS ────────────────────────────────────────────── */
+.vivahost-header {
+  transition: background .3s ease, box-shadow .3s ease;
+}
+.vivahost-header.scrolled {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+}
+.brand-logo {
+  transition: opacity .2s, filter .3s;
+}
+.brand-logo:hover { opacity: .88; }
+.vivahost-header:not(.scrolled) .brand-logo { filter: none; }
+.vivahost-header.scrolled .brand-logo {
+  filter: brightness(0) saturate(100%) invert(34%) sepia(98%) saturate(3420%) hue-rotate(341deg) brightness(96%) contrast(101%);
+}
+.vivahost-header:not(.scrolled) .vivahost-nav a {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.vivahost-header:not(.scrolled) .vivahost-nav a:hover {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.15);
+}
+.vivahost-header.scrolled .vivahost-nav a {
+  color: var(--dark) !important;
+}
+.vivahost-header.scrolled .vivahost-nav a:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+.vivahost-header:not(.scrolled) .vivahost-nav-toggle {
+  color: #fff !important;
+}
+.vivahost-header.scrolled .vivahost-nav-toggle {
+  color: var(--dark) !important;
+}
+
+/* ── Inner Pages & Blog: Always solid header with dark items and coral logo ── */
+body:not(.home) .vivahost-header,
+.vivahost-single .vivahost-header {
+  background: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+}
+body:not(.home) .vivahost-header .brand-logo,
+.vivahost-single .vivahost-header .brand-logo {
+  filter: brightness(0) saturate(100%) invert(34%) sepia(98%) saturate(3420%) hue-rotate(341deg) brightness(96%) contrast(101%) !important;
+}
+body:not(.home) .vivahost-header .vivahost-nav a,
+.vivahost-single .vivahost-header .vivahost-nav a {
+  color: var(--dark) !important;
+}
+body:not(.home) .vivahost-header .vivahost-nav a:hover,
+.vivahost-single .vivahost-header .vivahost-nav a:hover {
+  color: var(--dark) !important;
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+body:not(.home) .vivahost-header .vivahost-nav-toggle,
+.vivahost-single .vivahost-header .vivahost-nav-toggle {
+  color: var(--dark) !important;
+}
+
+/* Mobile Nav Drawer state */
+.vivahost-mobile-nav {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+}
+.vivahost-mobile-nav.open {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* ── 4. FLOATING ELEMENTS & UTILITIES ──────────────────────────────────────── */
+/* WhatsApp Floating FAB (Disabilitato) */
+.vivahost-wa-float {
+  display: none !important;
+}
+
+/* Back to Top */
+.vh-back-to-top {
+  position: fixed; bottom: 28px; right: 28px;
+  z-index: 9996;
+  opacity: 0; pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity .25s ease, transform .25s ease, background .2s ease;
+}
+.vh-back-to-top.visible {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: translateY(0) !important;
+}
+@media (max-width: 768px) {
+  .vh-back-to-top { bottom: 82px; right: 16px; }
+}
+
+/* ── 5. SCROLL ANIMATIONS (IntersectionObserver) ───────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .anim-fade {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .6s cubic-bezier(.16, 1, .3, 1), transform .6s cubic-bezier(.16, 1, .3, 1);
+    will-change: opacity, transform;
+  }
+  .anim-fade.anim-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .anim-fade, .anim-fade.anim-visible {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ── 6. BRAND CORAL BUTTONS & CTAS ────────────────────────────────────────── */
+.btn-primary,
+.header-cta,
+.btn-brand-coral {
+  background-color: var(--vh-primary, #ff385c) !important;
+  border-color: var(--vh-primary, #ff385c) !important;
+  color: #ffffff !important;
+}
+.btn-primary:hover,
+.header-cta:hover,
+.btn-brand-coral:hover {
+  background-color: #e0314f !important;
+  border-color: #e0314f !important;
+  color: #ffffff !important;
+}
+
+/* Secondary High-Contrast CTA */
+.btn-hero-secondary {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-color: transparent !important;
+  color: #111827 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15) !important;
+}
+.btn-hero-secondary:hover {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22) !important;
+}
+
+/* ── 7. FULL-WIDTH SCENIC SVG BANNERS (FAROL & SALVADOR SKYLINE) ──────────── */
+.vh-svg-banner {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  position: relative;
+  background-color: #ffc5cf;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.vh-svg-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.vh-svg-banner--farol img {
+  object-position: center 25%;
+}
+.vh-svg-banner--skyline img {
+  object-position: center 18%;
+}
+@media (max-width: 768px) {
+  .vh-svg-banner {
+    height: 250px;
+  }
+  .vh-svg-banner--farol img {
+    object-position: 40% 25%;
+  }
+  .vh-svg-banner--skyline img {
+    object-position: 50% 18%;
+  }
+}
+
+/* ── 8. HERO BRAND LUXURY GRADIENT ────────────────────────────────────────── */
+.vh-hero--gradient {
+  background: radial-gradient(circle at 85% 15%, rgba(255, 90, 95, 0.62) 0%, transparent 52%),
+              radial-gradient(circle at 12% 85%, rgba(255, 68, 102, 0.45) 0%, transparent 48%),
+              radial-gradient(circle at 50% 40%, rgba(255, 114, 138, 0.22) 0%, transparent 60%),
+              linear-gradient(135deg, #2b1328 0%, #46142e 30%, #681739 65%, #941c42 100%) !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
