@@ -634,6 +634,9 @@ function vh_updates_save() {
 	if ( isset( $_POST['vh_github_repo'] ) ) {
 		update_option( 'vh_github_repo', sanitize_text_field( $_POST['vh_github_repo'] ) );
 	}
+	if ( isset( $_POST['vh_github_token'] ) ) {
+		update_option( 'vh_github_token', sanitize_text_field( $_POST['vh_github_token'] ) );
+	}
 	delete_transient( 'vh_gh_update_check' );
 	delete_site_transient( 'update_themes' );
 
@@ -846,11 +849,17 @@ function vh_github_check_theme_update( $transient ) {
 	$release = get_transient( $transient_key );
 
 	if ( false === $release ) {
+		$headers = [
+			'Accept'     => 'application/vnd.github.v3+json',
+			'User-Agent' => 'WordPress-VivaHost-Updater',
+		];
+		$token = get_option( 'vh_github_token', defined( 'VH_GITHUB_TOKEN' ) ? VH_GITHUB_TOKEN : '' );
+		if ( ! empty( $token ) ) {
+			$headers['Authorization'] = 'Bearer ' . trim( $token );
+		}
+
 		$response = wp_remote_get( "https://api.github.com/repos/{$repo}/releases/latest", [
-			'headers' => [
-				'Accept'     => 'application/vnd.github.v3+json',
-				'User-Agent' => 'WordPress-VivaHost-Updater',
-			],
+			'headers' => $headers,
 			'timeout' => 10,
 		] );
 
@@ -935,4 +944,16 @@ function vh_github_theme_api_info( $res, $action, $args ) {
 		];
 	}
 	return $res;
+}
+
+// Autorizzazione HTTP per download pacchetto ZIP da repository GitHub privati
+add_filter( 'http_request_args', 'vh_github_download_auth', 10, 2 );
+function vh_github_download_auth( $args, $url ) {
+	if ( strpos( $url, 'api.github.com' ) !== false || strpos( $url, 'codeload.github.com' ) !== false ) {
+		$token = get_option( 'vh_github_token', defined( 'VH_GITHUB_TOKEN' ) ? VH_GITHUB_TOKEN : '' );
+		if ( ! empty( $token ) ) {
+			$args['headers']['Authorization'] = 'Bearer ' . trim( $token );
+		}
+	}
+	return $args;
 }

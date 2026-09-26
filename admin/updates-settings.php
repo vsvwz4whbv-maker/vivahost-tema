@@ -140,7 +140,15 @@ if ( ! empty( $release ) && 'none' !== $release && ! empty( $release->tag_name )
         <span class="vh-hint">Exemplo: se o link do seu projeto for <code>https://github.com/marciasales/vivahost-tema</code>, digite apenas <strong>marciasales/vivahost-tema</strong>.</span>
       </div>
 
-      <div style="display:flex;gap:12px;align-items:center;margin-top:20px">
+      <div class="vh-field" style="margin-top:16px">
+        <label for="vh_github_token">GitHub Personal Access Token (necessário para repositórios PRIVADOS)</label>
+        <input type="password" id="vh_github_token" name="vh_github_token"
+          value="<?php echo esc_attr( get_option( 'vh_github_token', '' ) ); ?>"
+          placeholder="ghp_... ou github_pat_...">
+        <span class="vh-hint">Permite ao WordPress verificar e baixar as atualizações do tema mesmo com repositório privado. Se o repositório for público, este campo é opcional.</span>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:center;margin-top:24px">
         <button type="submit" name="vh_save_repo" class="vh-btn vh-btn-primary">
           Salvar Repositório
         </button>
