@@ -35,34 +35,6 @@ while ( have_posts() ) :
 	$word_count = str_word_count( strip_tags( get_the_content() ) );
 	$read_time  = max( 1, ceil( $word_count / 200 ) );
 	$thumb_url  = vh_get_post_image( $post_id, 'large' );
-
-	$post_schema = [
-		'@context'         => 'https://schema.org',
-		'@type'            => 'BlogPosting',
-		'mainEntityOfPage' => [
-			'@type' => 'WebPage',
-			'@id'   => get_permalink(),
-		],
-		'headline'         => get_the_title(),
-		'description'      => wp_strip_all_tags( get_the_excerpt() ),
-		'image'            => $thumb_url,
-		'datePublished'    => get_the_date( 'c' ),
-		'dateModified'     => get_the_modified_date( 'c' ),
-		'author'           => [
-			'@type'    => 'Person',
-			'name'     => $host_name,
-			'jobTitle' => 'Gestora VivaHost & Superhost Airbnb',
-			'url'      => home_url( '/#sobre-nos' ),
-		],
-		'publisher'        => [
-			'@type' => 'Organization',
-			'name'  => $site_name,
-			'logo'  => [
-				'@type' => 'ImageObject',
-				'url'   => VH_URL . '/assets/images/vivahost-logo.png',
-			],
-		],
-	];
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?> data-theme="light" class="light">
@@ -70,36 +42,12 @@ while ( have_posts() ) :
   <meta charset="<?php bloginfo( 'charset' ); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light">
-  <meta name="description" content="<?php echo esc_attr( wp_strip_all_tags( get_the_excerpt() ) ); ?>">
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <link rel="canonical" href="<?php the_permalink(); ?>">
 
   <!-- Core Web Vitals Preconnects -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="preconnect" href="https://images.unsplash.com">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="<?php echo esc_attr( get_the_title() ); ?> — <?php echo esc_attr( $site_name ); ?>">
-  <meta property="og:description" content="<?php echo esc_attr( wp_strip_all_tags( get_the_excerpt() ) ); ?>">
-  <meta property="og:url" content="<?php the_permalink(); ?>">
-  <meta property="og:type" content="article">
-  <meta property="og:locale" content="pt_BR">
-  <meta property="og:site_name" content="<?php echo esc_attr( $site_name ); ?>">
-  <meta property="article:published_time" content="<?php echo esc_attr( get_the_date( 'c' ) ); ?>">
-  <meta property="article:modified_time" content="<?php echo esc_attr( get_the_modified_date( 'c' ) ); ?>">
-  <meta property="article:section" content="<?php echo esc_attr( $cat_name ); ?>">
-  <meta property="og:image" content="<?php echo esc_url( $thumb_url ); ?>">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="<?php echo esc_attr( get_the_title() ); ?> — <?php echo esc_attr( $site_name ); ?>">
-  <meta name="twitter:description" content="<?php echo esc_attr( wp_strip_all_tags( get_the_excerpt() ) ); ?>">
-  <meta name="twitter:image" content="<?php echo esc_url( $thumb_url ); ?>">
-
-  <!-- Schema.org BlogPosting JSON-LD -->
-  <script type="application/ld+json"><?php echo json_encode( $post_schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ); ?></script>
 
   <!-- daisyUI + Tailwind CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.24/dist/full.min.css" rel="stylesheet" type="text/css" />
@@ -131,7 +79,6 @@ while ( have_posts() ) :
     };
   </script>
 
-  <title><?php echo wp_get_document_title(); ?></title>
   <?php wp_head(); ?>
 </head>
 <body <?php body_class( 'vivahost-single bg-base-100 text-neutral font-sans antialiased' ); ?>>

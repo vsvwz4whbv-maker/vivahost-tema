@@ -11,7 +11,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
-define( 'VH_VER',  '3.6.0' );
+define( 'VH_VER',  '3.9.0' );
 define( 'VH_PATH', get_stylesheet_directory() );
 define( 'VH_URL',  get_stylesheet_directory_uri() );
 
@@ -20,6 +20,9 @@ define( 'VH_DEFAULT_PRIMARY',   '#ff385c' );
 define( 'VH_DEFAULT_FOOTER_BG', '#222222' );
 define( 'VH_DEFAULT_FONT',      'Plus Jakarta Sans' );
 define( 'VH_DEFAULT_WA_NUM',    '5571999999999' );
+
+// ─── 0. MOTORE SEO WORDPRESS-NATIVE & OPZIONI GENERALI ───────────────────────
+require_once VH_PATH . '/inc/seo-engine.php';
 
 // ─── THEME SUPPORT ───────────────────────────────────────────────────────────
 add_action( 'after_setup_theme', function () {
@@ -610,19 +613,58 @@ function vh_form_handler() {
 	] );
 }
 
-// ─── 6. ADMIN: SMTP & THEME UPDATES PAGES ───────────────────────────────────
+// ─── 6. ADMIN: MENU DEDICATO VIVAHOST (SEO, OPZIONI GENERALI, SMTP, GITHUB) ──
 add_action( 'admin_menu', function () {
-	// Impostazioni → VivaHost Email (solo SMTP ed invio email)
-	add_options_page(
-		'VivaHost — Email & SMTP', 'VivaHost Email', 'manage_options', 'vivahost-smtp',
+	// Menu Top-Level "VivaHost" nella barra laterale di WordPress
+	add_menu_page(
+		'VivaHost — SEO & Opzioni Generali',
+		'VivaHost',
+		'manage_options',
+		'vivahost-seo',
+		fn() => require VH_PATH . '/admin/seo-settings.php',
+		'dashicons-admin-home',
+		58
+	);
+
+	// 1. Sottomenu principale: SEO & Opzioni Generali
+	add_submenu_page(
+		'vivahost-seo',
+		'VivaHost — SEO & Opzioni Generali',
+		'SEO & Opzioni',
+		'manage_options',
+		'vivahost-seo',
+		fn() => require VH_PATH . '/admin/seo-settings.php'
+	);
+
+	// 2. Sottomenu: Email & SMTP
+	add_submenu_page(
+		'vivahost-seo',
+		'VivaHost — Email & SMTP',
+		'Email & SMTP',
+		'manage_options',
+		'vivahost-smtp',
 		fn() => require VH_PATH . '/admin/smtp-settings.php'
 	);
 
-	// Aparência → Atualizações VivaHost (aggiornamenti del tema da GitHub)
-	add_theme_page(
-		'VivaHost — Atualizações via GitHub', 'Atualizações VivaHost', 'manage_options', 'vivahost-updates',
+	// 3. Sottomenu: Atualizações GitHub
+	add_submenu_page(
+		'vivahost-seo',
+		'VivaHost — Atualizações via GitHub',
+		'Atualizações GitHub',
+		'manage_options',
+		'vivahost-updates',
 		fn() => require VH_PATH . '/admin/updates-settings.php'
 	);
+
+	// 4. Sottomenu: Collegamento rapido al Customizer (Personalizar Tema)
+	global $submenu;
+	if ( current_user_can( 'customize' ) ) {
+		$submenu['vivahost-seo'][] = [
+			'Personalizar Tema',
+			'customize',
+			admin_url( 'customize.php' ),
+		];
+	}
 } );
 
 add_action( 'admin_init', 'vh_updates_save' );
@@ -640,7 +682,7 @@ function vh_updates_save() {
 	delete_transient( 'vh_gh_update_check' );
 	delete_site_transient( 'update_themes' );
 
-	wp_safe_redirect( admin_url( 'themes.php?page=vivahost-updates&saved=1' ) );
+	wp_safe_redirect( admin_url( 'admin.php?page=vivahost-updates&saved=1' ) );
 	exit;
 }
 
@@ -666,7 +708,7 @@ function vh_smtp_save() {
 		set_transient( 'vh_smtp_test_result', $ok ? 'ok' : 'fail', 30 );
 	}
 
-	wp_safe_redirect( admin_url( 'options-general.php?page=vivahost-smtp&saved=1' ) );
+	wp_safe_redirect( admin_url( 'admin.php?page=vivahost-smtp&saved=1' ) );
 	exit;
 }
 
@@ -762,7 +804,7 @@ function vh_seed_salvador_posts() {
 		wp_delete_post( $hw->posts[0], true );
 	}
 
-	if ( get_option( 'vh_posts_seeded_v5' ) ) {
+	if ( get_option( 'vh_posts_seeded_v6' ) ) {
 		return;
 	}
 
@@ -771,6 +813,9 @@ function vh_seed_salvador_posts() {
 			'post_title'   => 'Como Maximizar o Faturamento do seu Imóvel no Airbnb em Salvador: O Guia Definitivo',
 			'post_name'    => 'como-maximizar-faturamento-airbnb-salvador',
 			'post_excerpt' => 'Descubra as estratégias comprovadas de precificação dinâmica, preparação do imóvel e sazonalidade para lucrar mais com aluguel de temporada em Salvador com a VivaHost.',
+			'seo_title'    => 'Como Maximizar o Faturamento no Airbnb em Salvador — Guia VivaHost',
+			'seo_desc'     => 'Guia completo para proprietários em Salvador: precificação dinâmica, sazonalidade na Bahia, enxoval hoteleiro e como lucrar até +30% no Airbnb com a VivaHost.',
+			'seo_keyword'  => 'faturamento airbnb salvador, gestão airbnb salvador, aluguel temporada salvador',
 			'img'          => 'https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&w=1200&q=80',
 			'category'     => 'Estratégia & Rentabilidade',
 			'post_content' => '<p class="lead font-medium text-lg text-neutral">Salvador é um dos polos turísticos e culturais mais procurados da América do Sul. Para proprietários e investidores imobiliários na capital baiana, transformar um apartamento em uma acomodação de temporada no Airbnb representa uma das formas mais inteligentes e lucrativas de monetização patrimonial — desde que conduzida com metodologia e disciplina profissional.</p><h2>1. A Curva de Sazonalidade em Salvador: Muito Além do Carnaval</h2><p>O maior equívoco de quem começa no aluguel por temporada é enxergar Salvador apenas através da lente do Carnaval e do Réveillon. Embora essas semanas de pico registrem diárias até 4 vezes superiores à média anual, o calendário da capital baiana oferece oportunidades de faturamento consistente durante os doze meses do ano:</p><ul><li><strong>Alta Temporada de Verão (Novembro a Março):</strong> Ocupação beirando 90% a 95% em bairros como Barra, Ondina e Rio Vermelho. O público busca sol, mar, ensaios de verão e turismo de lazer.</li><li><strong>Média Temporada e Festas Típicas (Junho e Julho):</strong> O período de São João e as férias escolares de inverno trazem famílias e viajantes de todo o Nordeste e Sudeste para curtir a gastronomia e o Centro Histórico.</li><li><strong>Temporada Corporativa e Turismo Médico (Abril a Outubro):</strong> Meses de grande movimentação de negócios, congressos médicos e eventos empresariais, especialmente para imóveis no Costa Azul, Caminho das Árvores e Armação.</li></ul><h2>2. Precificação Dinâmica vs. O Erro da Diária Fixa</h2><p>Cobrar a mesma diária em uma terça-feira chuvosa de maio e em um sábado ensolarado de janeiro é a receita certa para perder dinheiro — seja por vacância desnecessária ou por subprecificar o imóvel quando a demanda está no teto. Na VivaHost, monitoramos a curva de procura diária, a taxa de ocupação dos bairros vizinhos e grandes shows na cidade para calibrar o preço por noite de forma estratégica, maximizando o RevPAR (faturamento por noite disponível).</p><h2>3. Checklist de Preparação: O que Faz um Imóvel Alugar Mais Caro</h2><p>Os hóspedes em Salvador são exigentes e valorizam comodidades que garantam conforto térmico e conveniência total:</p><ul><li><strong>Climatização Eficiente:</strong> Ar-condicionado split em todos os quartos e, preferencialmente, na sala. É o item número 1 apontado nos filtros de busca em Salvador.</li><li><strong>Conexão de Alta Velocidade:</strong> Wi-Fi estável de no mínimo 300 Mbps para atrair nômades digitais e profissionais em trabalho remoto.</li><li><strong>Enxoval Padrão Hoteleiro:</strong> Roupas de cama 100% algodão ou percal 200 fios e toalhas brancas de alta gramatura, rigorosamente higienizadas a cada reserva.</li><li><strong>Fechadura Digital Inteligente:</strong> Check-in autônomo e seguro via senha, eliminando o estresse da troca de chaves física.</li><li><strong>Acolhimento com Identidade Baiana:</strong> Um mimo simples de boas-vindas — fitinhas de Nosso Senhor do Bonfim, café baiano ou petiscos locais — cria um vínculo emocional imediato e rende avaliações 5 estrelas entusiasmadas.</li></ul><h2>4. O Peso Real do Selo Superhost nas Reservas</h2><p>Propriedades com chancela de Superhost no Airbnb desfrutam de prioridade algorítmica nas buscas, gerando cerca de 35% mais visualizações orgânicas. Além disso, viajantes corporativos e turistas estrangeiros filtram ativamente apenas anúncios Superhost pela garantia de confiabilidade e limpeza impecável.</p><h2>5. Gestão Amadora vs. Gestão Profissional VivaHost</h2><p>Administrar um imóvel de temporada por conta própria consome entre 15 e 20 horas semanais com atendimento de mensagens, agendamento de diaristas, lavanderia, compras de insumos e pequenos consertos de emergência. A VivaHost assume 100% da operação — da curadoria do anúncio e fotos profissionais à manutenção preventiva e conciliação financeira —, entregando mais lucro líquido e zero dor de cabeça para você.</p>',
@@ -779,6 +824,9 @@ function vh_seed_salvador_posts() {
 			'post_title'   => 'Aluguel por Temporada em Salvador: Regras de Condomínio e Legislação Atualizada',
 			'post_name'    => 'aluguel-temporada-salvador-regras-condominio-legislacao',
 			'post_excerpt' => 'Entenda o que diz a Lei do Inquilinato, as decisões dos tribunais superiores e como ter segurança jurídica e convivência harmônica com o condomínio ao alugar por temporada em Salvador.',
+			'seo_title'    => 'Aluguel por Temporada em Salvador: Lei do Inquilinato e Condomínios',
+			'seo_desc'     => 'Saiba o que diz a Lei 8.245/91 e o STJ sobre locação de temporada e Airbnb em condomínios de Salvador. Veja os protocolos de segurança da VivaHost.',
+			'seo_keyword'  => 'legislação aluguel temporada salvador, airbnb condomínio salvador, lei do inquilinato temporada',
 			'img'          => 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80',
 			'category'     => 'Legislação & Segurança',
 			'post_content' => '<p class="lead font-medium text-lg text-neutral">A locação por temporada por meio de plataformas digitais consolidou-se como uma das atividades mais dinâmicas do mercado imobiliário em Salvador. Entretanto, muitos proprietários ainda têm receios sobre a legalidade da atividade perante a legislação federal e as convenções condominiais. Neste guia prático, esclarecemos as principais diretrizes jurídicas e operacionais para alugar com tranquilidade.</p><h2>1. A Lei do Inquilinato (Lei Federal nº 8.245/1991)</h2><p>O aluguel por temporada não é uma novidade no direito brasileiro nem uma área cinzenta: ele é expressamente regulamentado pelo <strong>Artigo 48 da Lei nº 8.245/1991</strong>. A legislação define a locação por temporada como aquela destinada à residência temporária do locatário para fins de lazer, turismo, estudos, tratamento de saúde ou obras, com prazo máximo legal de até <strong>90 dias</strong>.</p><p>Trata-se de um exercício legítimo do direito constitucional de propriedade (Artigo 5º, XXII da Constituição Federal), que faculta ao dono usar, fruir e dispor de seus bens.</p><h2>2. As Decisões do STJ e o Poder das Convenções de Condomínio</h2><p>Nos últimos anos, o Superior Tribunal de Justiça (STJ) julgou controvérsias envolvendo condomínios e plataformas digitais. O entendimento consolidado é o seguinte:</p><ul><li>O condomínio <strong>pode</strong> restringir ou proibir a locação de curta temporada em suas unidades autônomas, <strong>desde que</strong> haja previsão expressa em sua Convenção de Condomínio, aprovada pelo quórum qualificado de dois terços dos condôminos (Art. 1.351 do Código Civil).</li><li>Se a Convenção de Condomínio for omissa ou mencionar apenas que o prédio é de destinação "residencial", a locação por temporada permanece plenamente permitida, pois o hóspede utiliza o imóvel para residência temporária, e não como comércio.</li><li>Decisões unilaterais de síndicos ou avisos em circulares sem aprovação formal em assembleia não têm valor de lei e não podem violar o direito de propriedade.</li></ul><h2>3. Pilares Operacionais para Convivência Pacífica no Prédio</h2><p>Na prática, 99% das queixas em condomínios não são sobre a locação em si, mas sim sobre desorganização na portaria ou barulho. Para blindar o seu apartamento, a VivaHost adota um protocolo operacional preventivo e rigoroso:</p><ul><li><strong>Identificação Prévia Obrigatória:</strong> Coleta antecipada de nomes completos, números de documento (RG/CPF ou Passaporte) de todos os ocupantes e envio direto para a portaria 24 horas antes do check-in.</li><li><strong>Controle Estrito de Lotação:</strong> Nenhum imóvel recebe mais pessoas do que o número de camas anunciado. Visitas não cadastradas são expressamente vedadas.</li><li><strong>Termo de Compromisso e Regras da Casa:</strong> Todos os hóspedes concordam formalmente com as normas internas do condomínio, lei do silêncio após as 22h, regras de piscina e descarte correto de lixo.</li><li><strong>Canal Direto com Portaria e Síndico:</strong> Disponibilizamos o contato direto da gestão da VivaHost para que qualquer dúvida ou intercorrência seja solucionada imediatamente por nós, sem incomodar o proprietário.</li></ul><h2>Conclusão: Segurança se Constrói com Profissionalismo</h2><p>Alugar por temporada em Salvador é seguro e rentável quando conduzido com zelo, regras claras e gestão responsável. Com o acompanhamento da VivaHost, seu imóvel valoriza o edifício e mantém uma relação exemplar com a vizinhança.</p>',
@@ -787,6 +835,9 @@ function vh_seed_salvador_posts() {
 			'post_title'   => 'Os Melhores Bairros de Salvador para Investir em Imóveis de Temporada em 2026',
 			'post_name'    => 'melhores-bairros-salvador-investimento-aluguel-temporada',
 			'post_excerpt' => 'Barra, Ondina, Rio Vermelho, Costa Azul ou Stella Maris? Análise aprofundada de taxa de ocupação, diária média, perfil de público e retorno sobre investimento em Salvador.',
+			'seo_title'    => 'Melhores Bairros de Salvador para Investir em Aluguel por Temporada',
+			'seo_desc'     => 'Comparativo completo entre Barra, Ondina, Rio Vermelho, Costa Azul e Stella Maris: taxa de ocupação, diária média e rentabilidade no Airbnb em Salvador.',
+			'seo_keyword'  => 'melhores bairros salvador investir temporada, airbnb barra ondina rio vermelho, investimento imobiliário salvador',
 			'img'          => 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80',
 			'category'     => 'Mercado Imobiliário',
 			'post_content' => '<p class="lead font-medium text-lg text-neutral">Salvador vive um ciclo extraordinário de requalificação urbana e expansão da malha aérea, com voos diretos ligando a capital baiana aos principais centros do Brasil, Europa e América Latina. Para quem já possui um imóvel ou planeja investir em patrimônio imobiliário para locação por temporada, a escolha da localização dita o teto de rentabilidade e o perfil de ocupação ao longo do ano.</p><h2>1. Barra: O Epicentro Turístico com Ocupação Recorde</h2><p>A Barra é o endereço mais procurado e seguro para o investidor de temporada em Salvador. Com a orla totalmente requalificada, a praia protegida do Porto da Barra e o pôr do sol lendário no Farol da Barra, o bairro tem apelo universal para turistas do mundo todo.</p><ul><li><strong>Taxa de Ocupação Média:</strong> 78% a 88% ao ano.</li><li><strong>Tipologia Mais Rentável:</strong> Studios, lofts e apartamentos de 1 quarto.</li><li><strong>Perfil de Público:</strong> Casais jovens, viajantes internacionais, famílias pequenas e turistas de verão.</li></ul><h2>2. Ondina: Nobreza, Lazer e Localização Estratégica</h2><p>Vizinha à Barra, Ondina combina praias charmosas, condomínios com infraestrutura completa de lazer (piscinas com vista mar, academias e segurança 24h) e forte demanda durante todo o ano, impulsionada pelo fim do circuito de Carnaval e pela proximidade com grandes centros hospitalares e educacionais.</p><ul><li><strong>Taxa de Ocupação Média:</strong> 72% a 82% ao ano.</li><li><strong>Vantagem Competitiva:</strong> Diárias médias mais elevadas em condomínios de alto padrão frente-mar.</li></ul><h2>3. Rio Vermelho: O Polo Boêmio e Gastronômico da Cidade</h2><p>O Rio Vermelho é a alma boêmia de Salvador. Quem escolhe o Rio Vermelho busca vivenciar a cultura baiana autêntica, provar os lendários acarajés da Dinha e da Cira e curtir os melhores restaurantes e casas de show da capital.</p><ul><li><strong>Perfil do Hóspede:</strong> Viajantes individuais, turistas culturais, profissionais criativos e nômades digitais.</li><li><strong>Estadia Média:</strong> Ligeiramente mais longa que a da Barra, com excelente fluxo em fins de semana e feriados prolongados.</li></ul><h2>4. Costa Azul e Armação: O Melhor Custo de Entrada e Alta Rentabilidade</h2><p>Para investidores que buscam um preço por metro quadrado mais atrativo na compra, a região do Costa Azul e Armação desponta como uma das mais promissoras. Situada próxima ao polo financeiro da Avenida Tancredo Neves e do Salvador Shopping, atende com maestria o turismo de negócios e famílias que buscam praticidade.</p><ul><li><strong>Destaque:</strong> Menor investimento inicial e excelente retorno percentual sobre o capital investido (Yield líquido anual superior a 10%).</li></ul><h2>5. Praia do Flamengo e Stella Maris: O Refúgio Tropical Familiar</h2><p>Na zona norte de Salvador, próxima ao aeroporto, Flamengo e Stella Maris são imbatíveis para apartamentos maiores, casas de praia e vilas com piscina privativa, muito cobiçadas para estadias de férias em família e retiros de descanso.</p><h2>Comparativo Financeiro: Temporada vs. Aluguel Tradicional</h2><p>Enquanto o aluguel residencial convencional em Salvador rende em média <strong>0,4% a 0,5% ao mês</strong> (com alto risco de inadimplência e desgaste do imóvel ao longo de 30 meses), a locação por temporada bem administrada pela VivaHost costuma gerar entre <strong>0,9% e 1,4% ao mês líquido</strong>, com repasses mensais garantidos e o patrimônio sempre revisado e conservado.</p><h2>Traga seu Imóvel para a VivaHost</h2><p>Quer saber quanto o seu imóvel em Salvador pode faturar por mês no Airbnb? Entre em contato conosco pelo WhatsApp e solicite um estudo gratuito de potencial de rentabilidade.</p>',
@@ -825,11 +876,20 @@ function vh_seed_salvador_posts() {
 		}
 		if ( $post_id && ! is_wp_error( $post_id ) ) {
 			update_post_meta( $post_id, '_vh_featured_image', $p['img'] );
+			if ( ! get_post_meta( $post_id, '_vh_seo_title', true ) ) {
+				update_post_meta( $post_id, '_vh_seo_title', $p['seo_title'] );
+			}
+			if ( ! get_post_meta( $post_id, '_vh_seo_desc', true ) ) {
+				update_post_meta( $post_id, '_vh_seo_desc', $p['seo_desc'] );
+			}
+			if ( ! get_post_meta( $post_id, '_vh_seo_keyword', true ) ) {
+				update_post_meta( $post_id, '_vh_seo_keyword', $p['seo_keyword'] );
+			}
 			wp_set_object_terms( $post_id, $p['category'], 'category' );
 		}
 	}
 
-	update_option( 'vh_posts_seeded_v5', 1 );
+	update_option( 'vh_posts_seeded_v6', 1 );
 }
 
 // ─── 9. GITHUB THEME AUTO-UPDATER ───────────────────────────────────────────

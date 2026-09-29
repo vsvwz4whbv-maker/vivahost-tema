@@ -41,15 +41,26 @@ if ( $result !== false ) delete_transient( 'vh_smtp_test_result' );
 .vh-status-dot { width: 8px; height: 8px; border-radius: 50%; background: #ccc; }
 .vh-status-dot.configured { background: #22C55E; }
 .vh-section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #999; margin: 24px 0 14px; border-bottom: 1px solid #f0f0f0; padding-bottom: 8px; }
+.vh-suite-nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; }
+.vh-suite-link { display: inline-flex; align-items: center; gap: 7px; padding: 8px 16px; border-radius: 999px; font-size: 13px; font-weight: 600; text-decoration: none; color: #475569; background: #fff; border: 1px solid #cbd5e1; transition: all .15s; }
+.vh-suite-link:hover { color: #0f172a; border-color: #94a3b8; background: #f8fafc; }
+.vh-suite-link.active { background: #0f172a; color: #fff; border-color: #0f172a; }
 </style>
 
 <div class="wrap vh-smtp-wrap">
+  <div class="vh-suite-nav">
+    <a href="<?php echo esc_url( admin_url( 'admin.php?page=vivahost-seo' ) ); ?>" class="vh-suite-link">🔍 SEO &amp; Opzioni Generali</a>
+    <a href="<?php echo esc_url( admin_url( 'admin.php?page=vivahost-smtp' ) ); ?>" class="vh-suite-link active">✉️ Email &amp; SMTP</a>
+    <a href="<?php echo esc_url( admin_url( 'admin.php?page=vivahost-updates' ) ); ?>" class="vh-suite-link">🔄 Atualizações GitHub</a>
+    <a href="<?php echo esc_url( admin_url( 'customize.php' ) ); ?>" class="vh-suite-link">🎨 Personalizar Tema</a>
+  </div>
+
   <h1>
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF5A5F" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
     VivaHost — Email &amp; SMTP
   </h1>
   <p class="vh-smtp-intro">
-    Configure o servidor SMTP para que os formulários de contato do site enviem e-mails confiáveis. As credenziali vengono salvate cifrate nel database WordPress.
+    Configure o servidor SMTP para que os formulários de contato do site enviem e-mails confiáveis. As credenciais são salvas com criptografia AES-256-CBC no banco de dados WordPress.
   </p>
 
   <?php if ( $saved ) : ?>
@@ -71,7 +82,7 @@ if ( $result !== false ) delete_transient( 'vh_smtp_test_result' );
     </div>
   <?php endif; ?>
 
-  <form method="post" action="<?php echo esc_url( admin_url( 'options-general.php?page=vivahost-smtp' ) ); ?>">
+  <form method="post" action="<?php echo esc_url( admin_url( 'admin.php?page=vivahost-smtp' ) ); ?>">
     <?php wp_nonce_field( 'vh_smtp_save', 'vh_smtp_nonce' ); ?>
 
     <!-- DESTINATÁRIO -->

@@ -28,167 +28,8 @@ $host_photo_url = $host_photo_id ? wp_get_attachment_image_url( $host_photo_id, 
 $wa_url = vh_wa_url();
 
 $form_mode = vh_mod( 'form_mode', 'both' );
-
-// ── Site name / SEO meta ─────────────────────────────────────────────────────
-$site_name = get_bloginfo( 'name' );
-$site_desc = get_bloginfo( 'description' );
-$seo_desc  = vh_mod( 'hero_subtitle', 'VivaHost — especialista em administração de imóveis para aluguel por temporada em Salvador, Bahia. Gestão profissional Airbnb com Superhost.' );
-$seo_title = vh_mod( 'hero_title', 'Seu imóvel rendendo mais com gestão profissional' );
-$canonical = home_url( '/' );
-
-// ── Footer data for schema ────────────────────────────────────────────────────
-$razao     = vh_mod( 'footer_razao', 'Viva Host LTDA' );
-$cnpj      = vh_mod( 'footer_cnpj', '27.447.686/0001-10' );
-$address   = vh_mod( 'footer_address', 'Avenida Tancredo Neves, 002539' );
-$comp      = vh_mod( 'footer_complement', '' );
-$bairro    = vh_mod( 'footer_bairro', 'Caminho das Árvores' );
-$cep       = vh_mod( 'footer_cep', '41820-021' );
-$email     = vh_mod( 'footer_email', 'marcia@meuvivahost.com.br' );
-$instagram = vh_mod( 'footer_instagram', 'https://www.instagram.com/vivahostbahia/' );
-$airbnb    = vh_mod( 'footer_airbnb', 'https://www.airbnb.com.br/users/show/148412228' );
 $host_name = esc_html( vh_mod( 'host_name', 'Marcia Sales' ) );
 $comm_rate = esc_html( vh_mod( 'commission_rate', '20%' ) );
-
-// ── Shared FAQ data for Schema.org & Accordion ───────────────────────────────
-$faqs = [
-	[
-		'Quanto custa o serviço de gestão?',
-		'Nossa comissão é a partir de <strong>' . $comm_rate . '</strong> sobre o valor do aluguel. Não cobramos taxa fixa, taxa de adesão nem multa por cancelamento. Você só paga quando seu imóvel aluga.',
-	],
-	[
-		'Preciso ter um imóvel já mobiliado?',
-		'Sim, o imóvel precisa estar mobiliado e equipado. Mas não se preocupe — ajudamos com orientações sobre o que é essencial para começar a receber hóspedes com sucesso.',
-	],
-	[
-		'Quanto tempo leva para meu imóvel começar a gerar receita?',
-		'Em média <strong>7 dias</strong> após a vistoria inicial. Fazemos fotografia profissional, otimizamos o anúncio e ajustamos a precificação antes de publicar.',
-	],
-	[
-		'Como recebo os pagamentos?',
-		'O repasse é feito mensalmente, por transferência bancária, após o check-out dos hóspedes. Você recebe um relatório detalhado com todas as movimentações.',
-	],
-	[
-		'Posso cancelar quando quiser?',
-		'Sim, sem multa nem fidelidade. Você pode cancelar a qualquer momento, sem burocracia. Devolvemos o imóvel no mesmo estado que recebemos.',
-	],
-	[
-		'O que acontece se meu imóvel ficar vago?',
-		'Trabalhamos com precificação dinâmica para maximizar a ocupação. Mesmo assim, períodos de baixa são normais no turismo — ajustamos a estratégia conforme a sazonalidade.',
-	],
-];
-
-// ── Schema.org @graph JSON-LD (R4 Unified Graph) ─────────────────────────────
-$schema = [
-	'@context' => 'https://schema.org',
-	'@graph'   => [
-		[
-			'@type'       => 'WebSite',
-			'@id'         => $canonical . '#website',
-			'url'         => $canonical,
-			'name'        => $site_name,
-			'description' => $seo_desc,
-			'publisher'   => [ '@id' => $canonical . '#organization' ],
-			'inLanguage'  => 'pt-BR',
-		],
-		[
-			'@type'           => 'RealEstateAgent',
-			'@id'             => $canonical . '#organization',
-			'name'            => $site_name,
-			'legalName'       => $razao,
-			'description'     => $site_desc ?: $seo_desc,
-			'url'             => $canonical,
-			'email'           => $email,
-			'telephone'       => '+55' . preg_replace( '/\D/', '', vh_mod( 'wa_number', '5571999999999' ) ),
-			'priceRange'      => $comm_rate,
-			'currenciesAccepted' => 'BRL',
-			'paymentAccepted' => 'PIX, Transferência Bancária',
-			'vatID'           => $cnpj,
-			'image'           => VH_URL . '/assets/images/vivahost-logo.png',
-			'geo'             => [
-				'@type'     => 'GeoCoordinates',
-				'latitude'  => -12.9818,
-				'longitude' => -38.4552,
-			],
-			'address'         => [
-				'@type'           => 'PostalAddress',
-				'streetAddress'   => $address . ( $comp ? ' - ' . $comp : '' ),
-				'addressLocality' => 'Salvador',
-				'addressRegion'   => 'BA',
-				'addressCountry'  => 'BR',
-				'postalCode'      => $cep,
-			],
-			'areaServed'      => [
-				'@type'  => 'City',
-				'name'   => 'Salvador',
-				'sameAs' => 'https://pt.wikipedia.org/wiki/Salvador',
-			],
-			'openingHoursSpecification' => [
-				[
-					'@type'     => 'OpeningHoursSpecification',
-					'dayOfWeek' => [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ],
-					'opens'     => '08:00',
-					'closes'    => '20:00',
-				],
-			],
-			'sameAs'          => array_values( array_filter( [ $instagram, $airbnb ] ) ),
-			'founder'         => [
-				'@type'    => 'Person',
-				'@id'      => $canonical . '#marcia',
-				'name'     => $host_name,
-				'jobTitle' => 'Gestora Profissional de Imóveis & Superhost Airbnb',
-				'image'    => $host_photo_url,
-				'sameAs'   => $airbnb,
-			],
-			'aggregateRating' => [
-				'@type'       => 'AggregateRating',
-				'ratingValue' => str_replace( ',', '.', esc_html( vh_mod( 'reviews_score', '4,88' ) ) ),
-				'bestRating'  => '5',
-				'worstRating' => '1',
-				'ratingCount' => esc_html( vh_mod( 'reviews_count', '469' ) ),
-			],
-			'review'          => [
-				[
-					'@type'         => 'Review',
-					'author'        => [ '@type' => 'Person', 'name' => 'Simone' ],
-					'reviewRating'  => [ '@type' => 'Rating', 'ratingValue' => '5' ],
-					'reviewBody'    => 'O apartamento é bem localizado, super arrumado, seguro e a anfitriã é extraordinária. Me senti em casa, super indico.',
-				],
-				[
-					'@type'         => 'Review',
-					'author'        => [ '@type' => 'Person', 'name' => 'Ismael' ],
-					'reviewRating'  => [ '@type' => 'Rating', 'ratingValue' => '5' ],
-					'reviewBody'    => 'Localização perfeita, próximo dos principais pontos turísticos da cidade. Apartamento aconchegante como se estivesse em casa. Márcia muito atenciosa e prestativa. Vista maravilhosa do mar...',
-				],
-				[
-					'@type'         => 'Review',
-					'author'        => [ '@type' => 'Person', 'name' => 'Cleiton' ],
-					'reviewRating'  => [ '@type' => 'Rating', 'ratingValue' => '5' ],
-					'reviewBody'    => 'Muito obrigado pela estadia! Foi tudo maravilhoso e nos sentimos muito bem acolhidos. ❤️ A experiência foi incrível, o lugar é lindo e ficará guardado com muito carinho.',
-				],
-				[
-					'@type'         => 'Review',
-					'author'        => [ '@type' => 'Person', 'name' => 'Pedro Bessa' ],
-					'reviewRating'  => [ '@type' => 'Rating', 'ratingValue' => '5' ],
-					'reviewBody'    => 'Excelente! Apartamento muito bem cuidado, cheiroso e com muitas coisas úteis dentro dele. Comunicação impecável!',
-				],
-			],
-		],
-		[
-			'@type'      => 'FAQPage',
-			'@id'        => $canonical . '#faq',
-			'mainEntity' => array_map( function( $f ) {
-				return [
-					'@type'          => 'Question',
-					'name'           => $f[0],
-					'acceptedAnswer' => [
-						'@type' => 'Answer',
-						'text'  => strip_tags( $f[1] ),
-					],
-				];
-			}, $faqs ),
-		],
-	],
-];
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?> data-theme="light" class="light">
@@ -196,43 +37,12 @@ $schema = [
   <meta charset="<?php bloginfo( 'charset' ); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light">
-  <meta name="description" content="<?php echo esc_attr( $seo_desc ); ?>">
-  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-  <link rel="canonical" href="<?php echo esc_url( $canonical ); ?>">
-
-  <!-- Geo Meta Tags (Salvador, Bahia, Brasil) -->
-  <meta name="geo.region" content="BR-BA">
-  <meta name="geo.placename" content="Salvador">
-  <meta name="geo.position" content="-12.9818;-38.4552">
-  <meta name="ICBM" content="-12.9818, -38.4552">
 
   <!-- Core Web Vitals Preconnects -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="preconnect" href="https://images.unsplash.com">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="<?php echo esc_attr( $seo_title ); ?> — <?php echo esc_attr( $site_name ); ?>">
-  <meta property="og:description" content="<?php echo esc_attr( $seo_desc ); ?>">
-  <meta property="og:url" content="<?php echo esc_url( $canonical ); ?>">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="pt_BR">
-  <meta property="og:site_name" content="<?php echo esc_attr( $site_name ); ?>">
-  <?php if ( $logo_id = get_theme_mod( 'custom_logo' ) ) : ?>
-  <meta property="og:image" content="<?php echo esc_url( wp_get_attachment_image_url( $logo_id, 'full' ) ); ?>">
-  <?php else : ?>
-  <meta property="og:image" content="<?php echo esc_url( VH_URL . '/assets/images/vivahost-logo.png' ); ?>">
-  <?php endif; ?>
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="<?php echo esc_attr( $seo_title ); ?> — <?php echo esc_attr( $site_name ); ?>">
-  <meta name="twitter:description" content="<?php echo esc_attr( $seo_desc ); ?>">
-  <meta name="twitter:image" content="<?php echo esc_url( VH_URL . '/assets/images/vivahost-logo.png' ); ?>">
-
-  <!-- Schema.org JSON-LD -->
-  <script type="application/ld+json"><?php echo json_encode( $schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE ); ?></script>
 
   <!-- daisyUI + Tailwind CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.24/dist/full.min.css" rel="stylesheet" type="text/css" />
@@ -266,8 +76,6 @@ $schema = [
       }
     };
   </script>
-
-  <title><?php echo wp_get_document_title(); ?></title>
 
   <?php wp_head(); ?>
 </head>
@@ -1333,6 +1141,7 @@ get_template_part( 'template-parts/header-site' );
   <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
 
+<?php if ( '0' !== get_option( 'vh_gen_cookie_bar', '1' ) ) : ?>
 <!-- ═══ Cookie Consent Minimal ═══ -->
 <div id="vh-cookie-bar" class="vh-cookie-bar fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-50 alert bg-white/95 backdrop-blur-xl border border-base-200 shadow-2xl rounded-2xl p-4 flex-row items-center justify-between gap-4" role="dialog" aria-label="Aviso de cookies" style="display:none">
   <p class="text-xs text-neutral m-0">Usamos cookies essenciais para o funcionamento do site. Ao continuar, você aceita o uso de cookies.</p>
@@ -1341,6 +1150,7 @@ get_template_part( 'template-parts/header-site' );
     <button id="vh-cookie-accept" class="btn btn-primary btn-sm rounded-lg text-white font-bold px-4">Aceitar</button>
   </div>
 </div>
+<?php endif; ?>
 
 </body>
 </html>
