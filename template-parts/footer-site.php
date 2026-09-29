@@ -95,24 +95,24 @@ $home_url = esc_url( home_url( '/' ) );
 
     </div>
 
-    <div class="footer-bottom pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-neutral-content/60">
-      <div class="footer-company-info text-center md:text-left flex flex-wrap items-center justify-center md:justify-start gap-x-2 gap-y-1">
+    <div class="footer-bottom pt-6 flex flex-col items-stretch gap-4 text-xs text-neutral-content/60">
+      <div class="footer-company-info pb-4 border-b border-white/[0.06] text-center md:text-left flex flex-wrap items-center justify-center md:justify-start gap-x-2 gap-y-1">
         <span class="footer-razao font-semibold text-neutral-content/80" data-vh="footer_razao"><?php echo esc_html( vh_mod( 'footer_razao', 'Viva Host LTDA' ) ); ?></span>
         <span class="footer-sep">·</span>
         <span class="footer-cnpj" data-vh="footer_cnpj">CNPJ: <?php echo esc_html( vh_mod( 'footer_cnpj', '27.447.686/0001-10' ) ); ?></span>
         <span class="footer-sep">·</span>
         <span class="footer-address">
           <?php echo esc_html( vh_mod( 'footer_address', 'Avenida Tancredo Neves, 002539' ) ); ?>
-          <?php if ( $comp = vh_mod( 'footer_complement' ) ) : ?>— <?php echo esc_html( $comp ); ?><?php endif; ?>
-          <?php if ( $bairro = vh_mod( 'footer_bairro' ) ) : ?>— <?php echo esc_html( $bairro ); ?><?php endif; ?>
-          <?php if ( $cep = vh_mod( 'footer_cep' ) ) : ?>— CEP <?php echo esc_html( $cep ); ?><?php endif; ?>
+          <?php if ( $comp = vh_mod( 'footer_complement', 'Edif CEO Salvador Shopping Torre Londres Sala 2609' ) ) : ?>— <?php echo esc_html( $comp ); ?><?php endif; ?>
+          <?php if ( $bairro = vh_mod( 'footer_bairro', 'Caminho das Árvores' ) ) : ?>— <?php echo esc_html( $bairro ); ?><?php endif; ?>
+          <?php if ( $cep = vh_mod( 'footer_cep', '41820-021' ) ) : ?>— CEP <?php echo esc_html( $cep ); ?><?php endif; ?>
         </span>
       </div>
-      <div class="footer-bottom-row flex items-center gap-6">
+      <div class="footer-bottom-row flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
         <p class="footer-copy m-0" data-vh="footer_copyright">
           <?php echo esc_html( vh_mod( 'footer_copyright', '© 2026 VivaHost. Todos os direitos reservados.' ) ); ?>
         </p>
-        <nav class="footer-bottom-links flex items-center gap-4">
+        <nav class="footer-bottom-links flex items-center gap-6">
           <a href="<?php echo esc_url( home_url( '/privacidade/' ) ); ?>" class="hover:text-white transition-colors">Privacidade</a>
           <a href="<?php echo esc_url( home_url( '/termos/' ) ); ?>" class="hover:text-white transition-colors">Termos</a>
         </nav>

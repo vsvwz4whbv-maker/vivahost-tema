@@ -973,6 +973,7 @@ function vh_handle_llms_txt_request() {
 	$razao     = vh_mod( 'footer_razao', 'Viva Host LTDA' );
 	$cnpj      = vh_mod( 'footer_cnpj', '27.447.686/0001-10' );
 	$address   = vh_mod( 'footer_address', 'Avenida Tancredo Neves, 002539' );
+	$comp      = vh_mod( 'footer_complement', 'Edif CEO Salvador Shopping Torre Londres Sala 2609' );
 	$bairro    = vh_mod( 'footer_bairro', 'Caminho das Árvores' );
 	$cep       = vh_mod( 'footer_cep', '41820-021' );
 	$email     = vh_mod( 'footer_email', 'marcia@meuvivahost.com.br' );
@@ -1016,7 +1017,7 @@ function vh_handle_llms_txt_request() {
 	echo "\n## Contato Oficial e Endereço\n";
 	echo "- **Website:** {$home_url}\n";
 	echo "- **E-mail:** {$email}\n";
-	echo "- **Endereço:** {$address}, {$bairro}, Salvador - BA, CEP {$cep}, Brasil\n";
+	echo "- **Endereço:** {$address}" . ( $comp ? " — {$comp}" : '' ) . " — {$bairro}, Salvador - BA, CEP {$cep}, Brasil\n";
 	exit;
 }
 
