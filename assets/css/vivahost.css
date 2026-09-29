@@ -298,13 +298,27 @@ body:not(.home) .vivahost-header .vivahost-nav-toggle,
   }
 }
 
-/* ── 8. HERO BRAND LUXURY GRADIENT ────────────────────────────────────────── */
+/* ── 8. HERO BRAND LUXURY GRADIENT + BESPOKE REAL ESTATE / OCEANFRONT ART ── */
 .vh-hero--gradient {
-  background: radial-gradient(circle at 85% 15%, rgba(255, 90, 95, 0.62) 0%, transparent 52%),
-              radial-gradient(circle at 12% 85%, rgba(255, 68, 102, 0.45) 0%, transparent 48%),
-              radial-gradient(circle at 50% 40%, rgba(255, 114, 138, 0.22) 0%, transparent 60%),
-              linear-gradient(135deg, #2b1328 0%, #46142e 30%, #681739 65%, #941c42 100%) !important;
+  background-color: #2b1328 !important;
+  background-image:
+    url('../images/hero-bg-desktop.jpg'),
+    radial-gradient(circle at 85% 15%, rgba(255, 90, 95, 0.62) 0%, transparent 52%),
+    radial-gradient(circle at 12% 85%, rgba(255, 68, 102, 0.45) 0%, transparent 48%),
+    linear-gradient(135deg, #2b1328 0%, #46142e 30%, #681739 65%, #941c42 100%) !important;
   background-size: cover !important;
-  background-position: center !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
 }
 
+@media (max-width: 767px) {
+  .vh-hero--gradient {
+    background-image:
+      url('../images/hero-bg-mobile.jpg'),
+      radial-gradient(circle at 85% 15%, rgba(255, 90, 95, 0.62) 0%, transparent 52%),
+      radial-gradient(circle at 12% 85%, rgba(255, 68, 102, 0.45) 0%, transparent 48%),
+      linear-gradient(135deg, #2b1328 0%, #46142e 30%, #681739 65%, #941c42 100%) !important;
+    background-size: cover !important;
+    background-position: center center !important;
+  }
+}
