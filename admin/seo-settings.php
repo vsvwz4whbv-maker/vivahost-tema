@@ -12,12 +12,15 @@ if ( ! current_user_can( 'manage_options' ) ) {
 
 $saved      = isset( $_GET['saved'] ) && '1' === $_GET['saved'];
 $active_tab = isset( $_GET['tab'] ) ? sanitize_key( $_GET['tab'] ) : 'seo';
-if ( ! in_array( $active_tab, [ 'seo', 'schema', 'general', 'technical' ], true ) ) {
+if ( ! in_array( $active_tab, [ 'seo', 'schema', 'general', 'technical', 'security' ], true ) ) {
 	$active_tab = 'seo';
 }
 
-$defaults = vh_seo_defaults();
-$ext_seo  = vh_detect_external_seo_plugin();
+$defaults = array_merge(
+	vh_seo_defaults(),
+	function_exists( 'vh_sec_defaults' ) ? vh_sec_defaults() : []
+);
+$ext_seo = vh_detect_external_seo_plugin();
 
 // Helper per leggere il valore corrente (anche per checkbox salvati a '0')
 $val = function ( $key ) use ( $defaults ) {
@@ -26,17 +29,13 @@ $val = function ( $key ) use ( $defaults ) {
 };
 ?>
 <style>
-.vh-admin-wrap { max-width: 960px; padding: 24px 0 60px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; }
+.vh-admin-wrap { max-width: 980px; padding: 20px 0 60px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; }
 .vh-admin-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 24px; background: linear-gradient(135deg, #2b1328 0%, #681739 60%, #941c42 100%); padding: 26px 30px; border-radius: 16px; color: #fff; box-shadow: 0 10px 25px -5px rgba(148, 28, 66, 0.25); }
 .vh-admin-header h1 { color: #fff !important; font-size: 1.55rem; font-weight: 800; margin: 0 0 6px; padding: 0; display: flex; align-items: center; gap: 10px; line-height: 1.2; }
-.vh-admin-header p { color: rgba(255,255,255,0.85); margin: 0; font-size: 13.5px; max-width: 600px; line-height: 1.5; }
-.vh-suite-nav { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; }
-.vh-suite-link { display: inline-flex; align-items: center; gap: 7px; padding: 8px 16px; border-radius: 999px; font-size: 13px; font-weight: 600; text-decoration: none; color: #475569; background: #fff; border: 1px solid #cbd5e1; transition: all .15s; }
-.vh-suite-link:hover { color: #0f172a; border-color: #94a3b8; background: #f8fafc; }
-.vh-suite-link.active { background: #0f172a; color: #fff; border-color: #0f172a; }
+.vh-admin-header p { color: rgba(255,255,255,0.85); margin: 0; font-size: 13.5px; max-width: 640px; line-height: 1.5; }
 
 .vh-tabs { display: flex; gap: 6px; margin-bottom: 24px; background: #f1f5f9; padding: 6px; border-radius: 12px; flex-wrap: wrap; }
-.vh-tab-btn { flex: 1; min-width: 170px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 11px 16px; border-radius: 8px; border: none; background: transparent; color: #475569; font-size: 13px; font-weight: 700; cursor: pointer; transition: all .15s; text-align: center; }
+.vh-tab-btn { flex: 1; min-width: 155px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 11px 14px; border-radius: 8px; border: none; background: transparent; color: #475569; font-size: 13px; font-weight: 700; cursor: pointer; transition: all .15s; text-align: center; }
 .vh-tab-btn:hover { color: #0f172a; background: rgba(255,255,255,0.5); }
 .vh-tab-btn.active { background: #fff; color: #FF5A5F; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
 
@@ -48,9 +47,14 @@ $val = function ( $key ) use ( $defaults ) {
 .vh-card-sub { font-size: 13px; color: #64748b; margin: 0 0 20px; padding-bottom: 14px; border-bottom: 1px solid #f1f5f9; line-height: 1.5; }
 
 .vh-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.vh-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 22px; }
+.vh-stat-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; }
+.vh-stat-box .vh-stat-k { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #64748b; letter-spacing: .04em; margin-bottom: 4px; }
+.vh-stat-box .vh-stat-v { font-size: 1.25rem; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 6px; }
+
 .vh-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
 .vh-field label { font-size: 12px; font-weight: 700; color: #334155; text-transform: uppercase; letter-spacing: .04em; }
-.vh-field input[type="text"], .vh-field input[type="url"], .vh-field select, .vh-field textarea {
+.vh-field input[type="text"], .vh-field input[type="url"], .vh-field input[type="number"], .vh-field input[type="password"], .vh-field select, .vh-field textarea {
 	font-size: 14px; padding: 10px 14px; border: 1.5px solid #cbd5e1; border-radius: 8px; background: #f8fafc; color: #0f172a; outline: none; transition: all .2s; width: 100%;
 }
 .vh-field input:focus, .vh-field select:focus, .vh-field textarea:focus { border-color: #FF5A5F; background: #fff; box-shadow: 0 0 0 3px rgba(255,90,95,0.12); }
@@ -92,35 +96,20 @@ $val = function ( $key ) use ( $defaults ) {
 .vh-pill { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
 .vh-pill--ok { background: #dcfce7; color: #15803d; }
 .vh-pill--warn { background: #fef3c7; color: #b45309; }
+.vh-pill--danger { background: #fee2e2; color: #b91c1c; }
 
-@media (max-width: 782px) { .vh-grid-2 { grid-template-columns: 1fr; } }
+@media (max-width: 782px) { .vh-grid-2, .vh-grid-4 { grid-template-columns: 1fr; } }
 </style>
 
 <div class="wrap vh-admin-wrap">
-
-	<!-- Top Suite Navigation -->
-	<div class="vh-suite-nav">
-		<a href="<?php echo esc_url( admin_url( 'admin.php?page=vivahost-seo' ) ); ?>" class="vh-suite-link active">
-			🔍 SEO &amp; Opzioni Generali
-		</a>
-		<a href="<?php echo esc_url( admin_url( 'admin.php?page=vivahost-smtp' ) ); ?>" class="vh-suite-link">
-			✉️ Email &amp; SMTP
-		</a>
-		<a href="<?php echo esc_url( admin_url( 'admin.php?page=vivahost-updates' ) ); ?>" class="vh-suite-link">
-			🔄 Atualizações GitHub
-		</a>
-		<a href="<?php echo esc_url( admin_url( 'customize.php' ) ); ?>" class="vh-suite-link">
-			🎨 Personalizar Tema (Textos, Fotos &amp; Cores)
-		</a>
-	</div>
 
 	<!-- Header Banner -->
 	<div class="vh-admin-header">
 		<div>
 			<h1>
-				<span>🏠 VivaHost — Central SEO &amp; Opções Gerais</span>
+				<span>🏠 VivaHost — Central SEO, Segurança &amp; Opções Gerais</span>
 			</h1>
-			<p>Gerencie toda a infraestrutura de SEO técnico, Local SEO para Salvador (Schema.org), Google Analytics, Sitemap XML e inteligência artificial (<code>/llms.txt</code>) integrado nativamente ao WordPress.</p>
+			<p>Gerencie em um único painel o SEO técnico, Local SEO para Salvador (Schema.org), Google Analytics, Sitemap/IA (<code>/llms.txt</code>) e a blindagem de segurança anti-bot e anti-invasão do template.</p>
 		</div>
 		<div>
 			<span style="background:rgba(255,255,255,0.18);padding:6px 14px;border-radius:999px;font-size:12px;font-weight:700;backdrop-filter:blur(6px)">
@@ -132,29 +121,32 @@ $val = function ( $key ) use ( $defaults ) {
 	<?php if ( $saved ) : ?>
 		<div class="vh-notice vh-notice--ok">
 			<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-			<span>Configurações de SEO e Opções Gerais salvas com sucesso! O cabeçalho do site foi atualizado.</span>
+			<span>Configurações de SEO, Segurança e Opções Gerais salvas com sucesso!</span>
 		</div>
 	<?php endif; ?>
 
 	<?php if ( $ext_seo ) : ?>
 		<div class="vh-notice vh-notice--warn">
-			<span>⚠️ <strong>Plugin SEO externo detectado (<?php echo esc_html( $ext_seo ); ?>):</strong> Para evitar duplicação de meta tags, o VivaHost cede automaticamente a geração de <code>&lt;title&gt;</code> e Open Graph ao plugin externo, mantendo ativos os scripts de Analytics e verificação.</span>
+			<span>⚠️ <strong>Plugin SEO externo detectado (<?php echo esc_html( $ext_seo ); ?>):</strong> Para evitar duplicação de meta tags, o VivaHost cede automaticamente a geração de <code>&lt;title&gt;</code> e Open Graph ao plugin externo, mantendo ativos os scripts de Analytics, segurança e verificação.</span>
 		</div>
 	<?php endif; ?>
 
 	<!-- Tabs Navigation -->
 	<div class="vh-tabs" role="tablist">
 		<button type="button" class="vh-tab-btn <?php echo 'seo' === $active_tab ? 'active' : ''; ?>" data-tab="seo">
-			🔍 1. SEO Global &amp; Homepage
+			🔍 1. SEO Global &amp; Home
 		</button>
 		<button type="button" class="vh-tab-btn <?php echo 'schema' === $active_tab ? 'active' : ''; ?>" data-tab="schema">
-			📍 2. Local SEO &amp; Schema.org
+			📍 2. Local SEO &amp; Schema
 		</button>
 		<button type="button" class="vh-tab-btn <?php echo 'general' === $active_tab ? 'active' : ''; ?>" data-tab="general">
-			📊 3. Opções Gerais &amp; Analytics
+			📊 3. Analytics &amp; Opções
 		</button>
 		<button type="button" class="vh-tab-btn <?php echo 'technical' === $active_tab ? 'active' : ''; ?>" data-tab="technical">
-			🤖 4. Sitemap, Robots &amp; AI SEO
+			🤖 4. Sitemap &amp; IA SEO
+		</button>
+		<button type="button" class="vh-tab-btn <?php echo 'security' === $active_tab ? 'active' : ''; ?>" data-tab="security">
+			🛡️ 5. Segurança &amp; Anti-Bot
 		</button>
 	</div>
 
@@ -276,27 +268,20 @@ $val = function ( $key ) use ( $defaults ) {
 					</label>
 				</div>
 
-				<div class="vh-grid-2" style="margin-top:18px">
-					<div class="vh-field">
-						<label for="vh_seo_schema_type">Categoria Principal do Negócio (Schema @type)</label>
-						<select id="vh_seo_schema_type" name="vh_seo_schema_type">
-							<?php
-							$s_types = [
-								'RealEstateAgent'     => 'RealEstateAgent (Imobiliária / Gestão de Imóveis — Recomendado)',
-								'LodgingBusiness'     => 'LodgingBusiness (Hospedagem por Temporada)',
-								'ProfessionalService' => 'ProfessionalService (Serviço Profissional)',
-							];
-							foreach ( $s_types as $st_val => $st_label ) :
-							?>
-								<option value="<?php echo esc_attr( $st_val ); ?>" <?php selected( $val( 'vh_seo_schema_type' ), $st_val ); ?>><?php echo esc_html( $st_label ); ?></option>
-							<?php endforeach; ?>
-						</select>
-					</div>
-
-					<div class="vh-field">
-						<label for="vh_seo_price_range">Faixa de Preço / Taxa de Comissão (<code>priceRange</code>)</label>
-						<input type="text" id="vh_seo_price_range" name="vh_seo_price_range" value="<?php echo esc_attr( $val( 'vh_seo_price_range' ) ); ?>" placeholder="20%">
-					</div>
+				<div class="vh-field" style="margin-top:18px">
+					<label for="vh_seo_schema_type">Categoria Principal do Negócio (Schema @type)</label>
+					<select id="vh_seo_schema_type" name="vh_seo_schema_type">
+						<?php
+						$s_types = [
+							'RealEstateAgent'     => 'RealEstateAgent (Imobiliária / Gestão de Imóveis — Recomendado)',
+							'LodgingBusiness'     => 'LodgingBusiness (Hospedagem por Temporada)',
+							'ProfessionalService' => 'ProfessionalService (Serviço Profissional)',
+						];
+						foreach ( $s_types as $st_val => $st_label ) :
+						?>
+							<option value="<?php echo esc_attr( $st_val ); ?>" <?php selected( $val( 'vh_seo_schema_type' ), $st_val ); ?>><?php echo esc_html( $st_label ); ?></option>
+						<?php endforeach; ?>
+					</select>
 				</div>
 
 				<div class="vh-grid-2">
@@ -327,14 +312,9 @@ $val = function ( $key ) use ( $defaults ) {
 					<span class="vh-hint">Lista de bairros separados por vírgula injetada no Schema.org e no arquivo <code>/llms.txt</code> para posicionar buscas por bairro (ex: "gestão airbnb Barra Salvador", "aluguel temporada Ondina").</span>
 				</div>
 
-				<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:16px;margin-top:10px">
-					<div style="font-size:12px;font-weight:700;text-transform:uppercase;color:#475569;margin-bottom:8px">📌 Dados Empresariais Sincronizados do Personalizar (Rodapé &amp; Avaliações)</div>
-					<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;font-size:13px;color:#334155">
-						<div><strong>Razão Social:</strong> <?php echo esc_html( vh_mod( 'footer_razao', 'Viva Host LTDA' ) ); ?></div>
-						<div><strong>CNPJ:</strong> <?php echo esc_html( vh_mod( 'footer_cnpj', '27.447.686/0001-10' ) ); ?></div>
-						<div><strong>Endereço:</strong> <?php echo esc_html( vh_mod( 'footer_address', 'Avenida Tancredo Neves, 002539' ) ); ?></div>
-						<div><strong>Nota AggregateRating:</strong> <?php echo esc_html( vh_mod( 'reviews_score', '4,88' ) ); ?> ★ (<?php echo esc_html( vh_mod( 'reviews_count', '469' ) ); ?> avaliações)</div>
-					</div>
+				<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px 18px;margin-top:6px;font-size:13px;color:#475569">
+					<span>📌 Os dados cadastrais (Razão Social, CNPJ, Endereço, Nota e Taxa de Comissão) são lidos automaticamente do Personalizar para evitar repetição.</span>
+					<a href="<?php echo esc_url( admin_url( 'customize.php' ) ); ?>" class="vh-btn vh-btn-outline" style="padding:7px 16px;font-size:12.5px;white-space:nowrap">Editar no Personalizar →</a>
 				</div>
 			</div>
 		</div>
@@ -533,6 +513,177 @@ $val = function ( $key ) use ( $defaults ) {
 			</div>
 		</div>
 
+		<!-- ══════════════════════════════════════════════════════════════════════
+		     TAB 5: SEGURANÇA DO TEMPLATE, ANTI-BOT & FIREWALL (WAF)
+		═══════════════════════════════════════════════════════════════════════ -->
+		<div class="vh-tab-panel <?php echo 'security' === $active_tab ? 'active' : ''; ?>" id="vh-panel-security">
+
+			<?php
+			$sec_total_blocked = (int) get_option( 'vh_sec_blocked_total', 0 );
+			$sec_log           = get_option( 'vh_sec_blocked_log', [] );
+			if ( ! is_array( $sec_log ) ) {
+				$sec_log = [];
+			}
+			?>
+
+			<div class="vh-grid-4">
+				<div class="vh-stat-box">
+					<div class="vh-stat-k">Escudo Formulário</div>
+					<div class="vh-stat-v">
+						<span class="vh-pill vh-pill--ok">✓ 7 Camadas Ativas</span>
+					</div>
+				</div>
+				<div class="vh-stat-box">
+					<div class="vh-stat-k">Rate Limiting IP</div>
+					<div class="vh-stat-v">
+						Max <?php echo esc_html( (string) $val( 'vh_sec_rate_limit_max' ) ); ?> / <?php echo esc_html( (string) $val( 'vh_sec_rate_limit_window' ) ); ?>m
+					</div>
+				</div>
+				<div class="vh-stat-box">
+					<div class="vh-stat-k">Hardening Template</div>
+					<div class="vh-stat-v">
+						<span class="vh-pill vh-pill--ok">✓ Blindado</span>
+					</div>
+				</div>
+				<div class="vh-stat-box">
+					<div class="vh-stat-k">Bots &amp; Ataques Bloqueados</div>
+					<div class="vh-stat-v" style="color:#FF5A5F">
+						<?php echo esc_html( (string) $sec_total_blocked ); ?>
+					</div>
+				</div>
+			</div>
+
+			<div class="vh-card">
+				<h2>🛡️ Proteção Anti-Bot, Anti-Spam &amp; Firewall do Formulário</h2>
+				<p class="vh-card-sub">Impede que robôs automatizados, scripts de spam e ataques de injeção enviem mensagens falsas ou sobrecarreguem o servidor de e-mail.</p>
+
+				<div class="vh-toggle-row">
+					<div class="vh-toggle-info">
+						<strong>Ativar Escudo Multi-Camada Anti-Bot &amp; WAF no Formulário (Recomendado)</strong>
+						<span>Combina: (1) Nonce CSRF + Verificação de Origem, (2) Honeypot Triplo Invisível, (3) Timestamp Assinado com Criptografia <code>HMAC-SHA256</code> (bloqueia robôs que enviam em &lt;2s), (4) Token JS de Interação Humana Real e (5) Firewall WAF contra links/XSS/SQLi/Email Header Injection.</span>
+					</div>
+					<label class="vh-switch">
+						<input type="checkbox" name="vh_sec_form_shield" value="1" <?php checked( $val( 'vh_sec_form_shield' ), '1' ); ?>>
+						<span class="vh-slider"></span>
+					</label>
+				</div>
+
+				<div class="vh-grid-2" style="margin-top:18px">
+					<div class="vh-field">
+						<label for="vh_sec_rate_limit_max">Limite Máximo de Envios por IP (Anti-Flood)</label>
+						<input type="number" id="vh_sec_rate_limit_max" name="vh_sec_rate_limit_max" min="1" max="50" value="<?php echo esc_attr( (string) $val( 'vh_sec_rate_limit_max' ) ); ?>">
+						<span class="vh-hint">Quantos formulários um mesmo endereço IP pode enviar dentro da janela de tempo (Padrão: 3).</span>
+					</div>
+					<div class="vh-field">
+						<label for="vh_sec_rate_limit_window">Janela de Tempo do Rate Limit (em Minutos)</label>
+						<input type="number" id="vh_sec_rate_limit_window" name="vh_sec_rate_limit_window" min="1" max="120" value="<?php echo esc_attr( (string) $val( 'vh_sec_rate_limit_window' ) ); ?>">
+						<span class="vh-hint">Tempo de bloqueio temporário caso um IP ultrapasse o limite de envios (Padrão: 15 minutos).</span>
+					</div>
+				</div>
+
+				<div class="vh-grid-2" style="margin-top:6px">
+					<div class="vh-field">
+						<label for="vh_sec_turnstile_site">Cloudflare Turnstile — Site Key (Opcional)</label>
+						<input type="text" id="vh_sec_turnstile_site" name="vh_sec_turnstile_site" value="<?php echo esc_attr( $val( 'vh_sec_turnstile_site' ) ); ?>" placeholder="0x4AAAAAA... (Opcional)">
+						<span class="vh-hint">Se preenchido, adiciona o widget oficial Cloudflare Turnstile ao formulário. Sem chaves, o escudo invisível nativo já protege 100% automaticamente.</span>
+					</div>
+					<div class="vh-field">
+						<label for="vh_sec_turnstile_secret">Cloudflare Turnstile — Secret Key (Opcional)</label>
+						<input type="password" id="vh_sec_turnstile_secret" name="vh_sec_turnstile_secret" value="<?php echo esc_attr( $val( 'vh_sec_turnstile_secret' ) ); ?>" placeholder="0x4AAAAAA... (Opcional)">
+					</div>
+				</div>
+			</div>
+
+			<div class="vh-card">
+				<h2>🔒 Hardening do Template &amp; Blindagem da Infraestrutura WordPress</h2>
+				<p class="vh-card-sub">Fecha as brechas clássicas do WordPress exploradas por hackers e scanners automatizados.</p>
+
+				<div class="vh-toggle-row">
+					<div class="vh-toggle-info">
+						<strong>Injetar Cabeçalhos HTTP de Segurança (Security Headers)</strong>
+						<span>Envia <code>X-Content-Type-Options: nosniff</code>, <code>X-Frame-Options: SAMEORIGIN</code> (anti-clickjacking), <code>Referrer-Policy: strict-origin-when-cross-origin</code>, <code>X-XSS-Protection</code> e <code>Permissions-Policy</code>.</span>
+					</div>
+					<label class="vh-switch">
+						<input type="checkbox" name="vh_sec_headers_enable" value="1" <?php checked( $val( 'vh_sec_headers_enable' ), '1' ); ?>>
+						<span class="vh-slider"></span>
+					</label>
+				</div>
+
+				<div class="vh-toggle-row">
+					<div class="vh-toggle-info">
+						<strong>Desativar XML-RPC e Pingbacks (Anti-Força Bruta &amp; DDoS)</strong>
+						<span>Bloqueia o endpoint <code>xmlrpc.php</code> e o cabeçalho <code>X-Pingback</code>, eliminando o principal vetor de ataques de força bruta amplificados no WordPress.</span>
+					</div>
+					<label class="vh-switch">
+						<input type="checkbox" name="vh_sec_disable_xmlrpc" value="1" <?php checked( $val( 'vh_sec_disable_xmlrpc' ), '1' ); ?>>
+						<span class="vh-slider"></span>
+					</label>
+				</div>
+
+				<div class="vh-toggle-row">
+					<div class="vh-toggle-info">
+						<strong>Bloquear Enumeração de Usuários Admin (<code>/?author=1</code> e REST API)</strong>
+						<span>Impede que hackers descubram os logins dos administradores varrendo <code>/?author=N</code> ou consultando <code>/wp-json/wp/v2/users</code> sem autenticação.</span>
+					</div>
+					<label class="vh-switch">
+						<input type="checkbox" name="vh_sec_block_user_enum" value="1" <?php checked( $val( 'vh_sec_block_user_enum' ), '1' ); ?>>
+						<span class="vh-slider"></span>
+					</label>
+				</div>
+
+				<div class="vh-toggle-row">
+					<div class="vh-toggle-info">
+						<strong>Ocultar Dicas de Usuário no Login WordPress + Remover Versão WP</strong>
+						<span>Substitui mensagens detalhadas de erro no login por um aviso genérico seguro e remove a versão do WordPress dos feeds RSS.</span>
+					</div>
+					<label class="vh-switch">
+						<input type="checkbox" name="vh_sec_hide_login_errors" value="1" <?php checked( $val( 'vh_sec_hide_login_errors' ), '1' ); ?>>
+						<span class="vh-slider"></span>
+					</label>
+				</div>
+			</div>
+
+			<div class="vh-card">
+				<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:6px">
+					<h2 style="margin:0">📋 Registro de Bots &amp; Ataques Bloqueados (Firewall Log)</h2>
+					<?php if ( ! empty( $sec_log ) || $sec_total_blocked > 0 ) : ?>
+						<button type="submit" name="vh_clear_sec_log" value="1" class="vh-btn vh-btn-outline" style="padding:6px 14px;font-size:12px">
+							Limpar Histórico
+						</button>
+					<?php endif; ?>
+				</div>
+				<p class="vh-card-sub">Últimas 20 tentativas suspeitas interceptadas e neutralizadas automaticamente pelo escudo VivaHost (IPs parcialmente mascarados conforme LGPD).</p>
+
+				<?php if ( empty( $sec_log ) ) : ?>
+					<div style="text-align:center;padding:24px;background:#f8fafc;border-radius:10px;color:#64748b;font-size:13.5px">
+						✓ Nenhuma tentativa de ataque ou bot registrada recentemente. O escudo está ativo e monitorando em tempo real.
+					</div>
+				<?php else : ?>
+					<table class="vh-diag-table">
+						<thead>
+							<tr>
+								<th>Data / Hora</th>
+								<th>IP (LGPD)</th>
+								<th>Camada Acionada</th>
+								<th>Detalhes</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach ( $sec_log as $entry ) : ?>
+								<tr>
+									<td style="white-space:nowrap"><?php echo esc_html( $entry['time'] ?? '' ); ?></td>
+									<td><code><?php echo esc_html( $entry['ip'] ?? '' ); ?></code></td>
+									<td><span class="vh-pill vh-pill--danger">🛡️ <?php echo esc_html( $entry['reason'] ?? '' ); ?></span></td>
+									<td><?php echo esc_html( $entry['details'] ?? '' ); ?></td>
+								</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+				<?php endif; ?>
+			</div>
+
+		</div>
+
 		<!-- Save Bar -->
 		<div style="display:flex;align-items:center;justify-content:space-between;background:#fff;border:1px solid #e2e8f0;padding:18px 28px;border-radius:14px;box-shadow:0 4px 15px rgba(0,0,0,0.04)">
 			<div style="font-size:13px;color:#64748b">
@@ -540,7 +691,7 @@ $val = function ( $key ) use ( $defaults ) {
 			</div>
 			<button type="submit" class="vh-btn vh-btn-primary">
 				<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-				Salvar Configurações SEO &amp; Gerais
+				Salvar Configurações
 			</button>
 		</div>
 

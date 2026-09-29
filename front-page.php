@@ -1045,27 +1045,38 @@ get_template_part( 'template-parts/header-site' );
           <div class="form-card card bg-white text-neutral shadow-2xl rounded-3xl p-7 sm:p-10 border border-white/20 w-full max-w-lg mx-auto">
             <h3 class="text-2xl font-bold text-neutral mb-1">Quer saber mais?</h3>
             <p class="form-sub text-sm text-base-content/70 mb-6">Deixe seu contato que a Marcia responde em até 24 horas.</p>
-            <form id="estimate-form" method="post" novalidate>
+            <?php
+            $vh_form_ts     = time();
+            $vh_form_sig    = function_exists( 'vh_sign_form_timestamp' ) ? vh_sign_form_timestamp( $vh_form_ts ) : '';
+            $vh_form_chal   = function_exists( 'vh_get_form_js_challenge' ) ? vh_get_form_js_challenge( $vh_form_ts ) : '';
+            $vh_cf_site_key = function_exists( 'vh_sec_opt' ) ? trim( (string) vh_sec_opt( 'vh_sec_turnstile_site', '' ) ) : '';
+            ?>
+            <form id="estimate-form" method="post" novalidate data-vh-challenge="<?php echo esc_attr( $vh_form_chal ); ?>">
               <?php wp_nonce_field( 'vh_form_nonce', 'nonce' ); ?>
-              <!-- Dual Honeypot (invisible to humans, bots fill it) -->
+              <input type="hidden" name="_vh_ts" value="<?php echo esc_attr( (string) $vh_form_ts ); ?>">
+              <input type="hidden" name="_vh_sig" value="<?php echo esc_attr( $vh_form_sig ); ?>">
+              <input type="hidden" name="_vh_js_token" id="vh_js_token" value="">
+              <!-- Triple Honeypot (invisible to humans, bots fill it) -->
               <div style="position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden" aria-hidden="true">
                 <label for="vh-website">Website</label>
                 <input type="text" id="vh-website" name="website" tabindex="-1" autocomplete="off">
                 <label for="vh_hp_check">Deixe em branco</label>
                 <input type="text" id="vh_hp_check" name="vh_hp_check" tabindex="-1" autocomplete="off">
+                <label for="vh_email_confirm">Confirme seu email</label>
+                <input type="email" id="vh_email_confirm" name="vh_email_confirm" tabindex="-1" autocomplete="off">
               </div>
               <div class="form-control mb-4">
                 <label class="label pb-1.5" for="f-nome">
                   <span class="label-text font-bold text-xs uppercase tracking-wider text-base-content/70">Nome completo</span>
                 </label>
-                <input type="text" id="f-nome" name="nome" placeholder="Seu nome" required autocomplete="name" class="input input-bordered w-full rounded-xl focus:border-primary focus:outline-none bg-base-100">
+                <input type="text" id="f-nome" name="nome" placeholder="Seu nome" required maxlength="80" autocomplete="name" class="input input-bordered w-full rounded-xl focus:border-primary focus:outline-none bg-base-100">
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                 <div class="form-control">
                   <label class="label pb-1.5" for="f-cidade">
                     <span class="label-text font-bold text-xs uppercase tracking-wider text-base-content/70">Cidade / Bairro</span>
                   </label>
-                  <input type="text" id="f-cidade" name="cidade" placeholder="Salvador — Barra" required class="input input-bordered w-full rounded-xl focus:border-primary focus:outline-none bg-base-100">
+                  <input type="text" id="f-cidade" name="cidade" placeholder="Salvador — Barra" required maxlength="80" class="input input-bordered w-full rounded-xl focus:border-primary focus:outline-none bg-base-100">
                 </div>
                 <div class="form-control">
                   <label class="label pb-1.5" for="f-tipo">
@@ -1097,8 +1108,14 @@ get_template_part( 'template-parts/header-site' );
                 <label class="label pb-1.5" for="f-whatsapp">
                   <span class="label-text font-bold text-xs uppercase tracking-wider text-base-content/70">Seu WhatsApp</span>
                 </label>
-                <input type="tel" id="f-whatsapp" name="whatsapp" placeholder="(71) 99999-9999" required autocomplete="tel" class="input input-bordered w-full rounded-xl focus:border-primary focus:outline-none bg-base-100">
+                <input type="tel" id="f-whatsapp" name="whatsapp" placeholder="(71) 99999-9999" required maxlength="22" autocomplete="tel" class="input input-bordered w-full rounded-xl focus:border-primary focus:outline-none bg-base-100">
               </div>
+              <?php if ( $vh_cf_site_key ) : ?>
+                <div class="mb-4 flex justify-center">
+                  <div class="cf-turnstile" data-sitekey="<?php echo esc_attr( $vh_cf_site_key ); ?>" data-theme="light"></div>
+                </div>
+                <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+              <?php endif; ?>
               <div class="form-submit">
                 <button type="submit" class="btn btn-primary btn-block rounded-xl text-white font-bold py-3.5 shadow-lg hover:shadow-xl transition-all" id="form-submit-btn">
                   <span class="btn-text">Quero saber mais →</span>
@@ -1107,7 +1124,7 @@ get_template_part( 'template-parts/header-site' );
                   </span>
                 </button>
               </div>
-              <p class="form-note text-xs text-center text-base-content/60 mt-4">Sem spam. Sem compromisso. Só uma conversa sem pressão.</p>
+              <p class="form-note text-xs text-center text-base-content/60 mt-4">🔒 Sem spam. Protegido contra robôs · Seus dados estão seguros (LGPD).</p>
               <div class="form-error alert alert-error text-xs rounded-xl mt-4" id="form-error" role="alert" aria-live="polite" style="display:none"></div>
             </form>
             <div class="form-success text-center py-6" id="form-success" role="status" aria-live="polite" tabindex="-1" aria-hidden="true" style="display:none">

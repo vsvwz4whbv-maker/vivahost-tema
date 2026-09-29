@@ -11,7 +11,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
-define( 'VH_VER',  '3.9.0' );
+define( 'VH_VER',  '3.9.1' );
 define( 'VH_PATH', get_stylesheet_directory() );
 define( 'VH_URL',  get_stylesheet_directory_uri() );
 
@@ -21,8 +21,9 @@ define( 'VH_DEFAULT_FOOTER_BG', '#222222' );
 define( 'VH_DEFAULT_FONT',      'Plus Jakarta Sans' );
 define( 'VH_DEFAULT_WA_NUM',    '5571999999999' );
 
-// ─── 0. MOTORE SEO WORDPRESS-NATIVE & OPZIONI GENERALI ───────────────────────
+// ─── 0. MOTORE SEO WORDPRESS-NATIVE, SICUREZZA & OPZIONI GENERALI ────────────
 require_once VH_PATH . '/inc/seo-engine.php';
+require_once VH_PATH . '/inc/security-engine.php';
 
 // ─── THEME SUPPORT ───────────────────────────────────────────────────────────
 add_action( 'after_setup_theme', function () {
@@ -557,30 +558,24 @@ function vh_decrypt( $v ) {
 	return openssl_decrypt( $cipher, $method, $key, OPENSSL_RAW_DATA, $iv );
 }
 
-// ─── 5. AJAX FORM HANDLER ────────────────────────────────────────────────────
+// ─── 5. AJAX FORM HANDLER (PROTETTO DA SCUDO ANTI-BOT & WAF) ─────────────────
 add_action( 'wp_ajax_vh_form',        'vh_form_handler' );
 add_action( 'wp_ajax_nopriv_vh_form', 'vh_form_handler' );
 function vh_form_handler() {
-	// Security
-	if ( ! check_ajax_referer( 'vh_form_nonce', 'nonce', false ) ) {
-		wp_send_json_error( [ 'message' => 'Sessão expirada. Recarregue a página.' ], 403 );
-	}
-	// Honeypot check (reject if populated - checks both vh_hp_check and website)
-	if ( ! empty( $_POST['vh_hp_check'] ) || ! empty( $_POST['website'] ) ) {
-		wp_send_json_success( [ 'mode' => 'email', 'wa_url' => '' ] ); // silent drop
+	// 1. Verifica Scudo Anti-Bot (CSRF Nonce, Origin, Doppio Honeypot, HMAC Timestamp, JS Token, IP Rate Limit, Turnstile)
+	vh_verify_form_security_shield();
+
+	// 2. Sanitizzazione rigorosa, Whitelist e WAF anti-injection
+	$clean = vh_sanitize_and_validate_form_payload( $_POST );
+	if ( is_wp_error( $clean ) ) {
+		wp_send_json_error( [ 'message' => $clean->get_error_message() ], 422 );
 	}
 
-	// Sanitize fields
-	$nome     = sanitize_text_field( $_POST['nome']     ?? '' );
-	$cidade   = sanitize_text_field( $_POST['cidade']   ?? '' );
-	$tipo     = sanitize_text_field( $_POST['tipo']     ?? '' );
-	$quartos  = sanitize_text_field( $_POST['quartos']  ?? '' );
-	$phone    = sanitize_text_field( $_POST['whatsapp'] ?? '' );
-
-	// Validate required fields (including phone number)
-	if ( ! $nome || ! $cidade || ! $phone ) {
-		wp_send_json_error( [ 'message' => 'Por favor, preencha todos os campos obrigatórios (Nome, Cidade e WhatsApp).' ], 422 );
-	}
+	$nome    = $clean['nome'];
+	$cidade  = $clean['cidade'];
+	$tipo    = $clean['tipo'];
+	$quartos = $clean['quartos'];
+	$phone   = $clean['phone'];
 
 	$mode = vh_mod( 'form_mode', 'both' );
 
@@ -588,17 +583,19 @@ function vh_form_handler() {
 	$lead_msg = "Olá! Tenho interesse na avaliação gratuita.\n\nNome: {$nome}\nCidade/Bairro: {$cidade}\nTipo de imóvel: {$tipo}\nQuartos: {$quartos}\nMeu WhatsApp: {$phone}";
 	$wa_url   = vh_wa_url( $lead_msg );
 
-	// Send email
+	// Send email (con tutti i campi escapati contro HTML/Header Injection)
 	$email_sent = false;
 	if ( in_array( $mode, [ 'email', 'both' ], true ) ) {
-		$to      = get_option( 'vh_smtp_to_email', get_option( 'admin_email' ) );
-		$subject = "Nova avaliação de imóvel — {$nome}";
-		$body    = "<h2>Nova solicitação de avaliação</h2>
-<p><strong>Nome:</strong> {$nome}</p>
-<p><strong>Cidade/Bairro:</strong> {$cidade}</p>
-<p><strong>Tipo de imóvel:</strong> {$tipo}</p>
-<p><strong>Nº de quartos:</strong> {$quartos}</p>
-<p><strong>WhatsApp:</strong> {$phone}</p>";
+		$to      = sanitize_email( get_option( 'vh_smtp_to_email', get_option( 'admin_email' ) ) );
+		$subject = 'Nova avaliação de imóvel — ' . wp_strip_all_tags( $nome );
+		$body    = '<h2>Nova solicitação de avaliação (VivaHost)</h2>'
+			. '<p><strong>Nome:</strong> ' . esc_html( $nome ) . '</p>'
+			. '<p><strong>Cidade/Bairro:</strong> ' . esc_html( $cidade ) . '</p>'
+			. '<p><strong>Tipo de imóvel:</strong> ' . esc_html( $tipo ) . '</p>'
+			. '<p><strong>Nº de quartos:</strong> ' . esc_html( $quartos ) . '</p>'
+			. '<p><strong>WhatsApp:</strong> ' . esc_html( $phone ) . '</p>'
+			. '<hr style="border:none;border-top:1px solid #eee;margin:16px 0">'
+			. '<p style="font-size:12px;color:#777">Enviado com proteção anti-bot VivaHost em ' . esc_html( current_time( 'd/m/Y H:i' ) ) . '</p>';
 		$headers = [ 'Content-Type: text/html; charset=UTF-8' ];
 		$email_sent = wp_mail( $to, $subject, $body, $headers );
 	}
@@ -613,27 +610,37 @@ function vh_form_handler() {
 	] );
 }
 
-// ─── 6. ADMIN: MENU DEDICATO VIVAHOST (SEO, OPZIONI GENERALI, SMTP, GITHUB) ──
+// ─── 6. ADMIN: MENU DEDICATO VIVAHOST (SEO, SICUREZZA, SMTP, GITHUB) ─────────
+function vh_render_seo_settings_page() {
+	require_once VH_PATH . '/admin/seo-settings.php';
+}
+function vh_render_smtp_settings_page() {
+	require_once VH_PATH . '/admin/smtp-settings.php';
+}
+function vh_render_updates_settings_page() {
+	require_once VH_PATH . '/admin/updates-settings.php';
+}
+
 add_action( 'admin_menu', function () {
 	// Menu Top-Level "VivaHost" nella barra laterale di WordPress
 	add_menu_page(
-		'VivaHost — SEO & Opzioni Generali',
+		'VivaHost — Central SEO, Segurança & Opções',
 		'VivaHost',
 		'manage_options',
 		'vivahost-seo',
-		fn() => require VH_PATH . '/admin/seo-settings.php',
+		'vh_render_seo_settings_page',
 		'dashicons-admin-home',
 		58
 	);
 
-	// 1. Sottomenu principale: SEO & Opzioni Generali
+	// 1. Sottomenu principale: SEO, Segurança & Opções (rinomina la prima voce senza duplicare l'hook)
 	add_submenu_page(
 		'vivahost-seo',
-		'VivaHost — SEO & Opzioni Generali',
-		'SEO & Opzioni',
+		'VivaHost — Central SEO, Segurança & Opções',
+		'SEO & Segurança',
 		'manage_options',
 		'vivahost-seo',
-		fn() => require VH_PATH . '/admin/seo-settings.php'
+		'vh_render_seo_settings_page'
 	);
 
 	// 2. Sottomenu: Email & SMTP
@@ -643,7 +650,7 @@ add_action( 'admin_menu', function () {
 		'Email & SMTP',
 		'manage_options',
 		'vivahost-smtp',
-		fn() => require VH_PATH . '/admin/smtp-settings.php'
+		'vh_render_smtp_settings_page'
 	);
 
 	// 3. Sottomenu: Atualizações GitHub
@@ -653,7 +660,7 @@ add_action( 'admin_menu', function () {
 		'Atualizações GitHub',
 		'manage_options',
 		'vivahost-updates',
-		fn() => require VH_PATH . '/admin/updates-settings.php'
+		'vh_render_updates_settings_page'
 	);
 
 	// 4. Sottomenu: Collegamento rapido al Customizer (Personalizar Tema)

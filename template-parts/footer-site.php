@@ -12,13 +12,13 @@ $logo_url = $logo_id ? wp_get_attachment_image_url( $logo_id, 'full' ) : VH_URL 
 $email    = vh_mod( 'footer_email', 'marcia@meuvivahost.com.br' );
 $home_url = esc_url( home_url( '/' ) );
 ?>
-<footer class="vivahost-footer bg-neutral text-neutral-content pt-16 pb-12 border-t border-white/10" aria-label="Rodapé" itemscope itemtype="https://schema.org/LocalBusiness">
+<footer class="vivahost-footer bg-neutral text-neutral-content pt-16 pb-12 border-t border-white/10" aria-label="Rodapé">
   <div class="vivahost-footer-inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="footer-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12 pb-12 border-b border-white/10">
 
       <div class="footer-col-brand">
-        <a href="<?php echo $home_url; ?>" aria-label="<?php bloginfo( 'name' ); ?>">
-          <img src="<?php echo esc_url( $logo_url ); ?>" alt="<?php bloginfo( 'name' ); ?>" class="brand-logo-footer h-11 w-auto object-contain mb-4" itemprop="logo" width="160" height="68" loading="lazy">
+        <a href="<?php echo $home_url; ?>" aria-label="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>">
+          <img src="<?php echo esc_url( $logo_url ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" class="brand-logo-footer h-11 w-auto object-contain mb-4" width="160" height="68" loading="lazy">
         </a>
         <p class="footer-tagline text-xs sm:text-sm text-neutral-content/70 leading-relaxed mb-6" data-vh="footer_tagline">
           <?php echo esc_html( vh_mod( 'footer_tagline', 'VivaHost — Superhost Airbnb em Salvador, Bahia. Gestão profissional de aluguel por temporada com 9 anos de experiência.' ) ); ?>

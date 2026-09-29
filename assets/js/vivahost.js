@@ -120,9 +120,24 @@
     if (!form) return;
 
     var cfg = window.VH || {};
+    var jsTokenInput = document.getElementById('vh_js_token');
+    var challenge = form.getAttribute('data-vh-challenge') || '';
+
+    function armHumanToken() {
+      if (!jsTokenInput || !challenge || jsTokenInput.value) return;
+      try {
+        var rev = challenge.split('').reverse().join('');
+        jsTokenInput.value = window.btoa(rev + ':vh-human');
+      } catch (err) {}
+    }
+
+    ['focusin', 'keydown', 'pointerdown', 'touchstart', 'input', 'change'].forEach(function (ev) {
+      form.addEventListener(ev, armHumanToken, { once: true, passive: true });
+    });
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      armHumanToken();
 
       // Client-side validation
       var nomeInput     = form.querySelector('[name="nome"]');
@@ -133,17 +148,21 @@
       var cidadeVal = cidadeInput ? cidadeInput.value.trim() : '';
       var waVal     = whatsappInput ? whatsappInput.value.replace(/\D/g, '') : '';
 
-      if (!nomeVal) {
+      if (!nomeVal || nomeVal.length < 2) {
         showError('Por favor, informe seu nome completo.');
         if (nomeInput) nomeInput.focus();
         return;
       }
-      if (!cidadeVal) {
+      if (!cidadeVal || cidadeVal.length < 2) {
         showError('Por favor, informe a cidade ou bairro do imóvel.');
         if (cidadeInput) cidadeInput.focus();
         return;
       }
-      if (!waVal || waVal.length < 10) {
+      if (/(https?:\/\/|www\.|<script)/i.test(nomeVal + ' ' + cidadeVal)) {
+        showError('Por favor, não insira links ou caracteres especiais nos campos.');
+        return;
+      }
+      if (!waVal || waVal.length < 10 || /^(\d)\1+$/.test(waVal)) {
         showError('Por favor, informe um número de WhatsApp válido com DDD (mínimo 10 dígitos).');
         if (whatsappInput) whatsappInput.focus();
         return;

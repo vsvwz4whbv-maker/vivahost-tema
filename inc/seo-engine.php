@@ -1033,7 +1033,15 @@ function vh_seo_settings_save() {
 		return;
 	}
 
-	// Checkbox booleani
+	// Se l'admin ha cliccato "Limpar Histórico de Bloqueios"
+	if ( ! empty( $_POST['vh_clear_sec_log'] ) ) {
+		update_option( 'vh_sec_blocked_log', [], false );
+		update_option( 'vh_sec_blocked_total', 0, false );
+		wp_safe_redirect( admin_url( 'admin.php?page=vivahost-seo&tab=security&saved=1' ) );
+		exit;
+	}
+
+	// Checkbox booleani (SEO, Generali & Sicurezza)
 	$checkboxes = [
 		'vh_seo_enable_native',
 		'vh_seo_schema_enable',
@@ -1042,6 +1050,11 @@ function vh_seo_settings_save() {
 		'vh_seo_sitemap_enhance',
 		'vh_seo_robots_enhance',
 		'vh_seo_llms_txt_enable',
+		'vh_sec_form_shield',
+		'vh_sec_headers_enable',
+		'vh_sec_disable_xmlrpc',
+		'vh_sec_block_user_enum',
+		'vh_sec_hide_login_errors',
 	];
 	foreach ( $checkboxes as $chk ) {
 		update_option( $chk, isset( $_POST[ $chk ] ) && '1' === $_POST[ $chk ] ? '1' : '0' );
@@ -1064,11 +1077,21 @@ function vh_seo_settings_save() {
 		'vh_gen_meta_pixel',
 		'vh_seo_google_verify',
 		'vh_seo_bing_verify',
+		'vh_sec_turnstile_site',
+		'vh_sec_turnstile_secret',
 	];
 	foreach ( $text_fields as $tf ) {
 		if ( isset( $_POST[ $tf ] ) ) {
 			update_option( $tf, sanitize_text_field( wp_unslash( $_POST[ $tf ] ) ) );
 		}
+	}
+
+	// Campi numerici (Rate Limiting)
+	if ( isset( $_POST['vh_sec_rate_limit_max'] ) ) {
+		update_option( 'vh_sec_rate_limit_max', max( 1, min( 50, absint( $_POST['vh_sec_rate_limit_max'] ) ) ) );
+	}
+	if ( isset( $_POST['vh_sec_rate_limit_window'] ) ) {
+		update_option( 'vh_sec_rate_limit_window', max( 1, min( 120, absint( $_POST['vh_sec_rate_limit_window'] ) ) ) );
 	}
 
 	// Campi textarea
