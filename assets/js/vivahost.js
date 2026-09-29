@@ -296,23 +296,24 @@
     }
 
     function animateNum(el) {
-      var text = el.textContent.trim();
-      var num = parsePtBrNum(text);
-      if (isNaN(num)) return;
-      var isCurrency = text.indexOf('R$') !== -1;
-      var isPercent = text.indexOf('%') !== -1;
-      var hasDecimals = text.indexOf(',') !== -1;
-      var isStar = text.indexOf('★') !== -1;
-
-      // Strip suffix for clean number
-      var suffix = '';
-      if (text.indexOf('+') !== -1) suffix = '+';
-      else if (isStar) suffix = '';
-      else if (isPercent) suffix = '%';
-
       // Preserve inner star-yellow span if present
       var starSpan = el.querySelector('.star-yellow');
-      var starHtml = starSpan ? starSpan.outerHTML : (isStar ? '<span class="star-yellow">★</span>' : '');
+      var starHtml = starSpan ? ' ' + starSpan.outerHTML : '';
+
+      var clone = el.cloneNode(true);
+      var cloneStar = clone.querySelector('.star-yellow');
+      if (cloneStar) cloneStar.remove();
+      var text = clone.textContent.replace(/\s+/g, ' ').trim();
+
+      var match = text.match(/^([^0-9]*?)([0-9][0-9.,]*)(.*)$/);
+      if (!match) return;
+      var prefix = match[1] || '';
+      var numStr = match[2] || '';
+      var suffix = match[3] || '';
+
+      var num = parsePtBrNum(numStr);
+      if (isNaN(num)) return;
+      var hasDecimals = numStr.indexOf(',') !== -1;
 
       var duration = 1500;
       var start = performance.now();
@@ -322,17 +323,15 @@
         var eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
         var current = num * eased;
         var display;
-        if (isCurrency) {
-          display = 'R$ ' + Math.round(current).toLocaleString('pt-BR');
-        } else if (hasDecimals && !isCurrency) {
+        if (hasDecimals) {
           display = current.toFixed(2).replace('.', ',');
         } else {
           display = Math.round(current).toLocaleString('pt-BR');
         }
         if (starHtml) {
-          el.innerHTML = display + suffix + starHtml;
+          el.innerHTML = prefix + display + suffix + starHtml;
         } else {
-          el.textContent = display + suffix;
+          el.textContent = prefix + display + suffix;
         }
         if (progress < 1) requestAnimationFrame(step);
       }
