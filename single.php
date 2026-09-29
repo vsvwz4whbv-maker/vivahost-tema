@@ -99,13 +99,13 @@ while ( have_posts() ) :
         <span class="text-neutral font-medium truncate max-w-[200px] sm:max-w-none"><?php the_title(); ?></span>
       </nav>
 
-      <div class="flex items-center gap-3 mb-4">
-        <span class="badge badge-ghost text-xs font-semibold py-2.5 px-3 border border-base-300 bg-base-200/80 text-base-content/80"><?php echo esc_html( $cat_name ); ?></span>
-        <span class="text-xs text-base-content/60 font-medium flex items-center gap-1">
+      <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-4">
+        <span class="badge badge-ghost h-auto whitespace-nowrap text-xs font-semibold py-1.5 px-3 border border-base-300 bg-base-200/80 text-base-content/80"><?php echo esc_html( $cat_name ); ?></span>
+        <span class="text-xs text-base-content/60 font-medium flex items-center gap-1 whitespace-nowrap">
           <svg viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
           <?php echo esc_html( $read_time ); ?> min de leitura
         </span>
-        <span class="text-xs text-base-content/60 font-medium">· <?php echo esc_html( get_the_date( 'd \d\e F, Y' ) ); ?></span>
+        <span class="text-xs text-base-content/60 font-medium whitespace-nowrap">· <?php echo esc_html( get_the_date( 'd \d\e F, Y' ) ); ?></span>
       </div>
 
       <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral tracking-tight leading-tight mb-6">

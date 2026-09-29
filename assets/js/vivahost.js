@@ -26,6 +26,7 @@
 
     function open() {
       nav.classList.add('open');
+      document.body.classList.add('menu-open');
       nav.setAttribute('aria-hidden', 'false');
       toggle.setAttribute('aria-expanded', 'true');
       toggle.setAttribute('aria-label', 'Fechar menu');
@@ -35,6 +36,7 @@
     }
     function close() {
       nav.classList.remove('open');
+      document.body.classList.remove('menu-open');
       nav.setAttribute('aria-hidden', 'true');
       toggle.setAttribute('aria-expanded', 'false');
       toggle.setAttribute('aria-label', 'Abrir menu');

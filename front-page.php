@@ -122,7 +122,7 @@ get_template_part( 'template-parts/header-site' );
        STATS BAR
   ════════════════════════════════════════ -->
   <section class="vh-stats relative z-30 -mt-12 sm:-mt-14 px-4 max-w-6xl mx-auto" aria-label="Números">
-    <div class="stats-inner stats shadow-xl bg-white border border-base-200 rounded-3xl w-full grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-base-200">
+    <div class="stats-inner shadow-xl bg-white border border-base-200 rounded-3xl w-full grid grid-cols-2 md:grid-cols-4 overflow-hidden">
       <?php
       $stat_fallbacks = [
         [ '+30%',   'Faturamento vs tradicional' ],
@@ -132,22 +132,22 @@ get_template_part( 'template-parts/header-site' );
       ];
       for ( $i = 1; $i <= 4; $i++ ) :
       ?>
-        <div class="stat place-items-center text-center p-6 anim-fade">
+        <div class="stat vh-stat-cell flex flex-col items-center justify-center text-center p-4 sm:p-6 anim-fade">
           <?php if ( $i === 3 ) : ?>
-            <div class="stat-value text-2xl sm:text-3xl lg:text-4xl font-extrabold text-neutral tracking-tight">
+            <div class="stat-value text-2xl sm:text-3xl lg:text-4xl font-extrabold text-neutral tracking-tight leading-tight">
               <span class="stat-num inline-flex items-center gap-1" data-vh="stat_<?php echo $i; ?>_num">
                 <?php echo esc_html( str_replace( '★', '', vh_mod( "stat_{$i}_num", $stat_fallbacks[$i-1][0] ) ) ); ?>
                 <span class="star-yellow text-amber-400">★</span>
               </span>
             </div>
           <?php else : ?>
-            <div class="stat-value text-2xl sm:text-3xl lg:text-4xl font-extrabold text-neutral tracking-tight">
+            <div class="stat-value text-2xl sm:text-3xl lg:text-4xl font-extrabold text-neutral tracking-tight leading-tight">
               <span class="stat-num" data-vh="stat_<?php echo $i; ?>_num">
                 <?php echo esc_html( vh_mod( "stat_{$i}_num", $stat_fallbacks[$i-1][0] ) ); ?>
               </span>
             </div>
           <?php endif; ?>
-          <div class="stat-title text-xs sm:text-sm font-medium text-base-content/70 mt-1 whitespace-normal">
+          <div class="stat-title text-xs sm:text-sm font-medium text-base-content/70 mt-1 whitespace-normal leading-snug">
             <span class="stat-label" data-vh="stat_<?php echo $i; ?>_label">
               <?php echo esc_html( vh_mod( "stat_{$i}_label", $stat_fallbacks[$i-1][1] ) ); ?>
             </span>
@@ -1160,9 +1160,9 @@ get_template_part( 'template-parts/header-site' );
 
 <?php if ( '0' !== get_option( 'vh_gen_cookie_bar', '1' ) ) : ?>
 <!-- ═══ Cookie Consent Minimal ═══ -->
-<div id="vh-cookie-bar" class="vh-cookie-bar fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-50 alert bg-white/95 backdrop-blur-xl border border-base-200 shadow-2xl rounded-2xl p-4 flex-row items-center justify-between gap-4" role="dialog" aria-label="Aviso de cookies" style="display:none">
-  <p class="text-xs text-neutral m-0">Usamos cookies essenciais para o funcionamento do site. Ao continuar, você aceita o uso de cookies.</p>
-  <div class="vh-cookie-actions flex items-center gap-3 flex-shrink-0">
+<div id="vh-cookie-bar" class="vh-cookie-bar fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-50 bg-white/95 backdrop-blur-xl border border-base-200 shadow-2xl rounded-2xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4" role="dialog" aria-label="Aviso de cookies" style="display:none">
+  <p class="text-xs text-neutral m-0 leading-relaxed">Usamos cookies essenciais para o funcionamento do site. Ao continuar, você aceita o uso de cookies.</p>
+  <div class="vh-cookie-actions flex items-center justify-end gap-3 w-full sm:w-auto flex-shrink-0">
     <a href="<?php echo esc_url( home_url( '/privacidade/' ) ); ?>" class="text-xs font-semibold text-base-content/70 hover:text-neutral underline">Saiba mais</a>
     <button id="vh-cookie-accept" class="btn btn-primary btn-sm rounded-lg text-white font-bold px-4">Aceitar</button>
   </div>

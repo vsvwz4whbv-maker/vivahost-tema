@@ -58,8 +58,9 @@ body.vivahost-landing .elementor-section-wrap { margin-top: 0 !important; }
 .vivahost-header {
   transition: background .3s ease, box-shadow .3s ease;
 }
-.vivahost-header.scrolled {
-  background: rgba(255, 255, 255, 0.95) !important;
+.vivahost-header.scrolled,
+body.menu-open .vivahost-header {
+  background: rgba(255, 255, 255, 0.96) !important;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
@@ -69,8 +70,9 @@ body.vivahost-landing .elementor-section-wrap { margin-top: 0 !important; }
 }
 .brand-logo:hover { opacity: .88; }
 .vivahost-header:not(.scrolled) .brand-logo { filter: none; }
-.vivahost-header.scrolled .brand-logo {
-  filter: brightness(0) saturate(100%) invert(34%) sepia(98%) saturate(3420%) hue-rotate(341deg) brightness(96%) contrast(101%);
+.vivahost-header.scrolled .brand-logo,
+body.menu-open .vivahost-header .brand-logo {
+  filter: brightness(0) saturate(100%) invert(34%) sepia(98%) saturate(3420%) hue-rotate(341deg) brightness(96%) contrast(101%) !important;
 }
 .vivahost-header:not(.scrolled) .vivahost-nav a {
   color: rgba(255, 255, 255, 0.9) !important;
@@ -88,8 +90,13 @@ body.vivahost-landing .elementor-section-wrap { margin-top: 0 !important; }
 .vivahost-header:not(.scrolled) .vivahost-nav-toggle {
   color: #fff !important;
 }
-.vivahost-header.scrolled .vivahost-nav-toggle {
+.vivahost-header.scrolled .vivahost-nav-toggle,
+body.menu-open .vivahost-header .vivahost-nav-toggle {
   color: var(--dark) !important;
+}
+body.menu-open .vivahost-header .header-cta {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* ── Inner Pages & Blog: Always solid header with dark items and coral logo ── */
@@ -129,6 +136,47 @@ body:not(.home) .vivahost-header .vivahost-nav-toggle,
   pointer-events: auto !important;
 }
 
+/* ── 3b. STATS BAR RESPONSIVE GRID (2x2 MOBILE / 4x1 DESKTOP) ─────────────── */
+.stats-inner {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  grid-auto-flow: row !important;
+}
+.stats-inner > .vh-stat-cell {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  border-color: var(--border, #EBEBEB) !important;
+  border-style: solid !important;
+  border-width: 0 !important;
+}
+/* Mobile 2x2 dividers */
+@media (max-width: 767px) {
+  .stats-inner > .vh-stat-cell:nth-child(1) { border-right-width: 1px !important; border-bottom-width: 1px !important; }
+  .stats-inner > .vh-stat-cell:nth-child(2) { border-bottom-width: 1px !important; }
+  .stats-inner > .vh-stat-cell:nth-child(3) { border-right-width: 1px !important; }
+}
+/* Desktop 4x1 dividers */
+@media (min-width: 768px) {
+  .stats-inner {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+  .stats-inner > .vh-stat-cell + .vh-stat-cell {
+    border-left-width: 1px !important;
+  }
+}
+
+/* Badges responsive safety on narrow mobile screens */
+.eyebrow.badge,
+.hero-eyebrow.badge {
+  height: auto !important;
+  white-space: normal !important;
+  text-align: center;
+}
+
 /* ── 4. FLOATING ELEMENTS & UTILITIES ──────────────────────────────────────── */
 /* WhatsApp Floating FAB (Disabilitato) */
 .vivahost-wa-float {
@@ -149,7 +197,13 @@ body:not(.home) .vivahost-header .vivahost-nav-toggle,
   transform: translateY(0) !important;
 }
 @media (max-width: 768px) {
-  .vh-back-to-top { bottom: 82px; right: 16px; }
+  .vh-back-to-top {
+    bottom: 20px;
+    right: 16px;
+    width: 44px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+  }
 }
 
 /* ── 5. SCROLL ANIMATIONS (IntersectionObserver) ───────────────────────────── */
