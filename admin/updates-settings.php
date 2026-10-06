@@ -46,6 +46,66 @@ if ( ! empty( $release ) && 'none' !== $release && ! empty( $release->tag_name )
 	$remote_ver = ltrim( $release->tag_name, 'v' );
 	$has_update = version_compare( $remote_ver, $current_ver, '>' );
 }
+
+$updated_flag = isset( $_GET['updated'] ) && $_GET['updated'] === '1';
+$update_error = '';
+
+if ( isset( $_POST['vh_direct_update'] ) && check_admin_referer( 'vh_updates_save', 'vh_updates_nonce' ) ) {
+	require_once ABSPATH . 'wp-admin/includes/file.php';
+	$package_url = '';
+	if ( ! empty( $release ) && is_object( $release ) ) {
+		if ( ! empty( $release->assets ) && is_array( $release->assets ) ) {
+			foreach ( $release->assets as $asset ) {
+				if ( isset( $asset->name ) && substr( $asset->name, -4 ) === '.zip' ) {
+					$package_url = $asset->browser_download_url;
+					break;
+				}
+			}
+		}
+		if ( empty( $package_url ) && ! empty( $release->zipball_url ) ) {
+			$package_url = $release->zipball_url;
+		}
+	}
+
+	if ( $package_url ) {
+		WP_Filesystem();
+		global $wp_filesystem;
+		$tmp_file = download_url( $package_url, 300 );
+		if ( is_wp_error( $tmp_file ) ) {
+			$update_error = 'Erro ao baixar o pacote de atualização: ' . $tmp_file->get_error_message();
+		} else {
+			$theme_dir  = trailingslashit( get_stylesheet_directory() );
+			$temp_unzip = trailingslashit( $wp_filesystem->wp_content_dir() ) . 'upgrade/vh-update-' . time() . '/';
+			$wp_filesystem->mkdir( $temp_unzip, FS_CHMOD_DIR );
+			$unzip_res  = unzip_file( $tmp_file, $temp_unzip );
+			@unlink( $tmp_file );
+
+			if ( is_wp_error( $unzip_res ) ) {
+				$update_error = 'Erro ao descompactar a atualização: ' . $unzip_res->get_error_message();
+			} else {
+				$files     = $wp_filesystem->dirlist( $temp_unzip );
+				$extracted = $temp_unzip;
+				if ( 1 === count( $files ) ) {
+					$first = reset( $files );
+					if ( 'd' === $first['type'] ) {
+						$extracted = trailingslashit( $temp_unzip ) . $first['name'] . '/';
+					}
+				}
+				$copy_res = copy_dir( $extracted, $theme_dir );
+				$wp_filesystem->delete( $temp_unzip, true );
+				if ( is_wp_error( $copy_res ) ) {
+					$update_error = 'Erro ao instalar arquivos: ' . $copy_res->get_error_message();
+				} else {
+					delete_transient( 'vh_gh_update_check' );
+					delete_site_transient( 'update_themes' );
+					wp_clean_themes_cache();
+					wp_safe_redirect( admin_url( 'admin.php?page=vivahost-updates&updated=1' ) );
+					exit;
+				}
+			}
+		}
+	}
+}
 ?>
 <style>
 .vh-up-wrap { max-width: 980px; padding: 20px 0 60px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; }
@@ -97,6 +157,18 @@ if ( ! empty( $release ) && 'none' !== $release && ! empty( $release->tag_name )
     </div>
   <?php endif; ?>
 
+  <?php if ( $updated_flag ) : ?>
+    <div class="vh-notice vh-notice--ok">
+      ✓ Parabéns! O tema VivaHost foi atualizado com sucesso para a versão <strong>v<?php echo esc_html( $current_ver ); ?></strong>!
+    </div>
+  <?php endif; ?>
+
+  <?php if ( ! empty( $update_error ) ) : ?>
+    <div class="vh-notice vh-notice--warn">
+      ⚠ <?php echo esc_html( $update_error ); ?>
+    </div>
+  <?php endif; ?>
+
   <!-- STATUS DO TEMA -->
   <div class="vh-up-card">
     <h2>Status da Versão Instalada</h2>
@@ -117,14 +189,17 @@ if ( ! empty( $release ) && 'none' !== $release && ! empty( $release->tag_name )
     </div>
 
     <?php if ( $has_update ) : ?>
-      <div class="vh-notice vh-notice--warn" style="margin-top:16px;margin-bottom:0">
+      <div class="vh-notice vh-notice--warn" style="margin-top:16px;margin-bottom:0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
         <div>
-          <strong>Nova versão v<?php echo esc_html( $remote_ver ); ?> encontrada no GitHub!</strong><br>
-          Você pode atualizar com 1 clique em <a href="<?php echo esc_url( admin_url( 'themes.php' ) ); ?>" style="font-weight:700;color:#92400e;text-decoration:underline">Aparência → Temas</a>.
+          <strong style="font-size:14px">Nova versão v<?php echo esc_html( $remote_ver ); ?> disponível no GitHub!</strong><br>
+          <span style="font-size:13px">Atualize os arquivos do tema com 1 clique direto e seguro sem passar por intermediários.</span>
         </div>
-        <a href="<?php echo esc_url( admin_url( 'themes.php' ) ); ?>" class="vh-btn vh-btn-primary" style="margin-left:auto;white-space:nowrap">
-          Atualizar Tema →
-        </a>
+        <form method="post" action="<?php echo esc_url( admin_url( 'admin.php?page=vivahost-updates' ) ); ?>" style="margin:0">
+          <?php wp_nonce_field( 'vh_updates_save', 'vh_updates_nonce' ); ?>
+          <button type="submit" name="vh_direct_update" value="1" class="vh-btn vh-btn-primary" style="white-space:nowrap;font-size:14px;padding:12px 26px">
+            Atualizar Agora (1 Clique) ⚡
+          </button>
+        </form>
       </div>
     <?php endif; ?>
   </div>

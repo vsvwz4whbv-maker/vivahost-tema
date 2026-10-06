@@ -971,6 +971,15 @@ function vh_github_check_theme_update( $transient ) {
 	return $transient;
 }
 
+// Disabilita il rollback temporaneo per vivahost-tema (previene l'errore upgrade-temp-backup su hosting con permessi restrittivi)
+add_filter( 'upgrader_package_options', 'vh_disable_temp_backup', 10, 1 );
+function vh_disable_temp_backup( $options ) {
+	if ( isset( $options['hook_extra']['theme'] ) && 'vivahost-tema' === $options['hook_extra']['theme'] ) {
+		unset( $options['hook_extra']['temp_backup'] );
+	}
+	return $options;
+}
+
 // Assicura che la directory estratta dallo zip GitHub sia sempre vivahost-tema
 add_filter( 'upgrader_source_selection', 'vh_github_fix_theme_dir', 10, 4 );
 function vh_github_fix_theme_dir( $source, $remote_source, $upgrader, $hook_extra = [] ) {
