@@ -43,15 +43,15 @@ function vh_seo_defaults() {
 		// Tab 1: SEO Globale & Homepage
 		'vh_seo_enable_native'   => '1',
 		'vh_seo_title_sep'       => '—',
-		'vh_seo_home_title'      => 'VivaHost — Gestão Profissional de Aluguel por Temporada e Airbnb em Salvador, BA',
-		'vh_seo_home_desc'       => 'Especialista em administração de imóveis por temporada e Airbnb em Salvador, Bahia. Precificação dinâmica, limpeza padrão hoteleiro e suporte 24h com Superhost.',
-		'vh_seo_home_keywords'   => 'gestão airbnb salvador, administração de imóveis por temporada salvador, aluguel por temporada salvador bahia, superhost airbnb salvador, vivahost',
+		'vh_seo_home_title'      => 'VivaHost — Operação de Hospedagens e Aluguel por Temporada em Salvador, BA',
+		'vh_seo_home_desc'       => 'Operação completa de hospedagens e aluguel por temporada em Salvador, BA. Hospitalidade, precificação inteligente, governança com padrão de hotelaria e tranquilidade para o proprietário.',
+		'vh_seo_home_keywords'   => 'aluguel por temporada salvador, operação de hospedagem salvador, airbnb salvador bahia, superhost salvador, hospitalidade salvador, vivahost',
 		'vh_seo_og_image'        => '',
 		'vh_seo_robots_default'  => 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
 
 		// Tab 2: Local SEO & Schema.org
 		'vh_seo_schema_enable'   => '1',
-		'vh_seo_schema_type'     => 'RealEstateAgent',
+		'vh_seo_schema_type'     => 'LodgingBusiness',
 		'vh_seo_geo_lat'         => '-12.9818',
 		'vh_seo_geo_lng'         => '-38.4552',
 		'vh_seo_geo_region'      => 'BR-BA',
@@ -296,7 +296,7 @@ function vh_get_current_seo_data() {
 			if ( ! empty( $cats ) && ! in_array( $cats[0]->name, [ 'Uncategorized', 'Sem categoria' ], true ) ) {
 				$data['section'] = $cats[0]->name;
 			} else {
-				$data['section'] = 'Mercado Imobiliário & Temporada';
+				$data['section'] = 'Hospedagem & Aluguel por Temporada';
 			}
 		}
 
@@ -306,7 +306,7 @@ function vh_get_current_seo_data() {
 	} elseif ( is_home() ) {
 		$blog_page_id      = (int) get_option( 'page_for_posts' );
 		$data['canonical'] = $blog_page_id ? get_permalink( $blog_page_id ) : home_url( '/blog/' );
-		$data['description'] = 'Guias práticos, legislação e análises de rentabilidade sobre aluguel por temporada e gestão Airbnb em Salvador, Bahia.';
+		$data['description'] = 'Guias práticos, boas práticas condominiais e análises de rentabilidade sobre aluguel por temporada e hospitalidade em Salvador, Bahia.';
 	} elseif ( is_archive() ) {
 		$term = get_queried_object();
 		if ( $term && ! is_wp_error( $term ) && isset( $term->term_id ) ) {
@@ -550,7 +550,7 @@ function vh_build_schema_graph( $seo ) {
 			'@type'       => 'Person',
 			'@id'         => $home_url . '#marcia',
 			'name'        => $host_name,
-			'jobTitle'    => 'Gestora Operacional VivaHost & Superhost Airbnb',
+			'jobTitle'    => 'Anfitriã VivaHost & Superhost Airbnb',
 			'image'       => $host_photo_url,
 			'worksFor'    => [ '@id' => $home_url . '#organization' ],
 			'sameAs'      => array_values( array_filter( [ $airbnb, $instagram ] ) ),
@@ -617,45 +617,45 @@ function vh_build_schema_graph( $seo ) {
 		$graph[] = [
 			'@type'       => 'Service',
 			'@id'         => $home_url . '#service',
-			'name'        => 'Gestão Completa de Aluguel por Temporada e Airbnb em Salvador',
-			'serviceType' => 'Administração de Imóveis por Temporada',
+			'name'        => 'Operação Completa de Hospedagens e Aluguel por Temporada em Salvador',
+			'serviceType' => 'Operação e Hospitalidade para Aluguel por Temporada',
 			'provider'    => [ '@id' => $home_url . '#organization' ],
 			'areaServed'  => [
 				'@type' => 'City',
 				'name'  => 'Salvador',
 			],
-			'description' => 'Gestão 360° de imóveis no Airbnb e Booking em Salvador: fotografia profissional, precificação dinâmica, check-in/out, limpeza hoteleira, manutenção e repasse mensal.',
+			'description' => 'Operação de hospedagens no Airbnb e Booking em Salvador: fotografia profissional, precificação inteligente, suporte ao hóspede, higienização com padrão de hotelaria e relatórios transparentes.',
 			'offers'      => [
 				'@type'         => 'Offer',
 				'priceCurrency' => 'BRL',
-				'description'   => 'Comissão a partir de ' . $comm_rate . ' apenas sobre as reservas confirmadas. Sem taxa de adesão ou fidelidade.',
+				'description'   => 'Taxa de serviço a partir de ' . $comm_rate . ' apenas sobre as reservas confirmadas. Sem taxa de adesão ou fidelidade.',
 			],
 		];
 
 		$faqs = [
 			[
-				'Quanto custa o serviço de gestão?',
-				'Nossa comissão é a partir de ' . $comm_rate . ' sobre o valor do aluguel. Não cobramos taxa fixa, taxa de adesão nem multa por cancelamento. Você só paga quando seu imóvel aluga.',
+				'Quanto custam os serviços de operação?',
+				'Nossa taxa de serviço é a partir de ' . $comm_rate . ' sobre o valor das reservas confirmadas. Não cobramos taxa de adesão, mensalidade fixa nem multa de fidelidade. Nossa remuneração está diretamente atrelada ao sucesso das suas estadias.',
 			],
 			[
-				'Preciso ter um imóvel já mobiliado?',
-				'Sim, o imóvel precisa estar mobiliado e equipado. Mas não se preocupe — ajudamos com orientações sobre o que é essencial para começar a receber hóspedes com sucesso.',
+				'O imóvel precisa estar mobiliado e equipado?',
+				'Sim, a acomodação deve estar mobiliada e preparada para estadias de curta temporada. Orientamos detalhadamente sobre utensílios, roupas de cama e itens indispensáveis para garantir avaliações 5 estrelas.',
 			],
 			[
-				'Quanto tempo leva para meu imóvel começar a gerar receita?',
-				'Em média 7 dias após a vistoria inicial. Fazemos fotografia profissional, otimizamos o anúncio e ajustamos a precificação antes de publicar.',
+				'Quanto tempo leva para iniciar as reservas?',
+				'Em média 7 dias após a visita técnica e alinhamento inicial. Realizamos as fotografias profissionais, configuramos os anúncios e calibramos a estratégia de preços antes de abrir o calendário.',
 			],
 			[
-				'Como recebo os pagamentos?',
-				'O repasse é feito mensalmente, por transferência bancária, após o check-out dos hóspedes. Você recebe um relatório detalhado com todas as movimentações.',
+				'Como ocorrem os repasses e a prestação de contas?',
+				'O repasse é realizado mensalmente, acompanhado de um relatório detalhado com todas as reservas do período, diárias médias, ocupação e avaliações recebidas.',
 			],
 			[
-				'Posso cancelar quando quiser?',
-				'Sim, sem multa nem fidelidade. Você pode cancelar a qualquer momento, sem burocracia. Devolvemos o imóvel no mesmo estado que recebemos.',
+				'Existe período mínimo de contrato ou fidelidade?',
+				'Não há fidelidade nem multas rescisórias. Prezamos pela parceria e transparência: você pode interromper os serviços operacionais a qualquer momento com prévio aviso.',
 			],
 			[
-				'O que acontece se meu imóvel ficar vago?',
-				'Trabalhamos com precificação dinâmica para maximizar a ocupação. Mesmo assim, períodos de baixa são normais no turismo — ajustamos a estratégia conforme a sazonalidade.',
+				'Como é tratada a sazonalidade e períodos com menor fluxo?',
+				'Utilizamos estratégias de precificação dinâmica para estimular reservas mesmo em períodos de menor demanda turística, equilibrando taxa de ocupação e receita líquida ao longo do ano.',
 			],
 		];
 
@@ -983,21 +983,21 @@ function vh_handle_llms_txt_request() {
 	$rev_count = vh_mod( 'reviews_count', '469' );
 	$areas     = vh_seo_opt( 'vh_seo_area_served', $defaults['vh_seo_area_served'] );
 
-	echo "# {$site_name} — Gestão Profissional de Imóveis por Temporada e Airbnb em Salvador, Bahia\n\n";
-	echo "> A {$site_name} ({$razao}, CNPJ {$cnpj}) é especialista na administração completa (360°) de apartamentos, studios e casas para aluguel por temporada no Airbnb e Booking em Salvador, Bahia, Brasil.\n\n";
+	echo "# {$site_name} — Operação Profissional de Hospedagens e Aluguel por Temporada em Salvador, Bahia\n\n";
+	echo "> A {$site_name} ({$razao}, CNPJ {$cnpj}) é especializada na operação de hospedagens, hospitalidade e aluguel por temporada para acomodações anunciadas no Airbnb e Booking em Salvador, Bahia, Brasil.\n\n";
 	echo "## Principais Indicadores e Credenciais\n";
-	echo "- **Gestora Responsável:** {$host_name} (Superhost no Airbnb desde 2017 — 9 anos de experiência)\n";
+	echo "- **Anfitriã e Gestora Operacional:** {$host_name} (Superhost no Airbnb há 9 anos consecutivos)\n";
 	echo "- **Avaliação Média dos Hóspedes:** {$score} / 5.0 estrelas ({$rev_count}+ avaliações verificadas)\n";
-	echo "- **Taxa Média de Ocupação:** 85% ao ano em Salvador\n";
-	echo "- **Aumento Médio de Receita:** +30% de faturamento líquido frente ao aluguel tradicional\n";
-	echo "- **Modelo Comercial:** Comissão a partir de {$comm_rate} sobre o valor das reservas confirmadas. Sem taxa fixa, sem taxa de adesão e sem multa de fidelidade.\n\n";
-	echo "## Serviços Inclusos na Gestão 360°\n";
-	echo "1. **Diagnóstico e Consultoria de Imóvel:** Vistoria técnica em Salvador e projeção de rentabilidade gratuita.\n";
-	echo "2. **Fotografia Profissional e Anúncio Otimizado:** Produção visual e copywriting para destaque algorítmico no Airbnb.\n";
-	echo "3. **Precificação Dinâmica Diária:** Ajuste de tarifas conforme sazonalidade de Salvador (Verão, Carnaval, São João, Congressos e Turismo Corporativo).\n";
-	echo "4. **Atendimento e Suporte 24h aos Hóspedes:** Triagem de perfil, check-in/check-out e comunicação imediata.\n";
-	echo "5. **Governança Padrão Hoteleiro e Manutenção:** Equipe própria de limpeza, lavanderia de enxoval, reposição de insumos e reparos preventivos (elétrica, hidráulica, ar-condicionado).\n";
-	echo "6. **Gestão Financeira e Repasse Mensal:** Extrato transparente e transferência bancária pontual ao proprietário.\n\n";
+	echo "- **Taxa Média de Ocupação Observada:** 85% ao ano em Salvador\n";
+	echo "- **Média Histórica Observada:** +30% de rentabilidade frente ao formato residencial tradicional\n";
+	echo "- **Modelo Comercial:** Taxa de serviço operacional a partir de {$comm_rate} sobre as reservas confirmadas. Sem taxa de adesão, sem mensalidade fixa e sem multa de fidelidade.\n\n";
+	echo "## Serviços de Operação e Hospitalidade\n";
+	echo "1. **Alinhamento e Avaliação Inicial:** Visita presencial em Salvador e projeção de potencial de faturamento sem compromisso.\n";
+	echo "2. **Fotografia Profissional e Otimização de Anúncios:** Produção visual com enquadramentos acolhedores e descrições orientadas à experiência do hóspede.\n";
+	echo "3. **Precificação Inteligente e Dinâmica:** Ajuste estratégico de diárias acompanhando a sazonalidade e demanda de Salvador.\n";
+	echo "4. **Hospitalidade e Atendimento Ágil:** Comunicação acolhedora e suporte 24h para hóspedes, com regras claras e triagem cuidadosa.\n";
+	echo "5. **Governança Padrão Hoteleiro e Higienização:** Protocolo rigoroso de limpeza, gestão de enxoval e vistorias detalhadas a cada check-out.\n";
+	echo "6. **Acompanhamento Presencial e Relatórios Mensais:** Apoio com prestadores locais para manutenção preventiva e prestação de contas mensal com extrato transparente.\n\n";
 	echo "## Bairros Atendidos em Salvador (Bahia)\n";
 	echo "{$areas}\n\n";
 	echo "## Guias e Artigos Publicados (Blog VivaHost)\n";

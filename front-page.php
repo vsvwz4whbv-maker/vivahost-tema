@@ -98,18 +98,18 @@ get_template_part( 'template-parts/header-site' );
     <div class="vh-hero__content inner relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
       <div class="inline-block mb-5">
         <span class="hero-eyebrow badge badge-lg border-white/30 bg-black/25 text-white font-medium tracking-wide backdrop-blur-md px-5 py-3 rounded-full text-xs sm:text-sm shadow-sm" data-vh="hero_eyebrow">
-          <?php echo esc_html( vh_mod( 'hero_eyebrow', 'Gestão de Temporada — Salvador, BA' ) ); ?>
+          <?php echo esc_html( vh_mod( 'hero_eyebrow', 'Operação de Hospedagem & Hospitalidade — Salvador, BA' ) ); ?>
         </span>
       </div>
       <h1 class="hero-title text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight max-w-4xl mx-auto mb-6 drop-shadow-lg" data-vh="hero_title">
-        <?php echo esc_html( vh_mod( 'hero_title', 'Rentabilidade máxima no Airbnb em Salvador — com tranquilidade total' ) ); ?>
+        <?php echo esc_html( vh_mod( 'hero_title', 'Alta performance e hospitalidade no Airbnb em Salvador — com tranquilidade para você' ) ); ?>
       </h1>
       <p class="hero-sub text-base sm:text-lg lg:text-xl text-white/95 max-w-2xl mx-auto leading-relaxed mb-10 font-normal drop-shadow" data-vh="hero_subtitle">
-        <?php echo esc_html( vh_mod( 'hero_subtitle', 'Administramos seu imóvel de temporada do início ao fim: precificação inteligente, anúncios em alta e cuidado presencial em Salvador. Você só acompanha os rendimentos na conta.' ) ); ?>
+        <?php echo esc_html( vh_mod( 'hero_subtitle', 'A VivaHost cuida da operação da sua hospedagem em Salvador de ponta a ponta: dos anúncios e reservas ao atendimento, limpeza e acompanhamento presencial. Você acompanha os resultados com total transparência.' ) ); ?>
       </p>
       <div class="hero-actions flex flex-col sm:flex-row items-center justify-center gap-4">
         <a href="<?php echo esc_url( vh_mod( 'hero_btn1_link', '#contato' ) ); ?>" class="btn btn-primary btn-brand-coral btn-lg rounded-full px-8 text-white font-bold shadow-xl hover:shadow-2xl hover:scale-105 transition-all w-full sm:w-auto" data-vh="hero_btn1_text">
-          <?php echo esc_html( vh_mod( 'hero_btn1_text', 'Avaliar meu imóvel' ) ); ?>
+          <?php echo esc_html( vh_mod( 'hero_btn1_text', 'Avaliar minha hospedagem' ) ); ?>
         </a>
         <a href="<?php echo esc_url( vh_mod( 'hero_btn2_link', '#como-funciona' ) ); ?>" class="btn btn-hero-secondary btn-lg rounded-full px-8 font-bold hover:scale-105 transition-all w-full sm:w-auto" data-vh="hero_btn2_text">
           <?php echo esc_html( vh_mod( 'hero_btn2_text', 'Como funciona' ) ); ?>
@@ -125,7 +125,7 @@ get_template_part( 'template-parts/header-site' );
     <div class="stats-inner shadow-xl bg-white border border-base-200 rounded-3xl w-full grid grid-cols-2 md:grid-cols-4 overflow-hidden">
       <?php
       $stat_fallbacks = [
-        [ '+30%',   'Faturamento vs tradicional' ],
+        [ '+30%',   'Média de faturamento vs tradicional' ],
         [ '85%',    'Taxa média de ocupação' ],
         [ '4,88 ★', 'Avaliação dos hóspedes' ],
         [ '9 anos', 'Superhost em Salvador' ],
@@ -169,22 +169,22 @@ get_template_part( 'template-parts/header-site' );
         <div class="process-intro lg:col-span-5 anim-fade lg:sticky lg:top-28">
           <span class="eyebrow badge badge-ghost text-xs font-bold uppercase tracking-wider text-primary mb-3">Como funciona</span>
           <h2 class="section-title text-3xl sm:text-4xl font-extrabold text-neutral tracking-tight leading-tight mb-4" data-vh="process_title">
-            <?php echo esc_html( vh_mod( 'process_title', 'Como funciona a gestão do seu imóvel' ) ); ?>
+            <?php echo esc_html( vh_mod( 'process_title', 'Como funciona a operação da sua hospedagem' ) ); ?>
           </h2>
           <p class="text-base text-base-content/80 leading-relaxed mb-6" data-vh="process_intro">
-            <?php echo esc_html( vh_mod( 'process_intro', 'Do primeiro contato ao repasse dos lucros, assumimos toda a operação para você não se preocupar com nada.' ) ); ?>
+            <?php echo esc_html( vh_mod( 'process_intro', 'Do alinhamento inicial ao acolhimento dos hóspedes, cuidamos de toda a rotina operacional para proporcionar a melhor estadia com tranquilidade para você.' ) ); ?>
           </p>
           <div class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-base-200/80 text-xs sm:text-sm font-semibold text-neutral border border-base-200">
-            <span>⏱ Da vistoria ao anúncio ativo em até 7 dias</span>
+            <span>⏱ Da visita técnica inicial ao anúncio ativo em até 7 dias</span>
           </div>
         </div>
         <div class="process-steps lg:col-span-7 flex flex-col gap-5">
           <?php
           $step_defs = [
-            [ 'Diagnóstico gratuito', 'Avaliamos o perfil do seu imóvel e projetamos o faturamento real para a sua localização em Salvador.' ],
-            [ 'Produção e anúncio',   'Sessão fotográfica profissional e cadastro estratégico nos principais canais de locação por temporada.' ],
-            [ 'Operação 360°',        'Recepção de hóspedes, atendimento 24h e equipe dedicada para higienização e manutenção preventiva.' ],
-            [ 'Repasse e extrato',    'Depósito pontual dos rendimentos e prestação de contas transparente todo mês.' ],
+            [ 'Análise de potencial', 'Avaliamos o perfil da sua acomodação e projetamos o faturamento estimado com base no histórico da região em Salvador.' ],
+            [ 'Produção e posicionamento', 'Sessão fotográfica profissional e criação de anúncios atrativos nas principais plataformas de hospedagem.' ],
+            [ 'Operação e hospitalidade 360°', 'Check-in, suporte aos hóspedes, governança, higienização impecável e manutenção preventiva contínua.' ],
+            [ 'Relatórios e acompanhamento', 'Prestação de contas detalhada todo mês e acompanhamento transparente do desempenho da sua hospedagem.' ],
           ];
           for ( $i = 1; $i <= 4; $i++ ) :
           ?>
@@ -214,7 +214,7 @@ get_template_part( 'template-parts/header-site' );
       <div class="text-center mb-12 sm:mb-16">
         <span class="eyebrow badge badge-ghost text-xs font-bold uppercase tracking-wider text-primary mb-3">Por que escolher a VivaHost?</span>
         <h2 class="section-title text-3xl sm:text-4xl font-extrabold text-neutral tracking-tight" data-vh="compare_title">
-          <?php echo esc_html( vh_mod( 'compare_title', 'Alugar por conta própria vs Gestão VivaHost' ) ); ?>
+          <?php echo esc_html( vh_mod( 'compare_title', 'Hospedar por conta própria vs Operação VivaHost' ) ); ?>
         </h2>
       </div>
       <div class="compare-grid grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
@@ -229,9 +229,9 @@ get_template_part( 'template-parts/header-site' );
             <ul class="compare-card__list space-y-4">
               <?php
               $left_defs = [
-                'Você resolve tudo — reservas, hóspedes, check-in, problemas 24h',
-                'Preço baseado no chute — receita abaixo do potencial',
-                'Limpeza, roupa de cama, reposição — tudo por sua conta',
+                'Você resolve toda a rotina — mensagens, reservas, check-in e chamados 24h',
+                'Preço sem dados de mercado — receita e ocupação abaixo do potencial',
+                'Limpeza, enxoval, amenidades e reparos — tudo sob sua responsabilidade direta',
               ];
               for ( $i = 1; $i <= 3; $i++ ) :
               ?>
@@ -263,9 +263,9 @@ get_template_part( 'template-parts/header-site' );
             <ul class="compare-card__list space-y-4 mb-8">
               <?php
               $right_defs = [
-                'A gente resolve — você só recebe o aluguel e dorme tranquilo',
-                'Precificação dinâmica — ocupação máxima e +30% de receita',
-                'Equipe própria de limpeza e amenities — imóvel sempre pronto',
+                'Equipe local cuida de tudo — você acompanha os resultados da sua hospedagem com tranquilidade',
+                'Estratégia de preços dinâmica — busca por ocupação máxima e histórico de até +30% de receita',
+                'Higienização hoteleira e amenidades — acomodação sempre pronta e impecável para o próximo hóspede',
               ];
               for ( $i = 1; $i <= 3; $i++ ) :
               ?>
@@ -279,7 +279,7 @@ get_template_part( 'template-parts/header-site' );
             </ul>
           </div>
           <div class="compare-card__footer pt-2">
-            <a href="<?php echo esc_url( vh_wa_url( 'Olá Marcia! Vi a comparação no site e quero a gestão VivaHost no meu imóvel.' ) ); ?>" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block rounded-xl text-white font-bold shadow-md hover:shadow-lg compare-cta">Quero a VivaHost →</a>
+            <a href="<?php echo esc_url( vh_wa_url( 'Olá Marcia! Vi a comparação no site e quero a operação da VivaHost na minha hospedagem.' ) ); ?>" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-block rounded-xl text-white font-bold shadow-md hover:shadow-lg compare-cta">Quero a operação VivaHost →</a>
           </div>
         </div>
       </div>
@@ -299,14 +299,14 @@ get_template_part( 'template-parts/header-site' );
         <div class="max-w-2xl">
           <span class="eyebrow badge badge-ghost text-xs font-bold uppercase tracking-wider text-primary mb-3">Serviços incluídos</span>
           <h2 class="section-title text-3xl sm:text-4xl font-extrabold text-neutral tracking-tight" data-vh="services_title">
-            <?php echo esc_html( vh_mod( 'services_title', 'Serviços completos de gestão Airbnb em Salvador' ) ); ?>
+            <?php echo esc_html( vh_mod( 'services_title', 'Serviços completos de operação e hospitalidade em Salvador' ) ); ?>
           </h2>
         </div>
         <div class="services-intro-right max-w-md flex flex-col items-start md:items-end">
           <p class="text-sm sm:text-base text-base-content/80 leading-relaxed mb-4 md:text-right" data-vh="services_intro">
-            <?php echo esc_html( vh_mod( 'services_intro', 'Da foto profissional ao suporte 24h, somos a única administradora de imóveis que você vai precisar para sua hospedagem por temporada.' ) ); ?>
+            <?php echo esc_html( vh_mod( 'services_intro', 'Da produção fotográfica ao suporte presencial 24h, oferecemos toda a estrutura operacional e de hospitalidade para o sucesso da sua hospedagem por temporada.' ) ); ?>
           </p>
-          <a href="#contato" class="btn btn-outline btn-sm rounded-full px-6 font-semibold hover:bg-neutral hover:text-white transition-all">Conhecer os planos →</a>
+          <a href="#contato" class="btn btn-outline btn-sm rounded-full px-6 font-semibold hover:bg-neutral hover:text-white transition-all">Conhecer os serviços →</a>
         </div>
       </div>
       <div class="services-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -320,12 +320,12 @@ get_template_part( 'template-parts/header-site' );
           '<svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
         ];
         $svc_defs = [
-          [ 'Fotografia profissional',  'Ensaio fotográfico completo com equipamento profissional. Fotos que convertem visitas em reservas.' ],
-          [ 'Precificação dinâmica',    'Algoritmo que ajusta a diária em tempo real conforme demanda, sazonalidade e concorrência local.' ],
-          [ 'Check-in & Check-out',     'Recepção personalizada para cada hóspede, entrega de chaves e orientação completa sobre o imóvel.' ],
-          [ 'Limpeza & Amenidades',     'Equipe própria de limpeza, troca de roupas de cama e reposição de amenidades a cada estadia.' ],
-          [ 'Suporte 24 horas',         'Atendimento imediato para hóspedes e manutenção preventiva e corretiva em qualquer horário.' ],
-          [ 'Relatórios mensais',       'Dashboard com receita, ocupação e avaliações. Transferência automática todo mês.' ],
+          [ 'Fotografia profissional',       'Ensaio completo com produção visual dedicada. Imagens atraentes que valorizam os diferenciais da acomodação.' ],
+          [ 'Estratégia de preços dinâmica', 'Monitoramento contínuo de demanda, sazonalidade e concorrência local para otimizar o valor das diárias.' ],
+          [ 'Check-in & Check-out',          'Acolhimento atencioso para cada hóspede, instruções claras de acesso e suporte presencial na chegada.' ],
+          [ 'Governança & Higienização',     'Equipe dedicada de limpeza, troca de enxoval de qualidade e reposição de amenidades a cada reserva.' ],
+          [ 'Suporte e Acompanhamento 24h',  'Atendimento rápido aos hóspedes durante toda a estadia e suporte operacional para qualquer imprevisto.' ],
+          [ 'Relatórios de desempenho',      'Demonstrativo claro com ocupação, diárias e avaliações recebidas, com repasse mensal pontual.' ],
         ];
         for ( $i = 1; $i <= 6; $i++ ) :
         ?>
@@ -343,7 +343,7 @@ get_template_part( 'template-parts/header-site' );
         <?php endfor; ?>
       </div>
       <p class="services-commission text-center mt-10 text-sm text-base-content/70">
-        Comissão a partir de <strong class="text-neutral font-bold"><span data-vh="commission_rate"><?php echo esc_html( vh_mod( 'commission_rate', '20%' ) ); ?></span></strong> sobre o aluguel — sem taxa fixa, sem fidelidade.
+        Taxa a partir de <strong class="text-neutral font-bold"><span data-vh="commission_rate"><?php echo esc_html( vh_mod( 'commission_rate', '20%' ) ); ?></span></strong> sobre o valor das reservas pelos serviços operacionais — sem taxa de adesão, sem fidelidade.
       </p>
     </div>
   </section>
@@ -355,13 +355,13 @@ get_template_part( 'template-parts/header-site' );
     <div class="inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="imoveis-header anim-fade flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
         <div>
-          <span class="eyebrow badge badge-ghost text-xs font-bold uppercase tracking-wider text-primary mb-3">Imóveis em destaque</span>
+          <span class="eyebrow badge badge-ghost text-xs font-bold uppercase tracking-wider text-primary mb-3">Imóveis em operação</span>
           <h2 class="section-title text-3xl sm:text-4xl font-extrabold text-neutral tracking-tight" data-vh="imoveis_title">
-            <?php echo esc_html( vh_mod( 'imoveis_title', 'Conheça alguns dos imóveis que gerenciamos' ) ); ?>
+            <?php echo esc_html( vh_mod( 'imoveis_title', 'Conheça algumas das propriedades atendidas pela VivaHost' ) ); ?>
           </h2>
         </div>
         <p class="max-w-md text-sm sm:text-base text-base-content/80 leading-relaxed md:text-right" data-vh="imoveis_desc">
-          <?php echo esc_html( vh_mod( 'imoveis_desc', 'Cada propriedade é cuidada com o mesmo padrão — fotos profissionais, limpeza impecável e avaliações que falam por si.' ) ); ?>
+          <?php echo esc_html( vh_mod( 'imoveis_desc', 'Cada acomodação recebe o mesmo padrão de cuidado operacional — fotos de qualidade, limpeza rigorosa e experiência do hóspede comprovada em avaliações.' ) ); ?>
         </p>
       </div>
       <!-- Filter tabs -->
@@ -544,11 +544,11 @@ get_template_part( 'template-parts/header-site' );
   <?php
   $testimonial_photo_id  = (int) vh_mod( 'testimonial_photo', 0 );
   $testimonial_photo_url = $testimonial_photo_id ? wp_get_attachment_image_url( $testimonial_photo_id, 'thumbnail' ) : '';
-  $testimonial_sub       = vh_mod( 'testimonial_banner_sub', 'Depoimento de Proprietária' );
+  $testimonial_sub       = vh_mod( 'testimonial_banner_sub', 'Experiência de Proprietária' );
   ?>
   <section class="vh-testimonial-section py-16 md:py-20 bg-white border-b border-base-200/60 scroll-mt-20"
     id="depoimento"
-    aria-label="Depoimento de Proprietária"
+    aria-label="Experiência de Proprietária"
     itemscope itemtype="https://schema.org/Review">
     
     <meta itemprop="itemReviewed" content="VivaHost">
@@ -573,7 +573,7 @@ get_template_part( 'template-parts/header-site' );
 
       <!-- Editorial Minimal Quote -->
       <blockquote class="quote-text text-xl sm:text-2xl md:text-3xl font-medium text-neutral tracking-tight leading-relaxed mb-8" data-vh="testimonial_text" itemprop="reviewBody">
-        &ldquo;<?php echo esc_html( vh_mod( 'testimonial_text', 'Márcia e sua equipe cuidam do imóvel com dedicação, limpeza impecável e uma proatividade que poucas profissionais têm. Desde que confiei a gestão a ela, não tenho com o que me preocupar.' ) ); ?>&rdquo;
+        &ldquo;<?php echo esc_html( vh_mod( 'testimonial_text', 'Márcia e sua equipe cuidam da hospedagem com dedicação, limpeza impecável e uma proatividade exemplar. Desde que comecei a contar com a VivaHost para a operação da hospedagem, não tenho com o que me preocupar.' ) ); ?>&rdquo;
       </blockquote>
 
       <!-- Minimal Author Details -->
@@ -608,38 +608,38 @@ get_template_part( 'template-parts/header-site' );
     <div class="inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="host-wrap grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center anim-fade">
         <div class="host-text lg:col-span-7">
-          <span class="eyebrow badge badge-ghost text-xs font-bold uppercase tracking-wider text-primary mb-3">Presença Local & Confiança</span>
+          <span class="eyebrow badge badge-ghost text-xs font-bold uppercase tracking-wider text-primary mb-3">Presença Local & Hospitalidade</span>
           <h2 class="host-name text-3xl sm:text-4xl font-extrabold text-neutral tracking-tight mb-2" data-vh="host_name" itemprop="name">
             <?php echo esc_html( vh_mod( 'host_name', 'Marcia Sales' ) ); ?>
           </h2>
           <div class="host-subtitle text-sm sm:text-base font-semibold text-primary mb-5" data-vh="host_subtitle">
-            <?php echo esc_html( vh_mod( 'host_subtitle', 'Gestão Operacional VivaHost em Salvador' ) ); ?>
+            <?php echo esc_html( vh_mod( 'host_subtitle', 'Especialista em Hospitalidade & Operação de Hospedagens em Salvador' ) ); ?>
           </div>
           <p class="host-bio text-base text-base-content/80 leading-relaxed mb-6" data-vh="host_bio" itemprop="description">
-            <?php echo esc_html( vh_mod( 'host_bio', 'Ao contrário de plataformas impessoais, nossa gestão tem presença física diária em Salvador. Cuido de cada imóvel com equipe local de confiança, garantindo padrão de conservação e diálogo direto com você a qualquer momento.' ) ); ?>
+            <?php echo esc_html( vh_mod( 'host_bio', 'Com 9 anos de dedicação à hospitalidade em Salvador como Superhost, ofereço uma operação próxima e presencial. Cuidamos de cada acomodação com equipe própria de confiança, zelo rigoroso na conservação e comunicação direta e transparente com os proprietários a qualquer momento.' ) ); ?>
           </p>
           <div class="host-bullets space-y-3 mb-8">
             <div class="host-bullet flex items-start gap-3 text-sm sm:text-base text-neutral font-medium">
               <span class="w-6 h-6 rounded-full bg-success/15 text-success flex items-center justify-center flex-shrink-0 mt-0.5">
                 <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
               </span>
-              <span><strong>Olhar de dona:</strong> vistorias detalhadas e acompanhamento presencial para proteger seu patrimônio.</span>
+              <span><strong>Cuidado presencial:</strong> vistorias detalhadas e acompanhamento próximo para proteger seu patrimônio.</span>
             </div>
             <div class="host-bullet flex items-start gap-3 text-sm sm:text-base text-neutral font-medium">
               <span class="w-6 h-6 rounded-full bg-success/15 text-success flex items-center justify-center flex-shrink-0 mt-0.5">
                 <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
               </span>
-              <span><strong>Interlocutora única:</strong> você fala diretamente com quem está no controle da sua operação, sem intermediários.</span>
+              <span><strong>Relacionamento direto:</strong> você fala diretamente com quem está à frente da sua operação, sem intermediários.</span>
             </div>
             <div class="host-bullet flex items-start gap-3 text-sm sm:text-base text-neutral font-medium">
               <span class="w-6 h-6 rounded-full bg-success/15 text-success flex items-center justify-center flex-shrink-0 mt-0.5">
                 <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
               </span>
-              <span><strong>Histórico comprovado:</strong> 9 anos consecutivos como Superhost e reputação consolidada no mercado.</span>
+              <span><strong>Histórico comprovado:</strong> 9 anos consecutivos como Superhost e reputação consolidada na acolhida de viajantes.</span>
             </div>
           </div>
           <div class="host-actions flex items-center gap-4 flex-wrap">
-            <a href="<?php echo esc_url( vh_wa_url( 'Olá Marcia! Gostaria de conversar sobre a gestão do meu imóvel.' ) ); ?>" target="_blank" rel="noopener" class="btn btn-primary rounded-full px-7 text-white font-bold shadow-md hover:shadow-lg flex items-center gap-2">
+            <a href="<?php echo esc_url( vh_wa_url( 'Olá Marcia! Gostaria de conversar sobre a operação da minha hospedagem.' ) ); ?>" target="_blank" rel="noopener" class="btn btn-primary rounded-full px-7 text-white font-bold shadow-md hover:shadow-lg flex items-center gap-2">
               <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.523 5.824L.057 23.5a.5.5 0 0 0 .61.61l5.734-1.46A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.694-.5-5.24-1.376l-.375-.213-3.882.99.998-3.795-.232-.387A9.946 9.946 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
               <span>Conversar com a Marcia</span>
             </a>
@@ -814,14 +814,14 @@ get_template_part( 'template-parts/header-site' );
       <div class="blog-header anim-fade flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
         <div>
           <span class="eyebrow badge badge-ghost text-xs font-bold uppercase tracking-wider text-primary mb-3" data-vh="blog_section_eyebrow">
-            <?php echo esc_html( vh_mod( 'blog_section_eyebrow', 'Blog & Mercado Salvador' ) ); ?>
+            <?php echo esc_html( vh_mod( 'blog_section_eyebrow', 'Hospitalidade & Temporada' ) ); ?>
           </span>
           <h2 class="section-title text-3xl sm:text-4xl font-extrabold text-neutral tracking-tight" data-vh="blog_section_title">
-            <?php echo esc_html( vh_mod( 'blog_section_title', 'Dicas e novidades sobre aluguel por temporada em Salvador' ) ); ?>
+            <?php echo esc_html( vh_mod( 'blog_section_title', 'Dicas e novidades sobre hospitalidade e temporada em Salvador' ) ); ?>
           </h2>
         </div>
         <p class="max-w-md text-sm sm:text-base text-base-content/80 leading-relaxed md:text-right" data-vh="blog_section_intro">
-          <?php echo esc_html( vh_mod( 'blog_section_intro', 'Estratégias de mercado, dicas de hospitalidade e orientações práticas para proprietários que desejam maximizar a rentabilidade no Airbnb na Bahia.' ) ); ?>
+          <?php echo esc_html( vh_mod( 'blog_section_intro', 'Estratégias operacionais, dicas de hospitalidade e orientações práticas para proprietários que desejam maximizar a performance no Airbnb na Bahia.' ) ); ?>
         </p>
       </div>
 
@@ -836,25 +836,25 @@ get_template_part( 'template-parts/header-site' );
 
         $fallback_posts = [
           [
-            'title'   => 'Como Maximizar o Faturamento do seu Imóvel no Airbnb em Salvador: O Guia Definitivo',
-            'excerpt' => 'Descubra as melhores estratégias de precificação dinâmica, preparação do imóvel e sazonalidade para lucrar mais com aluguel de temporada em Salvador.',
-            'cat'     => 'Estratégia & Rentabilidade',
+            'title'   => 'Como Maximizar a Performance da sua Hospedagem no Airbnb em Salvador',
+            'excerpt' => 'Descubra as melhores práticas de precificação dinâmica, preparação da acomodação e hospitalidade para encantar hóspedes em Salvador.',
+            'cat'     => 'Estratégia & Hospitalidade',
             'img'     => 'https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&w=800&q=80',
             'date'    => '24 de Setembro, 2026',
             'link'    => '#contato',
           ],
           [
-            'title'   => 'Aluguel por Temporada em Salvador: Regras de Condomínio e Legislação Atualizada',
-            'excerpt' => 'Entenda como funciona a legislação brasileira para locação de curta temporada, convenções de condomínio e como garantir tranquilidade jurídica para seu imóvel.',
-            'cat'     => 'Legislação & Segurança',
+            'title'   => 'Hospedagem por Temporada em Salvador: Boas Práticas e Regras de Condomínio',
+            'excerpt' => 'Entenda como manter uma convivência harmônica com o condomínio, receber hóspedes com segurança e garantir tranquilidade para todos.',
+            'cat'     => 'Hospitalidade & Convivência',
             'img'     => 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80',
             'date'    => '18 de Setembro, 2026',
             'link'    => '#contato',
           ],
           [
-            'title'   => 'Os Melhores Bairros de Salvador para Investir em Imóveis de Temporada em 2026',
-            'excerpt' => 'Barra, Ondina, Rio Vermelho ou Costa Azul? Analisamos taxa de ocupação, perfil de público e retorno sobre investimento nos principais bairros da capital baiana.',
-            'cat'     => 'Mercado Imobiliário',
+            'title'   => 'Os Bairros mais Procurados de Salvador para Hospedagem de Temporada em 2026',
+            'excerpt' => 'Barra, Ondina, Rio Vermelho ou Costa Azul? Analisamos perfil de viajantes, demanda turística e fluxo de hóspedes nos principais bairros da capital baiana.',
+            'cat'     => 'Destinos & Temporada',
             'img'     => 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80',
             'date'    => '10 de Setembro, 2026',
             'link'    => '#contato',
@@ -959,18 +959,18 @@ get_template_part( 'template-parts/header-site' );
         <?php
         $commission_rate = vh_mod( 'commission_rate', '20%' );
         $faqs = [
-          [ 'Quanto custa o serviço de gestão?',
-            'Nossa comissão é a partir de <strong data-vh="commission_rate">' . esc_html( $commission_rate ) . '</strong> sobre o valor do aluguel. Não cobramos taxa fixa, taxa de adesão nem multa por cancelamento. Você só paga quando seu imóvel aluga.' ],
-          [ 'Preciso ter um imóvel já mobiliado?',
-            'Sim, o imóvel precisa estar mobiliado e equipado. Mas não se preocupe — ajudamos com orientações sobre o que é essencial para começar a receber hóspedes com sucesso.' ],
-          [ 'Quanto tempo leva para meu imóvel começar a gerar receita?',
-            'Em média <strong>7 dias</strong> após a vistoria inicial. Fazemos fotografia profissional, otimizamos o anúncio e ajustamos a precificação antes de publicar.' ],
-          [ 'Como recebo os pagamentos?',
-            'O repasse é feito mensalmente, por transferência bancária, após o check-out dos hóspedes. Você recebe um relatório detalhado com todas as movimentações.' ],
-          [ 'Posso cancelar quando quiser?',
-            'Sim, sem multa nem fidelidade. Você pode cancelar a qualquer momento, sem burocracia. Devolvemos o imóvel no mesmo estado que recebemos.' ],
-          [ 'O que acontece se meu imóvel ficar vago?',
-            'Trabalhamos com precificação dinâmica para maximizar a ocupação. Mesmo assim, períodos de baixa são normais no turismo — ajustamos a estratégia conforme a sazonalidade.' ],
+          [ 'Quanto custam os serviços de operação?',
+            'Nossa taxa de serviço é a partir de <strong data-vh="commission_rate">' . esc_html( $commission_rate ) . '</strong> sobre o valor das reservas confirmadas. Não cobramos taxa de adesão, mensalidade fixa nem multa de fidelidade. Nossa remuneração está diretamente atrelada ao sucesso das suas estadias.' ],
+          [ 'O imóvel precisa estar mobiliado e equipado?',
+            'Sim, a acomodação deve estar mobiliada e preparada para estadias de curta temporada. Orientamos detalhadamente sobre utensílios, roupas de cama e itens indispensáveis para garantir avaliações 5 estrelas.' ],
+          [ 'Quanto tempo leva para iniciar as reservas?',
+            'Em média <strong>7 dias</strong> após a visita técnica e alinhamento inicial. Realizamos as fotografias profissionais, configuramos os anúncios e calibramos a estratégia de preços antes de abrir o calendário.' ],
+          [ 'Como ocorrem os repasses e a prestação de contas?',
+            'O repasse é realizado mensalmente, acompanhado de um relatório detalhado com todas as reservas do período, diárias médias, ocupação e avaliações recebidas.' ],
+          [ 'Existe período mínimo de contrato ou fidelidade?',
+            'Não há fidelidade nem multas rescisórias. Prezamos pela parceria e transparência: você pode interromper os serviços operacionais a qualquer momento com prévio aviso.' ],
+          [ 'Como é tratada a sazonalidade e períodos com menor fluxo?',
+            'Utilizamos estratégias de precificação dinâmica para estimular reservas mesmo em períodos de menor demanda turística, equilibrando taxa de ocupação e receita líquida ao longo do ano.' ],
         ];
         foreach ( $faqs as $i => $faq ) :
         ?>
@@ -985,7 +985,7 @@ get_template_part( 'template-parts/header-site' );
         <?php endforeach; ?>
       </div>
       <p class="text-center text-sm text-base-content/70 mt-8">
-        Ainda com dúvidas? <a href="<?php echo esc_url( vh_wa_url( 'Olá Marcia! Tenho uma dúvida sobre a gestão da VivaHost.' ) ); ?>" target="_blank" rel="noopener" class="text-primary font-bold hover:underline">Fale com a Marcia no WhatsApp →</a>
+        Ainda com dúvidas? <a href="<?php echo esc_url( vh_wa_url( 'Olá Marcia! Tenho uma dúvida sobre os serviços da VivaHost.' ) ); ?>" target="_blank" rel="noopener" class="text-primary font-bold hover:underline">Fale com a Marcia no WhatsApp →</a>
       </p>
     </div>
   </section>
@@ -997,12 +997,12 @@ get_template_part( 'template-parts/header-site' );
     <div class="inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="cta-wrap grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         <div class="cta-left lg:col-span-6 anim-fade">
-          <span class="eyebrow badge badge-primary text-white text-xs font-bold uppercase tracking-wider mb-4 px-3 py-2">Avaliação gratuita</span>
+          <span class="eyebrow badge badge-primary text-white text-xs font-bold uppercase tracking-wider mb-4 px-3 py-2">Análise de Potencial</span>
           <h2 class="section-title text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4" data-vh="cta_title">
-            <?php echo esc_html( vh_mod( 'cta_title', 'Descubra o potencial de faturamento do seu imóvel' ) ); ?>
+            <?php echo esc_html( vh_mod( 'cta_title', 'Descubra o potencial de faturamento da sua hospedagem' ) ); ?>
           </h2>
           <p class="cta-lead text-base sm:text-lg text-white/80 leading-relaxed mb-8" data-vh="cta_lead">
-            <?php echo esc_html( vh_mod( 'cta_lead', 'Receba uma estimativa gratuita de rentabilidade para o seu apartamento em Salvador, sem qualquer compromisso.' ) ); ?>
+            <?php echo esc_html( vh_mod( 'cta_lead', 'Receba uma projeção personalizada de desempenho para a sua acomodação em Salvador, com base em dados de mercado e sem compromisso.' ) ); ?>
           </p>
           <ul class="cta-trust-list space-y-4 mb-8">
             <?php
@@ -1012,9 +1012,9 @@ get_template_part( 'template-parts/header-site' );
             $trust_icons = [ $ico_check, $ico_shield, $ico_clock ];
             $trust_keys = [ 'trust_1', 'trust_2', 'trust_3' ];
             $trust_defaults = [
-              'Avaliação gratuita e sem compromisso',
-              'Seus dados tratados com total sigilo',
-              'Resposta em até 24 horas úteis',
+              'Análise de potencial gratuita e sem compromisso',
+              'Seus dados tratados com total privacidade',
+              'Retorno em até 24 horas úteis por WhatsApp',
             ];
             foreach ( $trust_keys as $idx => $key ) :
             ?>
@@ -1029,7 +1029,7 @@ get_template_part( 'template-parts/header-site' );
           <?php if ( $form_mode !== 'email' ) : ?>
             <div class="pt-4 border-t border-white/15">
               <p class="text-xs text-white/60 mb-2 font-medium">Prefere falar diretamente?</p>
-              <a href="<?php echo esc_url( vh_wa_url( 'Olá! Gostaria de uma avaliação gratuita para meu imóvel.' ) ); ?>" target="_blank" rel="noopener" class="cta-wa-link inline-flex items-center gap-2 text-white font-bold hover:text-white/80 transition-colors">
+              <a href="<?php echo esc_url( vh_wa_url( 'Olá! Gostaria de uma análise de potencial para minha acomodação.' ) ); ?>" target="_blank" rel="noopener" class="cta-wa-link inline-flex items-center gap-2 text-white font-bold hover:text-white/80 transition-colors">
                 <span class="w-8 h-8 rounded-full bg-success flex items-center justify-center text-white">
                   <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.523 5.824L.057 23.5a.5.5 0 0 0 .61.61l5.734-1.46A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.694-.5-5.24-1.376l-.375-.213-3.882.99.998-3.795-.232-.387A9.946 9.946 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
                 </span>
@@ -1044,7 +1044,7 @@ get_template_part( 'template-parts/header-site' );
         <div class="lg:col-span-6 anim-fade">
           <div class="form-card card bg-white text-neutral shadow-2xl rounded-3xl p-7 sm:p-10 border border-white/20 w-full max-w-lg mx-auto">
             <h3 class="text-2xl font-bold text-neutral mb-1">Quer saber mais?</h3>
-            <p class="form-sub text-sm text-base-content/70 mb-6">Deixe seu contato que a Marcia responde em até 24 horas.</p>
+            <p class="form-sub text-sm text-base-content/70 mb-6">Deixe seu contato que a Marcia responde em até 24 horas para apresentar o potencial da sua hospedagem.</p>
             <?php
             $vh_form_ts     = time();
             $vh_form_sig    = function_exists( 'vh_sign_form_timestamp' ) ? vh_sign_form_timestamp( $vh_form_ts ) : '';
@@ -1118,7 +1118,7 @@ get_template_part( 'template-parts/header-site' );
               <?php endif; ?>
               <div class="form-submit">
                 <button type="submit" class="btn btn-primary btn-block rounded-xl text-white font-bold py-3.5 shadow-lg hover:shadow-xl transition-all" id="form-submit-btn">
-                  <span class="btn-text">Quero saber mais →</span>
+                  <span class="btn-text">Solicitar análise de potencial →</span>
                   <span class="btn-loading flex items-center justify-center gap-2" style="display:none">
                     <span class="loading loading-spinner loading-sm"></span> Enviando…
                   </span>
@@ -1132,8 +1132,8 @@ get_template_part( 'template-parts/header-site' );
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="w-8 h-8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
               </div>
               <h4 class="text-xl font-bold text-neutral mb-2">Recebemos sua mensagem!</h4>
-              <p class="text-sm text-base-content/80 mb-6">Marcia vai entrar em contato pelo WhatsApp em até 24 horas para explicar tudo sobre a gestão VivaHost.</p>
-              <a id="form-success-wa-btn" href="<?php echo esc_url( vh_wa_url( 'Olá Marcia! Acabei de preencher a avaliação do meu imóvel no site da VivaHost.' ) ); ?>" target="_blank" rel="noopener" class="btn btn-block bg-success hover:bg-success/90 text-white font-bold rounded-xl flex items-center justify-center gap-2 shadow-md">
+              <p class="text-sm text-base-content/80 mb-6">Marcia vai entrar em contato pelo WhatsApp em até 24 horas para apresentar o potencial da sua hospedagem e explicar a operação da VivaHost.</p>
+              <a id="form-success-wa-btn" href="<?php echo esc_url( vh_wa_url( 'Olá Marcia! Acabei de solicitar a análise da minha acomodação no site da VivaHost.' ) ); ?>" target="_blank" rel="noopener" class="btn btn-block bg-success hover:bg-success/90 text-white font-bold rounded-xl flex items-center justify-center gap-2 shadow-md">
                 <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.523 5.824L.057 23.5a.5.5 0 0 0 .61.61l5.734-1.46A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.694-.5-5.24-1.376l-.375-.213-3.882.99.998-3.795-.232-.387A9.946 9.946 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
                 <span>Continuar no WhatsApp agora</span>
               </a>

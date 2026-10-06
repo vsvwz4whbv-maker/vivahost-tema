@@ -15,7 +15,7 @@ if ( $logo_id ) {
 }
 if ( ! $logo_src ) $logo_src = VH_URL . '/assets/images/vivahost-logo.png';
 
-$cta_text = esc_html( vh_mod( 'header_cta_text', 'Avaliar meu imóvel' ) );
+$cta_text = esc_html( vh_mod( 'header_cta_text', 'Avaliar minha hospedagem' ) );
 $cta_link = esc_url( vh_mod( 'header_cta_link', '#contato' ) );
 $home_url = esc_url( home_url( '/' ) );
 ?>

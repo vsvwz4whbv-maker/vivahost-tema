@@ -21,7 +21,7 @@ $home_url = esc_url( home_url( '/' ) );
           <img src="<?php echo esc_url( $logo_url ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" class="brand-logo-footer h-11 w-auto object-contain mb-4" width="160" height="68" loading="lazy">
         </a>
         <p class="footer-tagline text-xs sm:text-sm text-neutral-content/70 leading-relaxed mb-6" data-vh="footer_tagline">
-          <?php echo esc_html( vh_mod( 'footer_tagline', 'VivaHost — Superhost Airbnb em Salvador, Bahia. Gestão profissional de aluguel por temporada com 9 anos de experiência.' ) ); ?>
+          <?php echo esc_html( vh_mod( 'footer_tagline', 'VivaHost — Superhost Airbnb em Salvador, Bahia. Operação de hospedagens e aluguel por temporada com foco em hospitalidade e excelência.' ) ); ?>
         </p>
         <div class="footer-social flex items-center gap-3">
           <?php if ( $ig = vh_mod( 'footer_instagram', 'https://www.instagram.com/vivahostbahia/' ) ) : ?>
@@ -56,7 +56,7 @@ $home_url = esc_url( home_url( '/' ) );
         <p class="footer-col-heading font-bold text-sm text-white uppercase tracking-wider mb-4">Serviços</p>
         <ul class="footer-links space-y-2.5 text-xs sm:text-sm text-neutral-content/80">
           <?php
-          $svc_titles = [ 'Fotografia profissional', 'Precificação dinâmica', 'Check-in & Check-out', 'Limpeza & Amenidades', 'Suporte 24 horas', 'Relatórios mensais' ];
+          $svc_titles = [ 'Fotografia profissional', 'Estratégia de preços dinâmica', 'Check-in & Check-out', 'Governança & Higienização', 'Suporte e Acompanhamento 24h', 'Relatórios de desempenho' ];
           for ( $i = 1; $i <= 6; $i++ ) :
           ?>
             <li><a href="<?php echo $home_url; ?>#servicos" class="hover:text-white transition-colors"><?php echo esc_html( vh_mod( "service_{$i}_title", '' ) ?: $svc_titles[ $i - 1 ] ); ?></a></li>

@@ -206,15 +206,15 @@ function vh_customize_register( WP_Customize_Manager $c ) {
 		'Lato'          => 'Lato',
 		'Open Sans'     => 'Open Sans',
 	] );
-	$text( 'header_cta_text', 'style', 'Testo bottone header',  'Quero saber mais' );
+	$text( 'header_cta_text', 'style', 'Testo bottone header',  'Avaliar minha hospedagem' );
 	$text( 'header_cta_link', 'style', 'Link bottone header',   '#contato' );
 
 	// ── HERO ─────────────────────────────────────────────────────────────────
 	$c->add_section( 'vivahost_hero', [ 'title' => 'Hero', 'panel' => 'vivahost_panel', 'priority' => 20 ] );
-	$text( 'hero_eyebrow',   'hero', 'Eyebrow (sopra titolo)', 'Gestão de Temporada — Salvador, BA' );
-	$text( 'hero_title',     'hero', 'Titolo (H1)',            'Rentabilidade máxima no Airbnb em Salvador — com tranquilidade total' );
-	$area( 'hero_subtitle',  'hero', 'Sottotitolo',            'Administramos seu imóvel de temporada do início ao fim: precificação inteligente, anúncios em alta e cuidado presencial em Salvador. Você só acompanha os rendimentos na conta.' );
-	$text( 'hero_btn1_text', 'hero', 'Bottone 1 — testo',      'Avaliar meu imóvel' );
+	$text( 'hero_eyebrow',   'hero', 'Eyebrow (sopra titolo)', 'Operação de Hospedagem & Hospitalidade — Salvador, BA' );
+	$text( 'hero_title',     'hero', 'Titolo (H1)',            'Alta performance e hospitalidade no Airbnb em Salvador — com tranquilidade para você' );
+	$area( 'hero_subtitle',  'hero', 'Sottotitolo',            'A VivaHost cuida da operação da sua hospedagem em Salvador de ponta a ponta: dos anúncios e reservas ao atendimento, limpeza e acompanhamento presencial. Você acompanha os resultados com total transparência.' );
+	$text( 'hero_btn1_text', 'hero', 'Bottone 1 — testo',      'Avaliar minha hospedagem' );
 	$text( 'hero_btn1_link', 'hero', 'Bottone 1 — link',       '#contato' );
 	$text( 'hero_btn2_text', 'hero', 'Bottone 2 — testo',      'Como funciona' );
 	$text( 'hero_btn2_link', 'hero', 'Bottone 2 — link',       '#como-funciona' );
@@ -223,7 +223,7 @@ function vh_customize_register( WP_Customize_Manager $c ) {
 	// ── STATS ────────────────────────────────────────────────────────────────
 	$c->add_section( 'vivahost_stats', [ 'title' => 'Barra Numeri (4 Stats)', 'panel' => 'vivahost_panel', 'priority' => 30 ] );
 	$defs = [
-		[ '+30%',    'Faturamento vs tradicional' ],
+		[ '+30%',    'Média de faturamento vs tradicional' ],
 		[ '85%',     'Taxa média de ocupação' ],
 		[ '4,88 ★',  'Avaliação dos hóspedes' ],
 		[ '9 anos',  'Superhost em Salvador' ],
@@ -235,13 +235,13 @@ function vh_customize_register( WP_Customize_Manager $c ) {
 
 	// ── COME FUNZIONA ────────────────────────────────────────────────────────
 	$c->add_section( 'vivahost_process', [ 'title' => 'Come Funziona (4 Step)', 'panel' => 'vivahost_panel', 'priority' => 40 ] );
-	$text( 'process_title', 'process', 'Titolo sezione', 'Como funciona a gestão do seu imóvel' );
-	$area( 'process_intro', 'process', 'Testo intro',    'Do primeiro contato ao repasse dos lucros, assumimos toda a operação para você não se preocupar com nada.' );
+	$text( 'process_title', 'process', 'Titolo sezione', 'Como funciona a operação da sua hospedagem' );
+	$area( 'process_intro', 'process', 'Testo intro',    'Do alinhamento inicial ao acolhimento dos hóspedes, cuidamos de toda a rotina operacional para proporcionar a melhor estadia com tranquilidade para você.' );
 	$step_defs = [
-		[ 'Diagnóstico gratuito', 'Avaliamos o perfil do seu imóvel e projetamos o faturamento real para a sua localização em Salvador.' ],
-		[ 'Produção e anúncio',   'Sessão fotográfica profissional e cadastro estratégico nos principais canais de locação por temporada.' ],
-		[ 'Operação 360°',        'Recepção de hóspedes, atendimento 24h e equipe dedicada para higienização e manutenção preventiva.' ],
-		[ 'Repasse e extrato',    'Depósito pontual dos rendimentos e prestação de contas transparente todo mês.' ],
+		[ 'Análise de potencial', 'Avaliamos o perfil da sua acomodação e projetamos o faturamento estimado com base no histórico da região em Salvador.' ],
+		[ 'Produção e posicionamento', 'Sessão fotográfica profissional e criação de anúncios atrativos nas principais plataformas de hospedagem.' ],
+		[ 'Operação e hospitalidade 360°', 'Check-in, suporte aos hóspedes, governança, higienização impecável e manutenção preventiva contínua.' ],
+		[ 'Relatórios e acompanhamento', 'Prestação de contas detalhada todo mês e acompanhamento transparente do desempenho da sua hospedagem.' ],
 	];
 	for ( $i = 1; $i <= 4; $i++ ) {
 		$text( "step_{$i}_title", 'process', "Step {$i} — Titolo", $step_defs[$i-1][0] );
@@ -251,28 +251,28 @@ function vh_customize_register( WP_Customize_Manager $c ) {
 	// ── COMPARAÇÃO (Sozinho vs VivaHost) ──────────────────────────────────
 	$c->add_section( 'vivahost_compare', [ 'title' => 'Comparação (Sozinho vs VivaHost)', 'panel' => 'vivahost_panel', 'priority' => 45 ] );
 	$chk( 'compare_show', 'compare', 'Mostrar sezione', '1' );
-	$text( 'compare_title', 'compare', 'Titolo sezione', 'Alugar por conta própria vs Gestão VivaHost' );
+	$text( 'compare_title', 'compare', 'Titolo sezione', 'Hospedar por conta própria vs Operação VivaHost' );
 	$text( 'compare_left_title', 'compare', 'Titolo colonna sinistra', 'Por conta própria' );
-	$area( 'compare_left_1', 'compare', 'Riga 1 — sinistra', 'Mensagens de madrugada, check-in no fim de semana e imprevistos diários' );
-	$area( 'compare_left_2', 'compare', 'Riga 2 — sinistra', 'Preço fixo no chute que afasta viajantes ou vende barato na alta temporada' );
-	$area( 'compare_left_3', 'compare', 'Riga 3 — sinistra', 'Preocupação constante com diaristas, lavanderia e compras de reposição' );
+	$area( 'compare_left_1', 'compare', 'Riga 1 — sinistra', 'Você resolve toda a rotina — mensagens, reservas, check-in e chamados 24h' );
+	$area( 'compare_left_2', 'compare', 'Riga 2 — sinistra', 'Preço sem dados de mercado — receita e ocupação abaixo do potencial' );
+	$area( 'compare_left_3', 'compare', 'Riga 3 — sinistra', 'Limpeza, enxoval, amenidades e reparos — tudo sob sua responsabilidade direta' );
 	$text( 'compare_right_title', 'compare', 'Titolo colonna destra', 'Com a VivaHost' );
-	$area( 'compare_right_1', 'compare', 'Riga 1 — destra', 'Operação 24h para os hóspedes: cuidamos de tudo e você aproveita seu tempo' );
-	$area( 'compare_right_2', 'compare', 'Riga 2 — destra', 'Precificação dinâmica: ocupação consistente e até +30% de receita líquida' );
-	$area( 'compare_right_3', 'compare', 'Riga 3 — destra', 'Padrão hoteleiro garantido com governança própria e vistorias rigorosas' );
+	$area( 'compare_right_1', 'compare', 'Riga 1 — destra', 'Equipe local cuida de tudo — você acompanha os resultados da sua hospedagem com tranquilidade' );
+	$area( 'compare_right_2', 'compare', 'Riga 2 — destra', 'Estratégia de preços dinâmica — busca por ocupação máxima e histórico de até +30% de receita' );
+	$area( 'compare_right_3', 'compare', 'Riga 3 — destra', 'Higienização hoteleira e amenidades — acomodação sempre pronta e impecável para o próximo hóspede' );
 
 	// ── SERVIÇOS ─────────────────────────────────────────────────────────────
 	$c->add_section( 'vivahost_services', [ 'title' => 'Serviços (6)', 'panel' => 'vivahost_panel', 'priority' => 50 ] );
-		$text( 'services_title', 'services', 'Titolo sezione', 'Serviços completos de gestão Airbnb em Salvador' );
-		$area( 'services_intro', 'services', 'Testo intro',    'Da foto profissional ao suporte 24h, cuidamos de cada detalhe da sua hospedagem por temporada.' );
-		$text( 'commission_rate', 'services', 'Taxa de comissão padrão', '20%' );
+		$text( 'services_title', 'services', 'Titolo sezione', 'Serviços completos de operação e hospitalidade em Salvador' );
+		$area( 'services_intro', 'services', 'Testo intro',    'Da produção fotográfica ao suporte presencial 24h, oferecemos toda a estrutura operacional e de hospitalidade para o sucesso da sua hospedagem por temporada.' );
+		$text( 'commission_rate', 'services', 'Taxa de serviço padrão', '20%' );
 		$svc_defs = [
-			[ 'Fotografia profissional',  'Ensaio fotográfico completo. Fotos que convertem visitas em reservas.' ],
-			[ 'Precificação dinâmica',    'Algoritmo que ajusta a diária conforme demanda, sazonalidade e concorrência.' ],
-			[ 'Check-in & Check-out',     'Recepção personalizada, entrega de chaves e orientação completa do imóvel.' ],
-			[ 'Limpeza & Amenidades',     'Equipe própria, troca de roupas de cama e reposição a cada estadia.' ],
-			[ 'Suporte 24 horas',         'Atendimento imediato para hóspedes e manutenção em qualquer horário.' ],
-			[ 'Relatórios mensais',       'Dashboard com receita, ocupação e avaliações. Transferência automática.' ],
+			[ 'Fotografia profissional',       'Ensaio completo com produção visual dedicada. Imagens atraentes que valorizam os diferenciais da acomodação.' ],
+			[ 'Estratégia de preços dinâmica', 'Monitoramento contínuo de demanda, sazonalidade e concorrência local para otimizar o valor das diárias.' ],
+			[ 'Check-in & Check-out',          'Acolhimento atencioso para cada hóspede, instruções claras de acesso e suporte presencial na chegada.' ],
+			[ 'Governança & Higienização',     'Equipe dedicada de limpeza, troca de enxoval de qualidade e reposição de amenidades a cada reserva.' ],
+			[ 'Suporte e Acompanhamento 24h',  'Atendimento rápido aos hóspedes durante toda a estadia e suporte operacional para qualquer imprevisto.' ],
+			[ 'Relatórios de desempenho',      'Demonstrativo claro com ocupação, diárias e avaliações recebidas, com repasse mensal pontual.' ],
 		];
 		for ( $i = 1; $i <= 6; $i++ ) {
 			$text( "service_{$i}_title", 'services', "Card {$i} — Titolo", $svc_defs[$i-1][0] );
@@ -283,7 +283,7 @@ function vh_customize_register( WP_Customize_Manager $c ) {
 		$c->add_section( 'vivahost_trust_sec', [ 'title' => 'Serviços de Confiança', 'panel' => 'vivahost_panel', 'priority' => 55 ] );
 		$chk( 'trust_section_show', 'trust_sec', 'Mostrar sezione', '1' );
 		$text( 'trust_section_title', 'trust_sec', 'Titolo sezione', 'Serviços de confiança — sem estresse' );
-		$area( 'trust_section_intro', 'trust_sec', 'Testo intro', 'Tem um problema no imóvel? A VivaHost cuida de tudo. Rede de profissionais parceiros verificados para qualquer eventualidade.' );
+		$area( 'trust_section_intro', 'trust_sec', 'Testo intro', 'Necessita de apoio com a acomodação? A VivaHost cuida de tudo. Rede de profissionais parceiros verificados para qualquer necessidade de manutenção preventiva ou corretiva.' );
 		$trust_defs = [
 			[ 'Elétrica', 'Troca de lâmpadas, reparos em tomadas, instalação de chuveiros e muito mais.' ],
 			[ 'Hidráulica', 'Vazamentos, entupimentos, instalação de torneiras e reparos em encanamentos.' ],
@@ -297,8 +297,8 @@ function vh_customize_register( WP_Customize_Manager $c ) {
 
 	// ── IMÓVEIS ──────────────────────────────────────────────────────────────
 	$c->add_section( 'vivahost_properties', [ 'title' => 'Imóveis (3 Proprietà)', 'panel' => 'vivahost_panel', 'priority' => 60 ] );
-	$text( 'imoveis_title', 'properties', 'Titolo sezione', 'Conheça alguns dos imóveis que gerenciamos' );
-	$area( 'imoveis_desc',  'properties', 'Descrizione',    'Cada propriedade é cuidada com o mesmo padrão — fotos profissionais, limpeza impecável e avaliações que falam por si.' );
+	$text( 'imoveis_title', 'properties', 'Titolo sezione', 'Conheça algumas das propriedades atendidas pela VivaHost' );
+	$area( 'imoveis_desc',  'properties', 'Descrizione',    'Cada acomodação recebe o mesmo padrão de cuidado operacional — fotos de qualidade, limpeza rigorosa e experiência do hóspede comprovada em avaliações.' );
 	$prop_defs = [
 		[ 'Condomínio Ondina, vista para o mar', 'Ondina, Salvador', '4,90', '143', 'https://www.airbnb.com.br/users/show/148412228' ],
 		[ 'Lar Lisboa — Costa Azul', 'Costa Azul, Salvador', '4,92', '83', 'https://www.airbnb.com.br/users/show/148412228' ],
@@ -317,8 +317,8 @@ function vh_customize_register( WP_Customize_Manager $c ) {
 	$c->add_section( 'vivahost_testimonial', [ 'title' => 'Depoimento & Banner Foto', 'panel' => 'vivahost_panel', 'priority' => 70 ] );
 	$img( 'testimonial_banner_bg',    'testimonial', 'Foto di sfondo banner sopra depoimento (riempimento)' );
 	$text( 'testimonial_banner_quote', 'testimonial', 'Frase banner foto sopra depoimento', 'Hospitalidade baiana autêntica com padrão Superhost internacional.' );
-	$text( 'testimonial_banner_sub',   'testimonial', 'Sottotitolo banner foto', 'Salvador · Bahia' );
-	$area( 'testimonial_text',   'testimonial', 'Citazione', 'Márcia e sua equipe cuidam do imóvel com dedicação, limpeza impecável e uma proatividade que poucas profissionais têm. Desde que confiei a gestão a ela, não tenho com o que me preocupar.' );
+	$text( 'testimonial_banner_sub',   'testimonial', 'Sottotitolo banner foto', 'Experiência de Proprietária' );
+	$area( 'testimonial_text',   'testimonial', 'Citazione', 'Márcia e sua equipe cuidam da hospedagem com dedicação, limpeza impecável e uma proatividade exemplar. Desde que comecei a contar com a VivaHost para a operação da hospedagem, não tenho com o que me preocupar.' );
 	$text( 'testimonial_author', 'testimonial', 'Nome autore', 'Ana Paula M.' );
 	$text( 'testimonial_city',   'testimonial', 'Città / Ruolo', 'Proprietária · Salvador, BA' );
 	$img( 'testimonial_photo',   'testimonial', 'Foto autore depoimento' );
@@ -326,8 +326,8 @@ function vh_customize_register( WP_Customize_Manager $c ) {
 	// ── HOST ─────────────────────────────────────────────────────────────────
 	$c->add_section( 'vivahost_host', [ 'title' => 'Host (Marcia)', 'panel' => 'vivahost_panel', 'priority' => 80 ] );
 	$text( 'host_name',          'host', 'Nome',            'Marcia Sales' );
-	$text( 'host_subtitle',      'host', 'Sottotitolo / Ruolo', 'Gestão Operacional VivaHost em Salvador' );
-	$area( 'host_bio',           'host', 'Bio / Metodo de Gestao', 'Ao contrário de plataformas impessoais, nossa gestão tem presença física diária em Salvador. Cuido de cada imóvel com equipe local de confiança, garantindo padrão de conservação e diálogo direto com você a qualquer momento.' );
+	$text( 'host_subtitle',      'host', 'Sottotitolo / Ruolo', 'Especialista em Hospitalidade & Operação de Hospedagens em Salvador' );
+	$area( 'host_bio',           'host', 'Bio / Metodo de Gestao', 'Com 9 anos de dedicação à hospitalidade em Salvador como Superhost, ofereço uma operação próxima e presencial. Cuidamos de cada acomodação com equipe própria de confiança, zelo rigoroso na conservação e comunicação direta e transparente com os proprietários a qualquer momento.' );
 	$host_stat_defs = [ [ '469', 'Avaliações' ], [ '4,88 ★', 'Nota média' ], [ '9 anos', 'Hospedando' ] ];
 	for ( $i = 1; $i <= 3; $i++ ) {
 		$text( "host_stat_{$i}_num",   'host', "Stat {$i} — Valor",    $host_stat_defs[$i-1][0] );
@@ -358,18 +358,18 @@ function vh_customize_register( WP_Customize_Manager $c ) {
 	// ── BLOG ─────────────────────────────────────────────────────────────────
 	$c->add_section( 'vivahost_blog_sec', [ 'title' => 'Blog', 'panel' => 'vivahost_panel', 'priority' => 95 ] );
 	$chk( 'blog_section_show', 'blog_sec', 'Mostrar sezione', '1' );
-	$text( 'blog_section_eyebrow', 'blog_sec', 'Eyebrow sopra titolo', 'Blog & Mercado Salvador' );
-	$text( 'blog_section_title', 'blog_sec', 'Titolo sezione', 'Dicas e novidades sobre aluguel por temporada em Salvador' );
-	$area( 'blog_section_intro', 'blog_sec', 'Testo intro',    'Estratégias de mercado, dicas de hospitalidade e orientações práticas para proprietários que desejam maximizar a rentabilidade no Airbnb na Bahia.' );
+	$text( 'blog_section_eyebrow', 'blog_sec', 'Eyebrow sopra titolo', 'Hospitalidade & Temporada' );
+	$text( 'blog_section_title', 'blog_sec', 'Titolo sezione', 'Dicas e novidades sobre hospitalidade e temporada em Salvador' );
+	$area( 'blog_section_intro', 'blog_sec', 'Testo intro',    'Estratégias operacionais, dicas de hospitalidade e orientações práticas para proprietários que desejam maximizar a performance no Airbnb na Bahia.' );
 	$text( 'blog_section_link', 'blog_sec', 'Link "Ver todos"', '/blog/' );
 
 	// ── CTA / FORM ───────────────────────────────────────────────────────────
 	$c->add_section( 'vivahost_cta', [ 'title' => 'CTA & Formulário', 'panel' => 'vivahost_panel', 'priority' => 100 ] );
-	$text( 'cta_title', 'cta', 'Titolo sezione', 'Descubra o potencial de faturamento do seu imóvel' );
-	$area( 'cta_lead',  'cta', 'Testo lead',     'Receba uma estimativa gratuita de rentabilidade para o seu apartamento em Salvador, sem qualquer compromisso.' );
-	$text( 'trust_1',   'cta', 'Trust item 1',   'Avaliação gratuita e sem compromisso' );
-	$text( 'trust_2',   'cta', 'Trust item 2',   'Seus dados tratados com total sigilo' );
-	$text( 'trust_3',   'cta', 'Trust item 3',   'Resposta em até 24 horas úteis' );
+	$text( 'cta_title', 'cta', 'Titolo sezione', 'Descubra o potencial de faturamento da sua hospedagem' );
+	$area( 'cta_lead',  'cta', 'Testo lead',     'Receba uma projeção personalizada de desempenho para a sua acomodação em Salvador, com base em dados de mercado e sem compromisso.' );
+	$text( 'trust_1',   'cta', 'Trust item 1',   'Análise de potencial gratuita e sem compromisso' );
+	$text( 'trust_2',   'cta', 'Trust item 2',   'Seus dados tratados com total privacidade' );
+	$text( 'trust_3',   'cta', 'Trust item 3',   'Retorno em até 24 horas úteis por WhatsApp' );
 	$sel(  'form_mode', 'cta', 'Modalità form',  'both', [
 		'email'     => 'Solo email',
 		'whatsapp'  => 'Solo WhatsApp',
@@ -380,12 +380,12 @@ function vh_customize_register( WP_Customize_Manager $c ) {
 	// ── WHATSAPP ─────────────────────────────────────────────────────────────
 	$c->add_section( 'vivahost_whatsapp', [ 'title' => 'WhatsApp', 'panel' => 'vivahost_panel', 'priority' => 110 ] );
 	$text( 'wa_number',  'whatsapp', 'Numero WhatsApp (internazionale)', VH_DEFAULT_WA_NUM );
-	$area( 'wa_message', 'whatsapp', 'Messaggio pre-compilato',          'Olá! Gostaria de saber mais sobre a gestão VivaHost.' );
+	$area( 'wa_message', 'whatsapp', 'Messaggio pre-compilato',          'Olá! Gostaria de saber mais sobre os serviços da VivaHost.' );
 	$chk(  'wa_float_show', 'whatsapp', 'Mostra bottone float WhatsApp' );
 
 	// ── FOOTER ───────────────────────────────────────────────────────────────
 	$c->add_section( 'vivahost_footer_sec', [ 'title' => 'Footer', 'panel' => 'vivahost_panel', 'priority' => 120 ] );
-	$text( 'footer_tagline',   'footer_sec', 'Tagline footer',     'VivaHost — Superhost Airbnb em Salvador, Bahia. Gestão profissional de aluguel por temporada com 9 anos de experiência.' );
+	$text( 'footer_tagline',   'footer_sec', 'Tagline footer',     'VivaHost — Superhost Airbnb em Salvador, Bahia. Operação de hospedagens e aluguel por temporada com foco em hospitalidade e excelência.' );
 	$text( 'footer_copyright', 'footer_sec', 'Testo copyright',   '© 2026 VivaHost. Todos os direitos reservados.' );
 	$text( 'footer_instagram', 'footer_sec', 'Link Instagram',    'https://www.instagram.com/vivahostbahia/' );
 	$text( 'footer_airbnb',    'footer_sec', 'Link Airbnb',       'https://www.airbnb.com.br/p/vivahostbahia' );
@@ -817,37 +817,37 @@ function vh_seed_salvador_posts() {
 
 	$posts = [
 		[
-			'post_title'   => 'Como Maximizar o Faturamento do seu Imóvel no Airbnb em Salvador: O Guia Definitivo',
+			'post_title'   => 'Como Maximizar a Performance da sua Hospedagem no Airbnb em Salvador: O Guia Definitivo',
 			'post_name'    => 'como-maximizar-faturamento-airbnb-salvador',
-			'post_excerpt' => 'Descubra as estratégias comprovadas de precificação dinâmica, preparação do imóvel e sazonalidade para lucrar mais com aluguel de temporada em Salvador com a VivaHost.',
-			'seo_title'    => 'Como Maximizar o Faturamento no Airbnb em Salvador — Guia VivaHost',
-			'seo_desc'     => 'Guia completo para proprietários em Salvador: precificação dinâmica, sazonalidade na Bahia, enxoval hoteleiro e como lucrar até +30% no Airbnb com a VivaHost.',
-			'seo_keyword'  => 'faturamento airbnb salvador, gestão airbnb salvador, aluguel temporada salvador',
+			'post_excerpt' => 'Descubra as estratégias comprovadas de precificação dinâmica, preparação da acomodação e hospitalidade para encantar hóspedes em Salvador com a VivaHost.',
+			'seo_title'    => 'Como Maximizar a Performance no Airbnb em Salvador — Guia VivaHost',
+			'seo_desc'     => 'Guia completo para anfitriões e proprietários em Salvador: precificação dinâmica, sazonalidade na Bahia, enxoval hoteleiro e hospitalidade com a VivaHost.',
+			'seo_keyword'  => 'performance airbnb salvador, hospitalidade airbnb salvador, temporada salvador',
 			'img'          => 'https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&w=1200&q=80',
-			'category'     => 'Estratégia & Rentabilidade',
-			'post_content' => '<p class="lead font-medium text-lg text-neutral">Salvador é um dos polos turísticos e culturais mais procurados da América do Sul. Para proprietários e investidores imobiliários na capital baiana, transformar um apartamento em uma acomodação de temporada no Airbnb representa uma das formas mais inteligentes e lucrativas de monetização patrimonial — desde que conduzida com metodologia e disciplina profissional.</p><h2>1. A Curva de Sazonalidade em Salvador: Muito Além do Carnaval</h2><p>O maior equívoco de quem começa no aluguel por temporada é enxergar Salvador apenas através da lente do Carnaval e do Réveillon. Embora essas semanas de pico registrem diárias até 4 vezes superiores à média anual, o calendário da capital baiana oferece oportunidades de faturamento consistente durante os doze meses do ano:</p><ul><li><strong>Alta Temporada de Verão (Novembro a Março):</strong> Ocupação beirando 90% a 95% em bairros como Barra, Ondina e Rio Vermelho. O público busca sol, mar, ensaios de verão e turismo de lazer.</li><li><strong>Média Temporada e Festas Típicas (Junho e Julho):</strong> O período de São João e as férias escolares de inverno trazem famílias e viajantes de todo o Nordeste e Sudeste para curtir a gastronomia e o Centro Histórico.</li><li><strong>Temporada Corporativa e Turismo Médico (Abril a Outubro):</strong> Meses de grande movimentação de negócios, congressos médicos e eventos empresariais, especialmente para imóveis no Costa Azul, Caminho das Árvores e Armação.</li></ul><h2>2. Precificação Dinâmica vs. O Erro da Diária Fixa</h2><p>Cobrar a mesma diária em uma terça-feira chuvosa de maio e em um sábado ensolarado de janeiro é a receita certa para perder dinheiro — seja por vacância desnecessária ou por subprecificar o imóvel quando a demanda está no teto. Na VivaHost, monitoramos a curva de procura diária, a taxa de ocupação dos bairros vizinhos e grandes shows na cidade para calibrar o preço por noite de forma estratégica, maximizando o RevPAR (faturamento por noite disponível).</p><h2>3. Checklist de Preparação: O que Faz um Imóvel Alugar Mais Caro</h2><p>Os hóspedes em Salvador são exigentes e valorizam comodidades que garantam conforto térmico e conveniência total:</p><ul><li><strong>Climatização Eficiente:</strong> Ar-condicionado split em todos os quartos e, preferencialmente, na sala. É o item número 1 apontado nos filtros de busca em Salvador.</li><li><strong>Conexão de Alta Velocidade:</strong> Wi-Fi estável de no mínimo 300 Mbps para atrair nômades digitais e profissionais em trabalho remoto.</li><li><strong>Enxoval Padrão Hoteleiro:</strong> Roupas de cama 100% algodão ou percal 200 fios e toalhas brancas de alta gramatura, rigorosamente higienizadas a cada reserva.</li><li><strong>Fechadura Digital Inteligente:</strong> Check-in autônomo e seguro via senha, eliminando o estresse da troca de chaves física.</li><li><strong>Acolhimento com Identidade Baiana:</strong> Um mimo simples de boas-vindas — fitinhas de Nosso Senhor do Bonfim, café baiano ou petiscos locais — cria um vínculo emocional imediato e rende avaliações 5 estrelas entusiasmadas.</li></ul><h2>4. O Peso Real do Selo Superhost nas Reservas</h2><p>Propriedades com chancela de Superhost no Airbnb desfrutam de prioridade algorítmica nas buscas, gerando cerca de 35% mais visualizações orgânicas. Além disso, viajantes corporativos e turistas estrangeiros filtram ativamente apenas anúncios Superhost pela garantia de confiabilidade e limpeza impecável.</p><h2>5. Gestão Amadora vs. Gestão Profissional VivaHost</h2><p>Administrar um imóvel de temporada por conta própria consome entre 15 e 20 horas semanais com atendimento de mensagens, agendamento de diaristas, lavanderia, compras de insumos e pequenos consertos de emergência. A VivaHost assume 100% da operação — da curadoria do anúncio e fotos profissionais à manutenção preventiva e conciliação financeira —, entregando mais lucro líquido e zero dor de cabeça para você.</p>',
+			'category'     => 'Estratégia & Hospitalidade',
+			'post_content' => '<p class="lead font-medium text-lg text-neutral">Salvador é um dos polos turísticos e culturais mais procurados da América do Sul. Para proprietários na capital baiana, disponibilizar uma acomodação para estadias de temporada no Airbnb representa uma oportunidade expressiva — desde que conduzida com metodologia, atenção aos detalhes e hospitalidade de excelência.</p><h2>1. A Curva de Sazonalidade em Salvador: Muito Além do Carnaval</h2><p>O maior equívoco de quem começa na hospedagem por temporada é enxergar Salvador apenas através da lente do Carnaval e do Réveillon. Embora essas semanas de pico registrem diárias até 4 vezes superiores à média anual, o calendário da capital baiana oferece oportunidades de ocupação consistente durante os doze meses do ano:</p><ul><li><strong>Alta Temporada de Verão (Novembro a Março):</strong> Ocupação elevada em bairros litorâneos como Barra, Ondina e Rio Vermelho. O público busca sol, mar, ensaios de verão e turismo cultural.</li><li><strong>Média Temporada e Festas Típicas (Junho e Julho):</strong> O período de São João e as férias escolares de inverno trazem famílias e viajantes de todo o país para vivenciar a gastronomia e o Centro Histórico.</li><li><strong>Temporada Corporativa e Eventos (Abril a Outubro):</strong> Meses de grande movimentação de negócios, congressos médicos e eventos empresariais, especialmente para acomodações no Costa Azul, Caminho das Árvores e Armação.</li></ul><h2>2. Estratégia de Preços Dinâmica vs. O Erro da Diária Fixa</h2><p>Manter a mesma diária em uma terça-feira de baixa procura e em um sábado ensolarado de alta temporada reduz o potencial da sua hospedagem — seja por vacância ou por cobrar abaixo do mercado quando a procura atinge o ápice. Na VivaHost, monitoramos a curva de procura diária, a taxa de ocupação dos bairros vizinhos e grandes eventos na cidade para calibrar o valor das diárias com inteligência.</p><h2>3. Preparação e Conforto: O que Encanta os Hóspedes</h2><p>Os viajantes em Salvador valorizam comodidades que garantam conforto térmico, segurança e bem-estar:</p><ul><li><strong>Climatização Eficiente:</strong> Ar-condicionado split em todos os quartos e, preferencialmente, na sala de estar.</li><li><strong>Conexão de Alta Velocidade:</strong> Wi-Fi rápido e estável para atender nômades digitais e quem viaja a trabalho.</li><li><strong>Enxoval Padrão Hoteleiro:</strong> Roupas de cama de toque suave e toalhas de alta gramatura, rigorosamente higienizadas a cada reserva.</li><li><strong>Acesso Facilitado:</strong> Fechadura eletrônica ou recepção acolhedora com instruções claras de chegada.</li><li><strong>Acolhimento com Identidade Local:</strong> Mimos de boas-vindas com referências baianas criam conexão imediata e impulsionam avaliações 5 estrelas.</li></ul><h2>4. A Importância da Reputação de Superhost</h2><p>Anúncios com reconhecimento de Superhost no Airbnb conquistam destaque nas buscas e inspiram máxima confiança nos viajantes, que priorizam anfitriões com histórico comprovado de hospitalidade e limpeza impecável.</p><h2>5. Operação por Conta Própria vs. Operação Profissional VivaHost</h2><p>Cuidar de uma acomodação de temporada por conta própria demanda dezenas de horas semanais com mensagens, governança, lavanderia, recepção e imprevistos. A VivaHost assume toda a rotina operacional — da produção fotográfica ao suporte presencial e prestação de contas mensal —, proporcionando tranquilidade para o proprietário e experiências memoráveis para os hóspedes.</p>',
 		],
 		[
-			'post_title'   => 'Aluguel por Temporada em Salvador: Regras de Condomínio e Legislação Atualizada',
+			'post_title'   => 'Hospedagem por Temporada em Salvador: Boas Práticas e Regras de Condomínio',
 			'post_name'    => 'aluguel-temporada-salvador-regras-condominio-legislacao',
-			'post_excerpt' => 'Entenda o que diz a Lei do Inquilinato, as decisões dos tribunais superiores e como ter segurança jurídica e convivência harmônica com o condomínio ao alugar por temporada em Salvador.',
-			'seo_title'    => 'Aluguel por Temporada em Salvador: Lei do Inquilinato e Condomínios',
-			'seo_desc'     => 'Saiba o que diz a Lei 8.245/91 e o STJ sobre locação de temporada e Airbnb em condomínios de Salvador. Veja os protocolos de segurança da VivaHost.',
-			'seo_keyword'  => 'legislação aluguel temporada salvador, airbnb condomínio salvador, lei do inquilinato temporada',
+			'post_excerpt' => 'Entenda as melhores práticas de convivência em condomínio, segurança e harmonia ao disponibilizar sua acomodação para hospedagem de temporada em Salvador.',
+			'seo_title'    => 'Hospedagem por Temporada em Salvador: Boas Práticas e Condomínios',
+			'seo_desc'     => 'Diretrizes práticas de convivência e protocolos de segurança da VivaHost para hospedar por temporada em condomínios de Salvador com tranquilidade.',
+			'seo_keyword'  => 'hospedagem temporada salvador, condomínio temporada salvador, convivência airbnb',
 			'img'          => 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80',
-			'category'     => 'Legislação & Segurança',
-			'post_content' => '<p class="lead font-medium text-lg text-neutral">A locação por temporada por meio de plataformas digitais consolidou-se como uma das atividades mais dinâmicas do mercado imobiliário em Salvador. Entretanto, muitos proprietários ainda têm receios sobre a legalidade da atividade perante a legislação federal e as convenções condominiais. Neste guia prático, esclarecemos as principais diretrizes jurídicas e operacionais para alugar com tranquilidade.</p><h2>1. A Lei do Inquilinato (Lei Federal nº 8.245/1991)</h2><p>O aluguel por temporada não é uma novidade no direito brasileiro nem uma área cinzenta: ele é expressamente regulamentado pelo <strong>Artigo 48 da Lei nº 8.245/1991</strong>. A legislação define a locação por temporada como aquela destinada à residência temporária do locatário para fins de lazer, turismo, estudos, tratamento de saúde ou obras, com prazo máximo legal de até <strong>90 dias</strong>.</p><p>Trata-se de um exercício legítimo do direito constitucional de propriedade (Artigo 5º, XXII da Constituição Federal), que faculta ao dono usar, fruir e dispor de seus bens.</p><h2>2. As Decisões do STJ e o Poder das Convenções de Condomínio</h2><p>Nos últimos anos, o Superior Tribunal de Justiça (STJ) julgou controvérsias envolvendo condomínios e plataformas digitais. O entendimento consolidado é o seguinte:</p><ul><li>O condomínio <strong>pode</strong> restringir ou proibir a locação de curta temporada em suas unidades autônomas, <strong>desde que</strong> haja previsão expressa em sua Convenção de Condomínio, aprovada pelo quórum qualificado de dois terços dos condôminos (Art. 1.351 do Código Civil).</li><li>Se a Convenção de Condomínio for omissa ou mencionar apenas que o prédio é de destinação "residencial", a locação por temporada permanece plenamente permitida, pois o hóspede utiliza o imóvel para residência temporária, e não como comércio.</li><li>Decisões unilaterais de síndicos ou avisos em circulares sem aprovação formal em assembleia não têm valor de lei e não podem violar o direito de propriedade.</li></ul><h2>3. Pilares Operacionais para Convivência Pacífica no Prédio</h2><p>Na prática, 99% das queixas em condomínios não são sobre a locação em si, mas sim sobre desorganização na portaria ou barulho. Para blindar o seu apartamento, a VivaHost adota um protocolo operacional preventivo e rigoroso:</p><ul><li><strong>Identificação Prévia Obrigatória:</strong> Coleta antecipada de nomes completos, números de documento (RG/CPF ou Passaporte) de todos os ocupantes e envio direto para a portaria 24 horas antes do check-in.</li><li><strong>Controle Estrito de Lotação:</strong> Nenhum imóvel recebe mais pessoas do que o número de camas anunciado. Visitas não cadastradas são expressamente vedadas.</li><li><strong>Termo de Compromisso e Regras da Casa:</strong> Todos os hóspedes concordam formalmente com as normas internas do condomínio, lei do silêncio após as 22h, regras de piscina e descarte correto de lixo.</li><li><strong>Canal Direto com Portaria e Síndico:</strong> Disponibilizamos o contato direto da gestão da VivaHost para que qualquer dúvida ou intercorrência seja solucionada imediatamente por nós, sem incomodar o proprietário.</li></ul><h2>Conclusão: Segurança se Constrói com Profissionalismo</h2><p>Alugar por temporada em Salvador é seguro e rentável quando conduzido com zelo, regras claras e gestão responsável. Com o acompanhamento da VivaHost, seu imóvel valoriza o edifício e mantém uma relação exemplar com a vizinhança.</p>',
+			'category'     => 'Hospitalidade & Convivência',
+			'post_content' => '<p class="lead font-medium text-lg text-neutral">A hospedagem de curta duração consolidou-se como uma das formas mais dinâmicas e acolhedoras de receber viajantes em Salvador. Para os proprietários, o segredo de uma operação bem-sucedida está na harmonia contínua com as normas do condomínio e no respeito aos vizinhos. Conheça as práticas operacionais essenciais para garantir tranquilidade a todos.</p><h2>1. Regras Claras e Comunicação Transparente</h2><p>A harmonia em ambientes condominiais depende de regras transparentes e comunicação preventiva antes mesmo da chegada do hóspede:</p><ul><li><strong>Identificação Prévia Obrigatória:</strong> Coleta antecipada de nomes completos e documentos de identificação de todos os ocupantes, enviada com antecedência para a portaria.</li><li><strong>Capacidade Máxima Respeitada:</strong> Limite rigoroso de pessoas de acordo com o número de camas anunciado, sem permissão de festas ou visitas não cadastradas.</li><li><strong>Respeito à Lei do Silêncio:</strong> Orientação detalhada aos viajantes sobre horários de silêncio, uso de áreas comuns e normas internas do edifício.</li></ul><h2>2. Protocolo Operacional Preventivo da VivaHost</h2><p>Para assegurar que cada estadia ocorra com ordem e zelo, a equipe local da VivaHost mantém acompanhamento próximo:</p><ul><li><strong>Acompanhamento Presencial:</strong> Instruções claras de check-in e check-out, com canal de suporte 24h para esclarecer qualquer dúvida de imediato.</li><li><strong>Canal Direto com a Portaria:</strong> A equipe da VivaHost fica à disposição direta da portaria e administração do condomínio para atender prontamente a qualquer necessidade.</li><li><strong>Vistorias Periódicas:</strong> Verificação rigorosa do estado do imóvel após cada saída, mantendo a acomodação sempre bem cuidada.</li></ul><h2>Conclusão: Zelo e Cuidado em Primeiro Lugar</h2><p>Receber hóspedes em Salvador é uma experiência gratificante quando realizada com responsabilidade, protocolos claros e dedicação contínua. Com o suporte operacional da VivaHost, sua acomodação contribui positivamente para o condomínio e acolhe viajantes com excelência.</p>',
 		],
 		[
-			'post_title'   => 'Os Melhores Bairros de Salvador para Investir em Imóveis de Temporada em 2026',
+			'post_title'   => 'Os Melhores Bairros de Salvador para Hospedagem de Temporada em 2026',
 			'post_name'    => 'melhores-bairros-salvador-investimento-aluguel-temporada',
-			'post_excerpt' => 'Barra, Ondina, Rio Vermelho, Costa Azul ou Stella Maris? Análise aprofundada de taxa de ocupação, diária média, perfil de público e retorno sobre investimento em Salvador.',
-			'seo_title'    => 'Melhores Bairros de Salvador para Investir em Aluguel por Temporada',
-			'seo_desc'     => 'Comparativo completo entre Barra, Ondina, Rio Vermelho, Costa Azul e Stella Maris: taxa de ocupação, diária média e rentabilidade no Airbnb em Salvador.',
-			'seo_keyword'  => 'melhores bairros salvador investir temporada, airbnb barra ondina rio vermelho, investimento imobiliário salvador',
+			'post_excerpt' => 'Barra, Ondina, Rio Vermelho, Costa Azul ou Stella Maris? Análise sobre perfil de público, fluxo de viajantes e atratividade das principais regiões de Salvador.',
+			'seo_title'    => 'Melhores Bairros de Salvador para Hospedagem por Temporada em 2026',
+			'seo_desc'     => 'Conheça os bairros com maior procura para hospedagem em Salvador: Barra, Ondina, Rio Vermelho, Costa Azul e praias do norte.',
+			'seo_keyword'  => 'melhores bairros salvador hospedagem, airbnb barra ondina rio vermelho, turismo salvador',
 			'img'          => 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80',
-			'category'     => 'Mercado Imobiliário',
-			'post_content' => '<p class="lead font-medium text-lg text-neutral">Salvador vive um ciclo extraordinário de requalificação urbana e expansão da malha aérea, com voos diretos ligando a capital baiana aos principais centros do Brasil, Europa e América Latina. Para quem já possui um imóvel ou planeja investir em patrimônio imobiliário para locação por temporada, a escolha da localização dita o teto de rentabilidade e o perfil de ocupação ao longo do ano.</p><h2>1. Barra: O Epicentro Turístico com Ocupação Recorde</h2><p>A Barra é o endereço mais procurado e seguro para o investidor de temporada em Salvador. Com a orla totalmente requalificada, a praia protegida do Porto da Barra e o pôr do sol lendário no Farol da Barra, o bairro tem apelo universal para turistas do mundo todo.</p><ul><li><strong>Taxa de Ocupação Média:</strong> 78% a 88% ao ano.</li><li><strong>Tipologia Mais Rentável:</strong> Studios, lofts e apartamentos de 1 quarto.</li><li><strong>Perfil de Público:</strong> Casais jovens, viajantes internacionais, famílias pequenas e turistas de verão.</li></ul><h2>2. Ondina: Nobreza, Lazer e Localização Estratégica</h2><p>Vizinha à Barra, Ondina combina praias charmosas, condomínios com infraestrutura completa de lazer (piscinas com vista mar, academias e segurança 24h) e forte demanda durante todo o ano, impulsionada pelo fim do circuito de Carnaval e pela proximidade com grandes centros hospitalares e educacionais.</p><ul><li><strong>Taxa de Ocupação Média:</strong> 72% a 82% ao ano.</li><li><strong>Vantagem Competitiva:</strong> Diárias médias mais elevadas em condomínios de alto padrão frente-mar.</li></ul><h2>3. Rio Vermelho: O Polo Boêmio e Gastronômico da Cidade</h2><p>O Rio Vermelho é a alma boêmia de Salvador. Quem escolhe o Rio Vermelho busca vivenciar a cultura baiana autêntica, provar os lendários acarajés da Dinha e da Cira e curtir os melhores restaurantes e casas de show da capital.</p><ul><li><strong>Perfil do Hóspede:</strong> Viajantes individuais, turistas culturais, profissionais criativos e nômades digitais.</li><li><strong>Estadia Média:</strong> Ligeiramente mais longa que a da Barra, com excelente fluxo em fins de semana e feriados prolongados.</li></ul><h2>4. Costa Azul e Armação: O Melhor Custo de Entrada e Alta Rentabilidade</h2><p>Para investidores que buscam um preço por metro quadrado mais atrativo na compra, a região do Costa Azul e Armação desponta como uma das mais promissoras. Situada próxima ao polo financeiro da Avenida Tancredo Neves e do Salvador Shopping, atende com maestria o turismo de negócios e famílias que buscam praticidade.</p><ul><li><strong>Destaque:</strong> Menor investimento inicial e excelente retorno percentual sobre o capital investido (Yield líquido anual superior a 10%).</li></ul><h2>5. Praia do Flamengo e Stella Maris: O Refúgio Tropical Familiar</h2><p>Na zona norte de Salvador, próxima ao aeroporto, Flamengo e Stella Maris são imbatíveis para apartamentos maiores, casas de praia e vilas com piscina privativa, muito cobiçadas para estadias de férias em família e retiros de descanso.</p><h2>Comparativo Financeiro: Temporada vs. Aluguel Tradicional</h2><p>Enquanto o aluguel residencial convencional em Salvador rende em média <strong>0,4% a 0,5% ao mês</strong> (com alto risco de inadimplência e desgaste do imóvel ao longo de 30 meses), a locação por temporada bem administrada pela VivaHost costuma gerar entre <strong>0,9% e 1,4% ao mês líquido</strong>, com repasses mensais garantidos e o patrimônio sempre revisado e conservado.</p><h2>Traga seu Imóvel para a VivaHost</h2><p>Quer saber quanto o seu imóvel em Salvador pode faturar por mês no Airbnb? Entre em contato conosco pelo WhatsApp e solicite um estudo gratuito de potencial de rentabilidade.</p>',
+			'category'     => 'Destinos & Temporada',
+			'post_content' => '<p class="lead font-medium text-lg text-neutral">Salvador atrai visitantes de todas as partes do Brasil e do mundo, motivados pela rica cena cultural, gastronomia marcante, praias encantadoras e eventos ao longo do ano. Para quem disponibiliza acomodações na capital baiana, conhecer as particularidades de cada bairro é fundamental para posicionar a hospedagem com sucesso.</p><h2>1. Barra: O Epicentro Turístico</h2><p>A Barra é o endereço mais tradicional e procurado pelos viajantes. Com praias calmas no Porto da Barra e o icônico pôr do sol no Farol, a região possui procura constante tanto no verão quanto ao longo do ano.</p><h2>2. Ondina: Conforto e Localização Estratégica</h2><p>Vizinha à Barra, Ondina reúne condomínios modernos com estrutura completa de lazer e vista para o mar, atraindo viajantes que buscam comodidade e fácil acesso aos principais pontos da orla.</p><h2>3. Rio Vermelho: Cultura e Gastronomia</h2><p>O coração boêmio de Salvador atrai quem valoriza experiências gastronômicas, vida cultural vibrante e proximidade com artistas e a autêntica vida noturna soteropolitana.</p><h2>4. Costa Azul e Armação: Conveniência e Praticidade</h2><p>Regiões valorizadas pela proximidade com centros de convenções, polos empresariais e shoppings, além do Parque dos Ventos e da orla, perfeitas para viagens a trabalho e famílias.</p><h2>5. Stella Maris e Flamengo: Refúgio de Lazer</h2><p>Praias amplas, ideais para estadias de descanso em família e quem procura tranquilidade e contato com a natureza perto da capital.</p><h2>Acompanhe o Desempenho da sua Hospedagem com a VivaHost</h2><p>Quer entender como a sua acomodação em Salvador pode se destacar no mercado de hospedagem? Fale conosco pelo WhatsApp e converse com a Marcia sobre as soluções operacionais da VivaHost.</p>',
 		],
 	];
 

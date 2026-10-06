@@ -260,7 +260,7 @@ $val = function ( $key ) use ( $defaults ) {
 				<div class="vh-toggle-row">
 					<div class="vh-toggle-info">
 						<strong>Gerar Grafo Schema.org JSON-LD Completo Automaticamente</strong>
-						<span>Inclui <code>RealEstateAgent</code>, <code>LocalBusiness</code>, <code>WebSite</code>, <code>Service</code>, <code>FAQPage</code>, <code>BreadcrumbList</code> e <code>BlogPosting</code>.</span>
+						<span>Inclui <code>LodgingBusiness</code>, <code>LocalBusiness</code>, <code>WebSite</code>, <code>Service</code>, <code>FAQPage</code>, <code>BreadcrumbList</code> e <code>BlogPosting</code>.</span>
 					</div>
 					<label class="vh-switch">
 						<input type="checkbox" name="vh_seo_schema_enable" value="1" <?php checked( $val( 'vh_seo_schema_enable' ), '1' ); ?>>
@@ -273,9 +273,9 @@ $val = function ( $key ) use ( $defaults ) {
 					<select id="vh_seo_schema_type" name="vh_seo_schema_type">
 						<?php
 						$s_types = [
-							'RealEstateAgent'     => 'RealEstateAgent (Imobiliária / Gestão de Imóveis — Recomendado)',
-							'LodgingBusiness'     => 'LodgingBusiness (Hospedagem por Temporada)',
-							'ProfessionalService' => 'ProfessionalService (Serviço Profissional)',
+							'LodgingBusiness'     => 'LodgingBusiness (Hospedagens e Aluguel por Temporada — Recomendado)',
+							'ProfessionalService' => 'ProfessionalService (Serviço Profissional e Hospitalidade)',
+							'RealEstateAgent'     => 'RealEstateAgent (Legado)',
 						];
 						foreach ( $s_types as $st_val => $st_label ) :
 						?>
