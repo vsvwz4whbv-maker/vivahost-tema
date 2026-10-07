@@ -617,9 +617,6 @@ function vh_render_seo_settings_page() {
 function vh_render_smtp_settings_page() {
 	require_once VH_PATH . '/admin/smtp-settings.php';
 }
-function vh_render_updates_settings_page() {
-	require_once VH_PATH . '/admin/updates-settings.php';
-}
 
 add_action( 'admin_menu', function () {
 	// Menu Top-Level "VivaHost" nella barra laterale di WordPress
@@ -653,17 +650,7 @@ add_action( 'admin_menu', function () {
 		'vh_render_smtp_settings_page'
 	);
 
-	// 3. Sottomenu: Atualizações GitHub
-	add_submenu_page(
-		'vivahost-seo',
-		'VivaHost — Atualizações via GitHub',
-		'Atualizações GitHub',
-		'manage_options',
-		'vivahost-updates',
-		'vh_render_updates_settings_page'
-	);
-
-	// 4. Sottomenu: Collegamento rapido al Customizer (Personalizar Tema)
+	// 3. Sottomenu: Collegamento rapido al Customizer (Personalizar Tema)
 	global $submenu;
 	if ( current_user_can( 'customize' ) ) {
 		$submenu['vivahost-seo'][] = [
@@ -673,25 +660,6 @@ add_action( 'admin_menu', function () {
 		];
 	}
 } );
-
-add_action( 'admin_init', 'vh_updates_save' );
-function vh_updates_save() {
-	if ( ! isset( $_POST['vh_updates_nonce'] ) ) return;
-	if ( ! wp_verify_nonce( $_POST['vh_updates_nonce'], 'vh_updates_save' ) ) return;
-	if ( ! current_user_can( 'manage_options' ) ) return;
-
-	if ( isset( $_POST['vh_github_repo'] ) ) {
-		update_option( 'vh_github_repo', sanitize_text_field( $_POST['vh_github_repo'] ) );
-	}
-	if ( isset( $_POST['vh_github_token'] ) ) {
-		update_option( 'vh_github_token', sanitize_text_field( $_POST['vh_github_token'] ) );
-	}
-	delete_transient( 'vh_gh_update_check' );
-	delete_site_transient( 'update_themes' );
-
-	wp_safe_redirect( admin_url( 'admin.php?page=vivahost-updates&saved=1' ) );
-	exit;
-}
 
 add_action( 'admin_init', 'vh_smtp_save' );
 function vh_smtp_save() {
@@ -897,139 +865,4 @@ function vh_seed_salvador_posts() {
 	}
 
 	update_option( 'vh_posts_seeded_v6', 1 );
-}
-
-// ─── 9. GITHUB THEME AUTO-UPDATER ───────────────────────────────────────────
-add_filter( 'pre_set_site_transient_update_themes', 'vh_github_check_theme_update' );
-function vh_github_check_theme_update( $transient ) {
-	if ( empty( $transient->checked ) ) {
-		return $transient;
-	}
-
-	$repo = get_option( 'vh_github_repo', defined( 'VH_GITHUB_REPO' ) ? VH_GITHUB_REPO : '' );
-	if ( empty( $repo ) ) {
-		return $transient;
-	}
-
-	$repo = trim( $repo, '/' );
-	$transient_key = 'vh_gh_update_check';
-	$release = get_transient( $transient_key );
-
-	if ( false === $release ) {
-		$headers = [
-			'Accept'     => 'application/vnd.github.v3+json',
-			'User-Agent' => 'WordPress-VivaHost-Updater',
-		];
-		$token = get_option( 'vh_github_token', defined( 'VH_GITHUB_TOKEN' ) ? VH_GITHUB_TOKEN : '' );
-		if ( ! empty( $token ) ) {
-			$headers['Authorization'] = 'Bearer ' . trim( $token );
-		}
-
-		$response = wp_remote_get( "https://api.github.com/repos/{$repo}/releases/latest", [
-			'headers' => $headers,
-			'timeout' => 10,
-		] );
-
-		if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
-			set_transient( $transient_key, 'none', HOUR_IN_SECONDS );
-			return $transient;
-		}
-
-		$body = json_decode( wp_remote_retrieve_body( $response ) );
-		$release = ! empty( $body->tag_name ) ? $body : 'none';
-		set_transient( $transient_key, $release, 4 * HOUR_IN_SECONDS );
-	}
-
-	if ( empty( $release ) || 'none' === $release || empty( $release->tag_name ) ) {
-		return $transient;
-	}
-
-	$theme_slug  = 'vivahost-tema';
-	$theme_obj   = wp_get_theme( $theme_slug );
-	$current_ver = $theme_obj->exists() ? $theme_obj->get( 'Version' ) : '3.8.3';
-	$remote_ver  = ltrim( $release->tag_name, 'v' );
-
-	if ( version_compare( $remote_ver, $current_ver, '>' ) ) {
-		$package_url = $release->zipball_url;
-		if ( ! empty( $release->assets ) && is_array( $release->assets ) ) {
-			foreach ( $release->assets as $asset ) {
-				if ( isset( $asset->name ) && substr( $asset->name, -4 ) === '.zip' ) {
-					$package_url = $asset->browser_download_url;
-					break;
-				}
-			}
-		}
-
-		$transient->response[ $theme_slug ] = [
-			'theme'       => $theme_slug,
-			'new_version' => $remote_ver,
-			'url'         => $release->html_url,
-			'package'     => $package_url,
-		];
-	}
-
-	return $transient;
-}
-
-// Disabilita il rollback temporaneo per vivahost-tema (previene l'errore upgrade-temp-backup su hosting con permessi restrittivi)
-add_filter( 'upgrader_package_options', 'vh_disable_temp_backup', 10, 1 );
-function vh_disable_temp_backup( $options ) {
-	if ( isset( $options['hook_extra']['theme'] ) && 'vivahost-tema' === $options['hook_extra']['theme'] ) {
-		unset( $options['hook_extra']['temp_backup'] );
-	}
-	return $options;
-}
-
-// Assicura che la directory estratta dallo zip GitHub sia sempre vivahost-tema
-add_filter( 'upgrader_source_selection', 'vh_github_fix_theme_dir', 10, 4 );
-function vh_github_fix_theme_dir( $source, $remote_source, $upgrader, $hook_extra = [] ) {
-	if ( isset( $hook_extra['theme'] ) && 'vivahost-tema' === $hook_extra['theme'] ) {
-		global $wp_filesystem;
-		$correct_dir = trailingslashit( $remote_source ) . 'vivahost-tema/';
-		if ( $source !== $correct_dir ) {
-			$wp_filesystem->move( $source, $correct_dir );
-			return $correct_dir;
-		}
-	}
-	return $source;
-}
-
-// Scheda popup dettagli con changelog GitHub
-add_filter( 'themes_api', 'vh_github_theme_api_info', 20, 3 );
-function vh_github_theme_api_info( $res, $action, $args ) {
-	if ( 'theme_information' !== $action || empty( $args->slug ) || 'vivahost-tema' !== $args->slug ) {
-		return $res;
-	}
-
-	$repo = get_option( 'vh_github_repo', defined( 'VH_GITHUB_REPO' ) ? VH_GITHUB_REPO : '' );
-	if ( ! $repo ) return $res;
-
-	$release = get_transient( 'vh_gh_update_check' );
-	if ( ! empty( $release ) && 'none' !== $release ) {
-		$res = (object) [
-			'name'          => 'VivaHost',
-			'slug'          => 'vivahost-tema',
-			'version'       => ltrim( $release->tag_name, 'v' ),
-			'author'        => 'VivaHost',
-			'homepage'      => 'https://meuvivahost.com.br',
-			'sections'      => [
-				'description' => 'Tema VivaHost para gestão profissional de imóveis por temporada.',
-				'changelog'   => nl2br( esc_html( $release->body ?? 'Melhorias de desempenho e novas funcionalidades.' ) ),
-			],
-			'download_link' => $release->zipball_url,
-		];
-	}
-	return $res;
-}
-
-// Autorizzazione HTTP per download pacchetto ZIP da repository GitHub privati
-add_filter( 'http_request_args', 'vh_github_download_auth', 10, 2 );
-function vh_github_download_auth( $args, $url ) {
-	if ( strpos( $url, 'api.github.com' ) !== false || strpos( $url, 'codeload.github.com' ) !== false ) {
-		$token = get_option( 'vh_github_token', defined( 'VH_GITHUB_TOKEN' ) ? VH_GITHUB_TOKEN : '' );
-		if ( ! empty( $token ) ) {
-			$args['headers']['Authorization'] = 'Bearer ' . trim( $token );
-		}
-	}
-	return $args;
 }
