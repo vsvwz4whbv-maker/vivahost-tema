@@ -487,19 +487,19 @@ get_template_part( 'template-parts/header-site' );
         <!-- Large Organic Photo with Integrated Superhost Badge (No enclosing card/box) -->
         <div class="host-visual lg:col-span-5 flex justify-center order-1 lg:order-2">
           <div class="host-avatar-container relative inline-block">
-            <!-- Large Free-standing Circular Portrait -->
-            <div class="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-full overflow-hidden shadow-2xl ring-8 ring-white aspect-square">
+            <!-- Free-standing Circular Portrait (Compact & without white border) -->
+            <div class="w-52 h-52 sm:w-64 sm:h-64 lg:w-72 lg:h-72 rounded-full overflow-hidden shadow-xl aspect-square">
               <?php if ( $host_photo_url ) : ?>
                 <img src="<?php echo esc_url( $host_photo_url ); ?>" alt="<?php echo esc_attr( vh_mod( 'host_name', 'Márcia Sales' ) ); ?>" class="host-avatar host-avatar--photo object-cover w-full h-full" itemprop="image">
               <?php else : ?>
-                <div class="host-avatar w-full h-full bg-primary/10 flex items-center justify-center font-bold text-4xl text-primary" aria-hidden="true">MS</div>
+                <div class="host-avatar w-full h-full bg-primary/10 flex items-center justify-center font-bold text-3xl text-primary" aria-hidden="true">MS</div>
               <?php endif; ?>
             </div>
 
-            <!-- Integrated Superhost Badge (Directly anchored on photo edge, NO separate white circle) -->
+            <!-- Integrated Superhost Badge (Directly anchored on photo edge, NO white circle or border) -->
             <?php if ( vh_mod( 'host_superhost', '1' ) ) : ?>
-              <div class="host-superhost-medal absolute bottom-2 right-2 sm:bottom-4 sm:right-4 z-10 transition-transform hover:scale-105 duration-300" aria-label="Superhost verificado no Airbnb" title="Superhost Verificado no Airbnb">
-                <img src="<?php echo esc_url( VH_URL . '/assets/images/badge_purple.png' ); ?>" alt="Superhost Airbnb" class="w-16 h-16 sm:w-20 sm:h-20 drop-shadow-2xl object-contain">
+              <div class="host-superhost-medal absolute bottom-1 right-1 sm:bottom-2 sm:right-2 z-10 transition-transform hover:scale-105 duration-300" aria-label="Superhost verificado no Airbnb" title="Superhost Verificado no Airbnb">
+                <img src="<?php echo esc_url( VH_URL . '/assets/images/badge_purple.png' ); ?>" alt="Superhost Airbnb" class="w-14 h-14 sm:w-16 sm:h-16 drop-shadow-xl object-contain">
               </div>
             <?php endif; ?>
           </div>
