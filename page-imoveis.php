@@ -174,7 +174,6 @@ $ico_star = '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" cla
 
     <!-- Clean, Human Owner CTA Section -->
     <div class="mt-16 sm:mt-24 p-8 sm:p-12 rounded-3xl bg-base-200/60 border border-base-200 text-center max-w-3xl mx-auto">
-      <span class="text-xs font-bold uppercase tracking-wider text-primary mb-2 block">Para Proprietários</span>
       <h2 class="text-2xl sm:text-3xl font-extrabold text-neutral tracking-tight mb-3">
         Quer o seu imóvel operado com esse mesmo padrão?
       </h2>

@@ -803,8 +803,10 @@ get_template_part( 'template-parts/header-site' );
           endforeach;
         endif;
         ?>
-      <div class="text-center mt-12">
-        <a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="btn btn-outline btn-neutral rounded-full px-8 py-3 text-sm font-bold hover:btn-primary hover:text-white transition-all">Ver todos os artigos do blog →</a>
+      </div>
+
+      <div class="text-center mt-12 flex justify-center">
+        <a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="btn btn-outline btn-neutral rounded-full px-8 py-3 text-sm font-bold hover:btn-primary hover:text-white transition-all shadow-sm">Ver todos os artigos do blog →</a>
       </div>
     </div>
   </section>

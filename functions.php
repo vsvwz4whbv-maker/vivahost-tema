@@ -11,7 +11,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
-define( 'VH_VER',  '3.9.9' );
+define( 'VH_VER',  '3.9.10' );
 define( 'VH_PATH', get_stylesheet_directory() );
 define( 'VH_URL',  get_stylesheet_directory_uri() );
 
