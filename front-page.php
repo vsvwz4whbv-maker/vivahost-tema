@@ -11,10 +11,10 @@
 defined( 'ABSPATH' ) || exit;
 
 // ── Read all mods upfront ─────────────────────────────────────────────────────
-$hero_bg_id  = (int) vh_mod( 'hero_bg', 0 );
-$hero_bg_url = $hero_bg_id
-	? wp_get_attachment_image_url( $hero_bg_id, 'full' )
-	: '';
+$hero_bg_id         = (int) vh_mod( 'hero_bg', 0 );
+$hero_bg_url        = $hero_bg_id ? wp_get_attachment_image_url( $hero_bg_id, 'full' ) : '';
+$hero_bg_mobile_id  = (int) vh_mod( 'hero_bg_mobile', 0 );
+$hero_bg_mobile_url = $hero_bg_mobile_id ? wp_get_attachment_image_url( $hero_bg_mobile_id, 'full' ) : $hero_bg_url;
 
 $prop_fallbacks = [
 	1 => VH_URL . '/assets/images/prop-ondina-vista.webp',
@@ -91,10 +91,29 @@ get_template_part( 'template-parts/header-site' );
   <!-- ═══════════════════════════════════════
        HERO
   ════════════════════════════════════════ -->
-  <section class="vh-hero relative min-h-[85vh] md:min-h-[90vh] flex items-center justify-center text-center text-white bg-cover bg-center <?php echo $hero_bg_url ? 'has-custom-bg' : 'vh-hero--gradient'; ?>" id="hero"
-    <?php if ( $hero_bg_url ) : ?>style="background-image:url('<?php echo esc_url( $hero_bg_url ); ?>'); background-position:center center; background-size:cover; background-repeat:no-repeat;"<?php endif; ?>
+  <?php
+  $has_custom_hero = ( ! empty( $hero_bg_url ) || ! empty( $hero_bg_mobile_url ) );
+  if ( $has_custom_hero ) :
+    $bg_desk = esc_url( $hero_bg_url ?: $hero_bg_mobile_url );
+    $bg_mob  = esc_url( $hero_bg_mobile_url ?: $hero_bg_url );
+  ?>
+  <style>
+    #hero.has-custom-bg {
+      background-image: url('<?php echo $bg_mob; ?>') !important;
+      background-position: center center !important;
+      background-size: cover !important;
+      background-repeat: no-repeat !important;
+    }
+    @media (min-width: 768px) {
+      #hero.has-custom-bg {
+        background-image: url('<?php echo $bg_desk; ?>') !important;
+      }
+    }
+  </style>
+  <?php endif; ?>
+  <section class="vh-hero relative min-h-[85vh] md:min-h-[90vh] flex items-center justify-center text-center text-white bg-cover bg-center <?php echo $has_custom_hero ? 'has-custom-bg' : 'vh-hero--gradient'; ?>" id="hero"
     aria-label="Introdução">
-    <div class="vh-hero__overlay absolute inset-0 <?php echo $hero_bg_url ? 'bg-gradient-to-b from-black/40 via-black/25 to-black/45' : 'bg-gradient-to-b from-black/15 via-transparent to-black/25'; ?> z-10" aria-hidden="true"></div>
+    <div class="vh-hero__overlay absolute inset-0 <?php echo $has_custom_hero ? 'bg-gradient-to-b from-black/40 via-black/25 to-black/45' : 'bg-gradient-to-b from-black/15 via-transparent to-black/25'; ?> z-10" aria-hidden="true"></div>
     <div class="vh-hero__content inner relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
       <div class="inline-block mb-5">
         <span class="hero-eyebrow badge badge-lg border-white/30 bg-black/25 text-white font-medium tracking-wide backdrop-blur-md px-5 py-3 rounded-full text-xs sm:text-sm shadow-sm" data-vh="hero_eyebrow">
@@ -107,11 +126,11 @@ get_template_part( 'template-parts/header-site' );
       <p class="hero-sub text-base sm:text-lg lg:text-xl text-white/95 max-w-2xl mx-auto leading-relaxed mb-10 font-normal drop-shadow" data-vh="hero_subtitle">
         <?php echo esc_html( vh_mod( 'hero_subtitle', 'A VivaHost cuida da operação da sua hospedagem em Salvador de ponta a ponta: dos anúncios e reservas ao atendimento, limpeza e acompanhamento presencial. Você acompanha os resultados com total transparência.' ) ); ?>
       </p>
-      <div class="hero-actions flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="<?php echo esc_url( vh_mod( 'hero_btn1_link', '#contato' ) ); ?>" class="btn btn-primary btn-brand-coral btn-lg rounded-full px-8 text-white font-bold shadow-xl hover:shadow-2xl hover:scale-105 transition-all w-full sm:w-auto" data-vh="hero_btn1_text">
+      <div class="hero-actions flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 max-w-md sm:max-w-none mx-auto">
+        <a href="<?php echo esc_url( vh_mod( 'hero_btn1_link', '#contato' ) ); ?>" class="btn btn-primary btn-brand-coral btn-md sm:btn-lg rounded-full px-6 sm:px-8 py-2.5 sm:py-4 text-sm sm:text-base text-white font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all w-full sm:w-auto" data-vh="hero_btn1_text">
           <?php echo esc_html( vh_mod( 'hero_btn1_text', 'Avaliar minha hospedagem' ) ); ?>
         </a>
-        <a href="<?php echo esc_url( vh_mod( 'hero_btn2_link', '#como-funciona' ) ); ?>" class="btn btn-hero-secondary btn-lg rounded-full px-8 font-bold hover:scale-105 transition-all w-full sm:w-auto" data-vh="hero_btn2_text">
+        <a href="<?php echo esc_url( vh_mod( 'hero_btn2_link', '#como-funciona' ) ); ?>" class="btn btn-hero-secondary btn-md sm:btn-lg rounded-full px-6 sm:px-8 py-2.5 sm:py-4 text-sm sm:text-base font-bold hover:scale-105 transition-all w-full sm:w-auto" data-vh="hero_btn2_text">
           <?php echo esc_html( vh_mod( 'hero_btn2_text', 'Como funciona' ) ); ?>
         </a>
       </div>

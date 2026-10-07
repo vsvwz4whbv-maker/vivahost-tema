@@ -11,7 +11,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
-define( 'VH_VER',  '3.9.14' );
+define( 'VH_VER',  '3.9.15' );
 define( 'VH_PATH', get_stylesheet_directory() );
 define( 'VH_URL',  get_stylesheet_directory_uri() );
 
@@ -216,9 +216,10 @@ function vh_customize_register( WP_Customize_Manager $c ) {
 	$area( 'hero_subtitle',  'hero', 'Sottotitolo',            'A VivaHost cuida da operação da sua hospedagem em Salvador de ponta a ponta: dos anúncios e reservas ao atendimento, limpeza e acompanhamento presencial. Você acompanha os resultados com total transparência.' );
 	$text( 'hero_btn1_text', 'hero', 'Bottone 1 — testo',      'Avaliar minha hospedagem' );
 	$text( 'hero_btn1_link', 'hero', 'Bottone 1 — link',       '#contato' );
-	$text( 'hero_btn2_text', 'hero', 'Bottone 2 — testo',      'Como funciona' );
+	$text( 'hero_btn2_text', 'hero', 'Bottone 2 — testo',      'Como funziona' );
 	$text( 'hero_btn2_link', 'hero', 'Bottone 2 — link',       '#como-funciona' );
-	$img(  'hero_bg',        'hero', 'Immagine di sfondo hero' );
+	$img(  'hero_bg',        'hero', 'Foto de fundo — Desktop' );
+	$img(  'hero_bg_mobile', 'hero', 'Foto de fundo — Mobile' );
 
 	// ── STATS ────────────────────────────────────────────────────────────────
 	$c->add_section( 'vivahost_stats', [ 'title' => 'Barra Numeri (4 Stats)', 'panel' => 'vivahost_panel', 'priority' => 30 ] );
