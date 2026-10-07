@@ -408,6 +408,13 @@ get_template_part( 'template-parts/header-site' );
   </section>
 
   <!-- ═══════════════════════════════════════
+       PANORAMA SALVADOR — FAROL & PALMEIRA (2.SVG)
+  ════════════════════════════════════════ -->
+  <div class="vh-svg-banner vh-svg-banner--farol border-y border-base-200/50" aria-hidden="true">
+    <img src="<?php echo esc_url( VH_URL . '/assets/images/2.svg' ); ?>" alt="Farol da Barra e Palmeira — Salvador" loading="lazy" width="1920" height="1080">
+  </div>
+
+  <!-- ═══════════════════════════════════════
        DEPOIMENTO (MINIMAL & ELEGANTE)
   ════════════════════════════════════════ -->
   <?php
@@ -786,6 +793,13 @@ get_template_part( 'template-parts/header-site' );
     </div>
   </section>
   <?php endif; ?>
+
+  <!-- ═══════════════════════════════════════
+       PANORAMA SALVADOR — SKYLINE PELOURINHO (1.SVG)
+  ════════════════════════════════════════ -->
+  <div class="vh-svg-banner vh-svg-banner--skyline border-y border-base-200/50" aria-hidden="true">
+    <img src="<?php echo esc_url( VH_URL . '/assets/images/1.svg' ); ?>" alt="Skyline Salvador — Pelourinho" loading="lazy" width="1920" height="1080">
+  </div>
 
   <!-- ═══════════════════════════════════════
        FAQ
