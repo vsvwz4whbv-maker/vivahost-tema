@@ -94,7 +94,7 @@ while ( have_posts() ) :
       <nav class="breadcrumb flex items-center gap-2 text-xs sm:text-sm text-base-content/60 mb-6" aria-label="Navegação estrutural">
         <a href="<?php echo esc_url( $home_url ); ?>" class="hover:text-primary transition-colors">Início</a>
         <span>/</span>
-        <a href="<?php echo esc_url( $home_url ); ?>#blog" class="hover:text-primary transition-colors">Blog</a>
+        <a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="hover:text-primary transition-colors">Blog</a>
         <span>/</span>
         <span class="text-neutral font-medium truncate max-w-[200px] sm:max-w-none"><?php the_title(); ?></span>
       </nav>

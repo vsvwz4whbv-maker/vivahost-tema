@@ -32,7 +32,7 @@ $home_url = esc_url( home_url( '/' ) );
       <a href="<?php echo $home_url; ?>#servicos" class="btn btn-ghost btn-sm text-sm font-medium rounded-lg">Serviços</a>
       <a href="<?php echo esc_url( home_url( '/imoveis/' ) ); ?>" class="btn btn-ghost btn-sm text-sm font-medium rounded-lg">Imóveis</a>
       <a href="<?php echo $home_url; ?>#sobre-nos" class="btn btn-ghost btn-sm text-sm font-medium rounded-lg">Sobre</a>
-      <a href="<?php echo $home_url; ?>#blog" class="btn btn-ghost btn-sm text-sm font-medium rounded-lg">Blog</a>
+      <a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="btn btn-ghost btn-sm text-sm font-medium rounded-lg">Blog</a>
       <a href="<?php echo $home_url; ?>#contato" class="btn btn-ghost btn-sm text-sm font-medium rounded-lg">Contato</a>
     </nav>
 
@@ -50,7 +50,7 @@ $home_url = esc_url( home_url( '/' ) );
   <a href="<?php echo $home_url; ?>#servicos"      class="vh-mobile-link text-2xl font-bold text-neutral hover:text-primary transition-colors py-2">Serviços</a>
   <a href="<?php echo esc_url( home_url( '/imoveis/' ) ); ?>" class="vh-mobile-link text-2xl font-bold text-neutral hover:text-primary transition-colors py-2">Imóveis</a>
   <a href="<?php echo $home_url; ?>#sobre-nos"     class="vh-mobile-link text-2xl font-bold text-neutral hover:text-primary transition-colors py-2">Sobre</a>
-  <a href="<?php echo $home_url; ?>#blog"         class="vh-mobile-link text-2xl font-bold text-neutral hover:text-primary transition-colors py-2">Blog</a>
+  <a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="vh-mobile-link text-2xl font-bold text-neutral hover:text-primary transition-colors py-2">Blog</a>
   <a href="<?php echo $home_url; ?>#contato"       class="vh-mobile-link text-2xl font-bold text-neutral hover:text-primary transition-colors py-2">Contato</a>
   <a href="<?php echo $cta_link; ?>" class="vh-mobile-link mobile-nav-cta btn btn-primary btn-brand-coral rounded-full px-8 py-3 text-white font-bold mt-4 shadow-lg" data-vh="header_cta_text"><?php echo $cta_text; ?> →</a>
 </nav>

@@ -175,7 +175,8 @@ get_template_part( 'template-parts/header-site' );
             <?php echo esc_html( vh_mod( 'process_intro', 'Do alinhamento inicial ao acolhimento dos hóspedes, cuidamos de toda a rotina operacional para proporcionar a melhor estadia com tranquilidade para você.' ) ); ?>
           </p>
           <div class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-base-200/80 text-xs sm:text-sm font-semibold text-neutral border border-base-200">
-            <span>⏱ Da visita técnica inicial ao anúncio ativo em até 7 dias</span>
+            <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-primary flex-shrink-0" aria-hidden="true"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg>
+            <span>Da visita técnica inicial ao anúncio ativo em até 7 dias</span>
           </div>
         </div>
         <div class="process-steps lg:col-span-7 flex flex-col gap-5">
@@ -306,7 +307,7 @@ get_template_part( 'template-parts/header-site' );
           <p class="text-sm sm:text-base text-base-content/80 leading-relaxed mb-4 md:text-right" data-vh="services_intro">
             <?php echo esc_html( vh_mod( 'services_intro', 'Da produção fotográfica ao suporte presencial 24h, oferecemos toda a estrutura operacional e de hospitalidade para o sucesso da sua hospedagem por temporada.' ) ); ?>
           </p>
-          <a href="#contato" class="btn btn-outline btn-sm rounded-full px-6 font-semibold hover:bg-neutral hover:text-white transition-all">Conhecer os serviços →</a>
+          <a href="#contato" class="btn btn-outline btn-sm rounded-full px-6 font-semibold hover:bg-neutral hover:text-white transition-all">Solicitar proposta para meu imóvel →</a>
         </div>
       </div>
       <div class="services-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -405,13 +406,6 @@ get_template_part( 'template-parts/header-site' );
       </div>
     </div>
   </section>
-
-  <!-- ═══════════════════════════════════════
-       PANORAMA SALVADOR — FAROL & PALMEIRA (2.SVG)
-  ════════════════════════════════════════ -->
-  <div class="vh-svg-banner vh-svg-banner--farol border-y border-base-200/50" aria-hidden="true">
-    <img src="<?php echo esc_url( VH_URL . '/assets/images/2.svg' ); ?>" alt="Farol da Barra e Palmeira — Salvador" loading="lazy" width="1920" height="1080">
-  </div>
 
   <!-- ═══════════════════════════════════════
        DEPOIMENTO (MINIMAL & ELEGANTE)
@@ -809,17 +803,12 @@ get_template_part( 'template-parts/header-site' );
           endforeach;
         endif;
         ?>
+      <div class="text-center mt-12">
+        <a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="btn btn-outline btn-neutral rounded-full px-8 py-3 text-sm font-bold hover:btn-primary hover:text-white transition-all">Ver todos os artigos do blog →</a>
       </div>
     </div>
   </section>
   <?php endif; ?>
-
-  <!-- ═══════════════════════════════════════
-       PANORAMA SALVADOR — SKYLINE PELOURINHO (1.SVG)
-  ════════════════════════════════════════ -->
-  <div class="vh-svg-banner vh-svg-banner--skyline border-y border-base-200/50" aria-hidden="true">
-    <img src="<?php echo esc_url( VH_URL . '/assets/images/1.svg' ); ?>" alt="Skyline Salvador — Pelourinho" loading="lazy" width="1920" height="1080">
-  </div>
 
   <!-- ═══════════════════════════════════════
        FAQ
@@ -999,7 +988,7 @@ get_template_part( 'template-parts/header-site' );
                   </span>
                 </button>
               </div>
-              <p class="form-note text-xs text-center text-base-content/60 mt-4">🔒 Sem spam. Protegido contra robôs · Seus dados estão seguros (LGPD).</p>
+              <p class="form-note text-xs text-center text-base-content/60 mt-4 flex items-center justify-center gap-1.5"><svg viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5 text-base-content/50" aria-hidden="true"><path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd"/></svg><span>Sem spam. Protegido contra robôs · Seus dados estão seguros (LGPD).</span></p>
               <div class="form-error alert alert-error text-xs rounded-xl mt-4" id="form-error" role="alert" aria-live="polite" style="display:none"></div>
             </form>
             <div class="form-success text-center py-6" id="form-success" role="status" aria-live="polite" tabindex="-1" aria-hidden="true" style="display:none">

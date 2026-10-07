@@ -11,7 +11,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
-define( 'VH_VER',  '3.9.8' );
+define( 'VH_VER',  '3.9.9' );
 define( 'VH_PATH', get_stylesheet_directory() );
 define( 'VH_URL',  get_stylesheet_directory_uri() );
 
@@ -1034,12 +1034,13 @@ function vh_get_all_properties() {
 }
 
 /**
- * Assicura che la pagina 'imoveis' esista nel database WordPress.
+ * Assicura che le pagine 'imoveis' e 'blog' esistano nel database WordPress.
  */
-add_action( 'init', 'vh_setup_imoveis_page' );
-function vh_setup_imoveis_page() {
+add_action( 'init', 'vh_setup_theme_pages' );
+function vh_setup_theme_pages() {
+	// Pagina Imóveis
 	if ( ! get_option( 'vh_imoveis_page_created' ) ) {
-		$existing = new WP_Query( [
+		$existing_imoveis = new WP_Query( [
 			'name'             => 'imoveis',
 			'post_type'        => 'page',
 			'post_status'      => 'any',
@@ -1049,7 +1050,7 @@ function vh_setup_imoveis_page() {
 			'suppress_filters' => true,
 		] );
 
-		if ( ! $existing->have_posts() ) {
+		if ( ! $existing_imoveis->have_posts() ) {
 			$page_id = wp_insert_post( [
 				'post_title'     => 'Imóveis',
 				'post_name'      => 'imoveis',
@@ -1066,21 +1067,59 @@ function vh_setup_imoveis_page() {
 		}
 		update_option( 'vh_imoveis_page_created', 1 );
 	}
+
+	// Pagina Blog
+	if ( ! get_option( 'vh_blog_page_created' ) ) {
+		$existing_blog = new WP_Query( [
+			'name'             => 'blog',
+			'post_type'        => 'page',
+			'post_status'      => 'any',
+			'fields'           => 'ids',
+			'posts_per_page'   => 1,
+			'no_found_rows'    => true,
+			'suppress_filters' => true,
+		] );
+
+		if ( ! $existing_blog->have_posts() ) {
+			$blog_id = wp_insert_post( [
+				'post_title'     => 'Blog',
+				'post_name'      => 'blog',
+				'post_status'    => 'publish',
+				'post_type'      => 'page',
+				'page_template'  => 'page-blog.php',
+				'comment_status' => 'closed',
+				'ping_status'    => 'closed',
+			] );
+			if ( $blog_id && ! is_wp_error( $blog_id ) ) {
+				update_post_meta( $blog_id, '_vh_seo_title', 'Blog VivaHost | Dicas de Hospitalidade e Temporada em Salvador' );
+				update_post_meta( $blog_id, '_vh_seo_desc', 'Artigos práticos, estratégias de precificação e orientações de hospitalidade para anfitriões e viajantes em Salvador, Bahia.' );
+			}
+		}
+		update_option( 'vh_blog_page_created', 1 );
+	}
 }
 
 /**
- * Routing trasparente: carica page-imoveis.php se l'URI richiesta è /imoveis o /imoveis/.
+ * Routing trasparente: carica page-imoveis.php per /imoveis e page-blog.php per /blog.
  */
-add_filter( 'template_include', 'vh_route_imoveis_template' );
-function vh_route_imoveis_template( $template ) {
+add_filter( 'template_include', 'vh_route_custom_pages' );
+function vh_route_custom_pages( $template ) {
 	$req_uri  = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 	$req_path = trim( (string) parse_url( $req_uri, PHP_URL_PATH ), '/' );
 
 	if ( is_page( 'imoveis' ) || $req_path === 'imoveis' ) {
-		$imoveis_tpl = locate_template( 'page-imoveis.php' );
-		if ( $imoveis_tpl ) {
-			return $imoveis_tpl;
+		$tpl = locate_template( 'page-imoveis.php' );
+		if ( $tpl ) {
+			return $tpl;
 		}
 	}
+
+	if ( is_page( 'blog' ) || $req_path === 'blog' ) {
+		$tpl = locate_template( 'page-blog.php' );
+		if ( $tpl ) {
+			return $tpl;
+		}
+	}
+
 	return $template;
 }
