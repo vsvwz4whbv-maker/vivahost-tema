@@ -11,7 +11,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
-define( 'VH_VER',  '3.9.10' );
+define( 'VH_VER',  '3.9.11' );
 define( 'VH_PATH', get_stylesheet_directory() );
 define( 'VH_URL',  get_stylesheet_directory_uri() );
 
@@ -326,8 +326,8 @@ function vh_customize_register( WP_Customize_Manager $c ) {
 	// ── HOST ─────────────────────────────────────────────────────────────────
 	$c->add_section( 'vivahost_host', [ 'title' => 'Host (Marcia)', 'panel' => 'vivahost_panel', 'priority' => 80 ] );
 	$text( 'host_name',          'host', 'Nome',            'Marcia Sales' );
-	$text( 'host_subtitle',      'host', 'Sottotitolo / Ruolo', 'Especialista em Hospitalidade & Operação de Hospedagens em Salvador' );
-	$area( 'host_bio',           'host', 'Bio / Metodo de Gestao', 'Com 9 anos de dedicação à hospitalidade em Salvador como Superhost, ofereço uma operação próxima e presencial. Cuidamos de cada acomodação com equipe própria de confiança, zelo rigoroso na conservação e comunicação direta e transparente com os proprietários a qualquer momento.' );
+	$text( 'host_subtitle',      'host', 'Sottotitolo / Ruolo', 'Anfitriã em Salvador & Superhost Airbnb há 9 anos' );
+	$area( 'host_bio',           'host', 'Bio / Metodo de Gestao', 'Moro em Salvador e recebo viajantes há quase uma década. Acredito que hospitalidade de verdade é estar perto: conhecer cada detalhe do imóvel, receber quem chega com carinho e cuidar da conservação como se fosse a minha própria casa. Para você, proprietário, isso significa máxima rentabilidade com tranquilidade e transparência absoluta.' );
 	$host_stat_defs = [ [ '469', 'Avaliações' ], [ '4,88 ★', 'Nota média' ], [ '9 anos', 'Hospedando' ] ];
 	for ( $i = 1; $i <= 3; $i++ ) {
 		$text( "host_stat_{$i}_num",   'host', "Stat {$i} — Valor",    $host_stat_defs[$i-1][0] );

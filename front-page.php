@@ -471,44 +471,91 @@ get_template_part( 'template-parts/header-site' );
   </section>
 
   <!-- ═══════════════════════════════════════
-       HOST
+       HOST (MÁRCIA SALES) — HUMAN, EDITORIAL & MINIMAL
   ════════════════════════════════════════ -->
-  <section class="vh-section vh-section--off py-20 md:py-28 bg-base-200/40" id="sobre-nos" aria-label="Sobre a host" itemscope itemtype="https://schema.org/Person">
+  <section class="vh-section py-20 md:py-28 bg-base-200/30" id="sobre-nos" aria-label="Sobre a anfitriã" itemscope itemtype="https://schema.org/Person">
     <div class="inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="host-wrap grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center anim-fade">
-        <div class="host-text lg:col-span-7">
-          <span class="eyebrow badge badge-ghost text-xs font-bold uppercase tracking-wider text-primary mb-3">Presença Local & Hospitalidade</span>
-          <h2 class="host-name text-3xl sm:text-4xl font-extrabold text-neutral tracking-tight mb-2" data-vh="host_name" itemprop="name">
-            <?php echo esc_html( vh_mod( 'host_name', 'Marcia Sales' ) ); ?>
+      <div class="host-wrap grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        
+        <!-- Large Organic Photo with Integrated Superhost Badge (No enclosing card/box) -->
+        <div class="host-visual lg:col-span-5 flex justify-center order-1 lg:order-2">
+          <div class="host-avatar-container relative inline-block">
+            <!-- Large Free-standing Circular Portrait -->
+            <div class="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-full overflow-hidden shadow-2xl ring-8 ring-white aspect-square">
+              <?php if ( $host_photo_url ) : ?>
+                <img src="<?php echo esc_url( $host_photo_url ); ?>" alt="<?php echo esc_attr( vh_mod( 'host_name', 'Márcia Sales' ) ); ?>" class="host-avatar host-avatar--photo object-cover w-full h-full" itemprop="image">
+              <?php else : ?>
+                <div class="host-avatar w-full h-full bg-primary/10 flex items-center justify-center font-bold text-4xl text-primary" aria-hidden="true">MS</div>
+              <?php endif; ?>
+            </div>
+
+            <!-- Integrated Superhost Badge (Directly anchored on photo edge, NO separate white circle) -->
+            <?php if ( vh_mod( 'host_superhost', '1' ) ) : ?>
+              <div class="host-superhost-medal absolute bottom-2 right-2 sm:bottom-4 sm:right-4 z-10 transition-transform hover:scale-105 duration-300" aria-label="Superhost verificado no Airbnb" title="Superhost Verificado no Airbnb">
+                <img src="<?php echo esc_url( VH_URL . '/assets/images/badge_purple.png' ); ?>" alt="Superhost Airbnb" class="w-16 h-16 sm:w-20 sm:h-20 drop-shadow-2xl object-contain">
+              </div>
+            <?php endif; ?>
+          </div>
+        </div>
+
+        <!-- Human, Editorial Bio & Metrics -->
+        <div class="host-text lg:col-span-7 order-2 lg:order-1">
+          <span class="eyebrow badge badge-ghost text-xs font-bold uppercase tracking-wider text-primary mb-3">
+            Quem cuida do seu imóvel
+          </span>
+          <h2 class="host-name text-3xl sm:text-4xl lg:text-5xl font-extrabold text-neutral tracking-tight mb-2" data-vh="host_name" itemprop="name">
+            <?php echo esc_html( vh_mod( 'host_name', 'Márcia Sales' ) ); ?>
           </h2>
-          <div class="host-subtitle text-sm sm:text-base font-semibold text-primary mb-5" data-vh="host_subtitle">
-            <?php echo esc_html( vh_mod( 'host_subtitle', 'Especialista em Hospitalidade & Operação de Hospedagens em Salvador' ) ); ?>
+          <div class="host-subtitle text-base sm:text-lg font-semibold text-primary mb-5" data-vh="host_subtitle">
+            <?php echo esc_html( vh_mod( 'host_subtitle', 'Anfitriã em Salvador & Superhost Airbnb há 9 anos' ) ); ?>
           </div>
-          <p class="host-bio text-base text-base-content/80 leading-relaxed mb-6" data-vh="host_bio" itemprop="description">
-            <?php echo esc_html( vh_mod( 'host_bio', 'Com 9 anos de dedicação à hospitalidade em Salvador como Superhost, ofereço uma operação próxima e presencial. Cuidamos de cada acomodação com equipe própria de confiança, zelo rigoroso na conservação e comunicação direta e transparente com os proprietários a qualquer momento.' ) ); ?>
+          <p class="host-bio text-base sm:text-lg text-base-content/85 leading-relaxed mb-6" data-vh="host_bio" itemprop="description">
+            <?php echo esc_html( vh_mod( 'host_bio', 'Moro em Salvador e recebo viajantes há quase uma década. Acredito que hospitalidade de verdade é estar perto: conhecer cada detalhe do imóvel, receber quem chega com carinho e cuidar da conservação como se fosse a minha própria casa. Para você, proprietário, isso significa máxima rentabilidade com tranquilidade e transparência absoluta.' ) ); ?>
           </p>
-          <div class="host-bullets space-y-3 mb-8">
-            <div class="host-bullet flex items-start gap-3 text-sm sm:text-base text-neutral font-medium">
-              <span class="w-6 h-6 rounded-full bg-success/15 text-success flex items-center justify-center flex-shrink-0 mt-0.5">
-                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              </span>
-              <span><strong>Cuidado presencial:</strong> vistorias detalhadas e acompanhamento próximo para proteger seu patrimônio.</span>
+
+          <!-- Sleek Horizontal Metrics Row -->
+          <div class="host-metrics grid grid-cols-2 sm:grid-cols-4 gap-4 py-5 border-y border-base-200/80 my-6">
+            <div>
+              <div class="text-2xl sm:text-3xl font-black text-neutral" data-vh="host_stat_1_num">
+                <?php echo esc_html( vh_mod( 'host_stat_1_num', '469' ) ); ?>
+              </div>
+              <div class="text-xs text-base-content/65 font-medium mt-0.5" data-vh="host_stat_1_label">
+                <?php echo esc_html( vh_mod( 'host_stat_1_label', 'Avaliações' ) ); ?>
+              </div>
             </div>
-            <div class="host-bullet flex items-start gap-3 text-sm sm:text-base text-neutral font-medium">
-              <span class="w-6 h-6 rounded-full bg-success/15 text-success flex items-center justify-center flex-shrink-0 mt-0.5">
-                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              </span>
-              <span><strong>Relacionamento direto:</strong> você fala diretamente com quem está à frente da sua operação, sem intermediários.</span>
+            <div>
+              <div class="text-2xl sm:text-3xl font-black text-neutral inline-flex items-center gap-1" data-vh="host_stat_2_num">
+                <?php
+                $stat2 = vh_mod( 'host_stat_2_num', '4,88 ★' );
+                $clean_stat2 = str_replace( '★', '', $stat2 );
+                echo esc_html( trim( $clean_stat2 ) );
+                ?><span class="text-amber-400 text-xl">★</span>
+              </div>
+              <div class="text-xs text-base-content/65 font-medium mt-0.5" data-vh="host_stat_2_label">
+                <?php echo esc_html( vh_mod( 'host_stat_2_label', 'Nota média' ) ); ?>
+              </div>
             </div>
-            <div class="host-bullet flex items-start gap-3 text-sm sm:text-base text-neutral font-medium">
-              <span class="w-6 h-6 rounded-full bg-success/15 text-success flex items-center justify-center flex-shrink-0 mt-0.5">
-                <svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              </span>
-              <span><strong>Histórico comprovado:</strong> 9 anos consecutivos como Superhost e reputação consolidada na acolhida de viajantes.</span>
+            <div>
+              <div class="text-2xl sm:text-3xl font-black text-neutral" data-vh="host_stat_3_num">
+                <?php echo esc_html( vh_mod( 'host_stat_3_num', '9 anos' ) ); ?>
+              </div>
+              <div class="text-xs text-base-content/65 font-medium mt-0.5" data-vh="host_stat_3_label">
+                <?php echo esc_html( vh_mod( 'host_stat_3_label', 'Hospedando' ) ); ?>
+              </div>
+            </div>
+            <div>
+              <div class="text-2xl sm:text-3xl font-black text-neutral" data-vh="host_properties_count">
+                <?php echo esc_html( vh_mod( 'host_properties_count', '15' ) ); ?>
+              </div>
+              <div class="text-xs text-base-content/65 font-medium mt-0.5" data-vh="host_properties_label">
+                <?php echo esc_html( vh_mod( 'host_properties_label', 'Acomodações' ) ); ?>
+              </div>
             </div>
           </div>
-          <div class="host-actions flex items-center gap-4 flex-wrap">
-            <a href="<?php echo esc_url( vh_wa_url( 'Olá Marcia! Gostaria de conversar sobre a operação da minha hospedagem.' ) ); ?>" target="_blank" rel="noopener" class="btn btn-primary rounded-full px-7 text-white font-bold shadow-md hover:shadow-lg flex items-center gap-2">
+
+          <!-- CTAs -->
+          <div class="host-actions flex items-center gap-4 flex-wrap pt-2">
+            <a href="<?php echo esc_url( vh_wa_url( 'Olá Marcia! Gostaria de conversar sobre a operação da minha hospedagem.' ) ); ?>" target="_blank" rel="noopener" class="btn btn-primary btn-brand-coral rounded-full px-7 text-white font-bold shadow-md hover:shadow-lg flex items-center gap-2">
               <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.523 5.824L.057 23.5a.5.5 0 0 0 .61.61l5.734-1.46A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.694-.5-5.24-1.376l-.375-.213-3.882.99.998-3.795-.232-.387A9.946 9.946 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
               <span>Conversar com a Marcia</span>
             </a>
@@ -517,79 +564,7 @@ get_template_part( 'template-parts/header-site' );
             </a>
           </div>
         </div>
-        <div class="host-visual lg:col-span-5 flex justify-center">
-          <div class="host-passport-card card bg-white border border-base-200 shadow-xl rounded-3xl p-6 sm:p-8 text-center max-w-sm w-full">
-            <div class="host-avatar-wrap relative inline-block mx-auto mb-4">
-              <div class="avatar">
-                <div class="w-28 h-28 rounded-full ring-4 ring-primary/20 shadow-md overflow-hidden">
-                  <?php if ( $host_photo_url ) : ?>
-                    <img src="<?php echo esc_url( $host_photo_url ); ?>" alt="<?php echo esc_attr( vh_mod( 'host_name', 'Marcia Sales' ) ); ?>" class="host-avatar host-avatar--photo object-cover w-full h-full" itemprop="image">
-                  <?php else : ?>
-                    <div class="host-avatar w-full h-full bg-primary/10 flex items-center justify-center font-bold text-2xl text-primary" aria-hidden="true">MS</div>
-                  <?php endif; ?>
-                </div>
-              </div>
-              <?php if ( vh_mod( 'host_superhost', '1' ) ) : ?>
-                <div class="host-avatar-badge host-superhost-medal absolute bottom-0 right-0 w-8 h-8 rounded-full bg-white shadow-md p-1 border border-base-200" aria-label="Superhost verificado" title="Superhost Verificado no Airbnb">
-                  <img src="<?php echo esc_url( VH_URL . '/assets/images/badge_purple.png' ); ?>" alt="Superhost" class="w-full h-full object-contain">
-                </div>
-              <?php endif; ?>
-            </div>
-            
-            <div class="host-passport-info">
-              <div class="host-passport-name text-lg font-bold text-neutral mb-1" data-vh="host_name"><?php echo esc_html( vh_mod( 'host_name', 'Marcia Sales' ) ); ?></div>
-              <div class="text-xs text-base-content/70 font-semibold mb-5 flex items-center justify-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
-                <span>Superhost no Airbnb · Salvador, BA</span>
-              </div>
 
-              <!-- Verified Airbnb Metrics Grid inside Card -->
-              <div class="grid grid-cols-2 gap-3 text-center pt-2 border-t border-base-200">
-                <div class="p-2.5 rounded-xl bg-base-200/50">
-                  <div class="text-lg font-extrabold text-neutral" data-vh="host_stat_1_num">
-                    <?php echo esc_html( vh_mod( 'host_stat_1_num', '469' ) ); ?>
-                  </div>
-                  <div class="text-[11px] text-base-content/70" data-vh="host_stat_1_label">
-                    <?php echo esc_html( vh_mod( 'host_stat_1_label', 'Avaliações' ) ); ?>
-                  </div>
-                </div>
-                <div class="p-2.5 rounded-xl bg-base-200/50">
-                  <div class="text-lg font-extrabold text-neutral inline-flex items-center justify-center gap-1" data-vh="host_stat_2_num">
-                    <?php
-                    $stat2 = vh_mod( 'host_stat_2_num', '4,88 ★' );
-                    $clean_stat2 = str_replace( '★', '', $stat2 );
-                    echo esc_html( trim( $clean_stat2 ) );
-                    ?><span class="text-amber-400">★</span>
-                  </div>
-                  <div class="text-[11px] text-base-content/70" data-vh="host_stat_2_label">
-                    <?php echo esc_html( vh_mod( 'host_stat_2_label', 'Nota média' ) ); ?>
-                  </div>
-                </div>
-                <div class="p-2.5 rounded-xl bg-base-200/50">
-                  <div class="text-lg font-extrabold text-neutral" data-vh="host_stat_3_num">
-                    <?php echo esc_html( vh_mod( 'host_stat_3_num', '9 anos' ) ); ?>
-                  </div>
-                  <div class="text-[11px] text-base-content/70" data-vh="host_stat_3_label">
-                    <?php echo esc_html( vh_mod( 'host_stat_3_label', 'Hospedando' ) ); ?>
-                  </div>
-                </div>
-                <div class="p-2.5 rounded-xl bg-base-200/50">
-                  <div class="text-lg font-extrabold text-neutral" data-vh="host_properties_count">
-                    <?php echo esc_html( vh_mod( 'host_properties_count', '15' ) ); ?>
-                  </div>
-                  <div class="text-[11px] text-base-content/70" data-vh="host_properties_label">
-                    <?php echo esc_html( vh_mod( 'host_properties_label', 'Acomodações' ) ); ?>
-                  </div>
-                </div>
-              </div>
-
-              <div class="mt-4 pt-3 border-t border-base-200/70 text-xs text-base-content/65 flex items-center justify-center gap-1.5">
-                <svg class="w-3.5 h-3.5 text-primary fill-current" viewBox="0 0 16 16"><path d="m8.5 7.6 3.1-1.75 1.47-.82a.83.83 0 0 0 .43-.73V1.33a.83.83 0 0 0-.83-.83H3.33a.83.83 0 0 0-.83.83V4.3c0 .3.16.59.43.73l3 1.68 1.57.88c.35.2.65.2 1 0zm-.5.9a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"></path></svg>
-                <span>Superhost no Airbnb desde 2017</span>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </section>
