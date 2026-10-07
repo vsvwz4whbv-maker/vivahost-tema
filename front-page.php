@@ -364,146 +364,20 @@ get_template_part( 'template-parts/header-site' );
           <?php echo esc_html( vh_mod( 'imoveis_desc', 'Cada acomodação recebe o mesmo padrão de cuidado operacional — fotos de qualidade, limpeza rigorosa e experiência do hóspede comprovada em avaliações.' ) ); ?>
         </p>
       </div>
-      <!-- Filter tabs -->
-      <div class="imoveis-filter-bar flex flex-wrap items-center justify-center gap-2 mb-10 anim-fade">
-        <button type="button" class="vh-prop-filter btn btn-sm rounded-full btn-outline btn-neutral font-semibold transition-all" data-filter="costa-azul">Costa Azul (6)</button>
-        <button type="button" class="vh-prop-filter btn btn-sm rounded-full btn-outline btn-neutral font-semibold transition-all" data-filter="barra">Barra (2)</button>
-        <button type="button" class="vh-prop-filter btn btn-sm rounded-full btn-outline btn-neutral font-semibold transition-all" data-filter="ondina">Ondina (1)</button>
-        <button type="button" class="vh-prop-filter btn btn-sm rounded-full btn-outline btn-neutral font-semibold transition-all" data-filter="outros">Amaralina &amp; Outros (3)</button>
-        <button type="button" class="vh-prop-filter btn btn-sm rounded-full btn-primary text-white font-semibold transition-all active" data-filter="all">Ver todos (12)</button>
-      </div>
-
       <div class="imoveis-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <?php
-        $all_properties = [
-          [
-            'name'    => 'Condomínio Ondina, vista para o mar',
-            'loc'     => 'Ondina, Salvador',
-            'filter'  => 'ondina',
-            'rating'  => '4,90',
-            'reviews' => '143',
-            'photo'   => VH_URL . '/assets/images/prop-ondina-vista.webp',
-            'link'    => 'https://www.airbnb.com.br/rooms/42109543',
-          ],
-          [
-            'name'    => 'Lar Lisboa — Costa Azul',
-            'loc'     => 'Costa Azul, Salvador',
-            'filter'  => 'costa-azul',
-            'rating'  => '4,92',
-            'reviews' => '83',
-            'photo'   => VH_URL . '/assets/images/prop-lar-lisboa.webp',
-            'link'    => 'https://www.airbnb.com.br/rooms/1197921583374763834',
-          ],
-          [
-            'name'    => 'Apartamento em Salvador',
-            'loc'     => 'Barra, Salvador',
-            'filter'  => 'barra',
-            'rating'  => '5,0',
-            'reviews' => '59',
-            'photo'   => VH_URL . '/assets/images/prop-apartamento-salvador.webp',
-            'link'    => 'https://www.airbnb.com.br/rooms/1311644791404145582',
-          ],
-          [
-            'name'    => 'Conforto / Temporada Costa Azul',
-            'loc'     => 'Costa Azul, Salvador',
-            'filter'  => 'costa-azul',
-            'rating'  => '4,94',
-            'reviews' => '18',
-            'photo'   => VH_URL . '/assets/images/prop-conforto-costa-azul.webp',
-            'link'    => 'https://www.airbnb.com.br/rooms/1064965973143964840',
-          ],
-          [
-            'name'    => 'Studio Amaralina, Conforto e Mar',
-            'loc'     => 'Amaralina, Salvador',
-            'filter'  => 'outros',
-            'rating'  => '5,0',
-            'reviews' => '15',
-            'photo'   => VH_URL . '/assets/images/prop-studio-amaralina.webp',
-            'link'    => 'https://www.airbnb.com.br/rooms/1352825919438529862',
-          ],
-          [
-            'name'    => 'Apto Moderno no Costa Azul, Vista Para o Mar',
-            'loc'     => 'Costa Azul, Salvador',
-            'filter'  => 'costa-azul',
-            'rating'  => '4,92',
-            'reviews' => '12',
-            'photo'   => VH_URL . '/assets/images/prop-moderno-costa-azul.webp',
-            'link'    => 'https://www.airbnb.com.br/rooms/1563394501361409294',
-          ],
-          [
-            'name'    => 'Apart / 3 Quartos na Barra',
-            'loc'     => 'Barra, Salvador',
-            'filter'  => 'barra',
-            'rating'  => '5,0',
-            'reviews' => '8',
-            'photo'   => VH_URL . '/assets/images/prop-barra-3-quartos.webp',
-            'link'    => 'https://www.airbnb.com.br/rooms/1703976122563823281',
-          ],
-          [
-            'name'    => 'Estilo e Conforto na Costa Azul',
-            'loc'     => 'Costa Azul, Salvador',
-            'filter'  => 'costa-azul',
-            'rating'  => '5,0',
-            'reviews' => '6',
-            'photo'   => VH_URL . '/assets/images/prop-estilo-costa-azul.webp',
-            'link'    => 'https://www.airbnb.com.br/rooms/1616242988721327670',
-          ],
-          [
-            'name'    => 'Loft Aconchegante em Salvador',
-            'loc'     => 'Salvador, Bahia',
-            'filter'  => 'outros',
-            'rating'  => '5,0',
-            'reviews' => '5',
-            'photo'   => VH_URL . '/assets/images/prop-loft-salvador.webp',
-            'link'    => 'https://www.airbnb.com.br/rooms/1704553564833020627',
-          ],
-          [
-            'name'    => 'Aconchego com Vista para o Mar',
-            'loc'     => 'Costa Azul, Salvador',
-            'filter'  => 'costa-azul',
-            'rating'  => '5,0',
-            'reviews' => '4',
-            'photo'   => VH_URL . '/assets/images/prop-aconchego-mar.webp',
-            'link'    => 'https://www.airbnb.com.br/rooms/1743632765287287212',
-          ],
-          [
-            'name'    => 'Refúgio Praia do Flamengo',
-            'loc'     => 'Praia do Flamengo, Salvador',
-            'filter'  => 'outros',
-            'rating'  => '5,0',
-            'reviews' => '4',
-            'photo'   => VH_URL . '/assets/images/prop-refugio-flamengo.webp',
-            'link'    => 'https://www.airbnb.com.br/rooms/1636458869058323320',
-          ],
-          [
-            'name'    => 'Stúdio Confortável Próximo ao Mar',
-            'loc'     => 'Costa Azul, Salvador',
-            'filter'  => 'costa-azul',
-            'rating'  => '5,0',
-            'reviews' => '3',
-            'photo'   => VH_URL . '/assets/images/prop-studio-confortavel.webp',
-            'link'    => 'https://www.airbnb.com.br/rooms/1735032299246360363',
-          ],
-        ];
-
+        $featured_properties = array_slice( vh_get_all_properties(), 0, 3 );
         $ico_star = '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="w-3.5 h-3.5 text-primary"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>';
 
-        foreach ( $all_properties as $idx => $prop ) :
+        foreach ( $featured_properties as $idx => $prop ) :
           $i = $idx + 1;
-          $ph_id  = (int) vh_mod( "prop_{$i}_photo", 0 );
-          $ph_url = $ph_id ? wp_get_attachment_image_url( $ph_id, 'large' ) : ( isset( $prop_fallbacks[ $i ] ) ? $prop_fallbacks[ $i ] : $prop['photo'] );
-          $p_name = esc_html( vh_mod( "prop_{$i}_name", '' ) ?: $prop['name'] );
-          $p_loc  = esc_html( vh_mod( "prop_{$i}_loc",  '' ) ?: $prop['loc'] );
-          $p_rate = esc_html( vh_mod( "prop_{$i}_rating", '' ) ?: $prop['rating'] );
-          $p_rev  = esc_html( vh_mod( "prop_{$i}_reviews", '' ) ?: $prop['reviews'] );
-          $p_link = esc_url( vh_mod( "prop_{$i}_link", '' ) ?: $prop['link'] );
-          $bairro_short = explode( ',', $p_loc )[0];
+          $bairro_short = explode( ',', $prop['loc'] )[0];
         ?>
-          <article class="imovel-card card bg-white border border-base-200 shadow-md hover:shadow-2xl transition-all duration-300 rounded-3xl overflow-hidden group anim-fade flex flex-col justify-between" itemscope itemtype="https://schema.org/Product" data-filter="<?php echo esc_attr( $prop['filter'] ); ?>">
+          <article class="imovel-card card bg-white border border-base-200 shadow-md hover:shadow-2xl transition-all duration-300 rounded-3xl overflow-hidden group anim-fade flex flex-col justify-between" itemscope itemtype="https://schema.org/Product">
             <div class="imovel-photo relative overflow-hidden aspect-[4/3] bg-base-200">
-              <img src="<?php echo esc_url( $ph_url ); ?>" alt="<?php echo esc_attr( $p_name ); ?>" loading="lazy" width="600" height="450" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-              <div class="imovel-badge absolute top-4 right-4 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm font-bold text-xs text-neutral" <?php if ( $i <= 3 ) echo 'data-vh="prop_' . $i . '_rating"'; ?>>
-                <?php echo $ico_star; ?><span><?php echo $p_rate; ?></span>
+              <img src="<?php echo esc_url( $prop['photo'] ); ?>" alt="<?php echo esc_attr( $prop['name'] ); ?>" loading="lazy" width="600" height="450" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <div class="imovel-badge absolute top-4 right-4 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm font-bold text-xs text-neutral" data-vh="prop_<?php echo $i; ?>_rating">
+                <?php echo $ico_star; ?><span><?php echo esc_html( $prop['rating'] ); ?></span>
               </div>
               <div class="imovel-pill-loc absolute bottom-4 left-4 bg-black/65 backdrop-blur-md px-3 py-1 rounded-full text-white text-xs font-semibold">
                 <?php echo esc_html( trim( $bairro_short ) ); ?>
@@ -511,12 +385,12 @@ get_template_part( 'template-parts/header-site' );
             </div>
             <div class="imovel-body p-6 flex flex-col justify-between flex-1">
               <div>
-                <div class="imovel-location text-xs font-semibold uppercase tracking-wider text-primary mb-1.5" <?php if ( $i <= 3 ) echo 'data-vh="prop_' . $i . '_loc"'; ?>><?php echo $p_loc; ?></div>
-                <h3 class="imovel-name text-lg font-bold text-neutral mb-3 line-clamp-2 leading-snug" itemprop="name" <?php if ( $i <= 3 ) echo 'data-vh="prop_' . $i . '_name"'; ?>><?php echo $p_name; ?></h3>
+                <div class="imovel-location text-xs font-semibold uppercase tracking-wider text-primary mb-1.5" data-vh="prop_<?php echo $i; ?>_loc"><?php echo esc_html( $prop['loc'] ); ?></div>
+                <h3 class="imovel-name text-lg font-bold text-neutral mb-3 line-clamp-2 leading-snug" itemprop="name" data-vh="prop_<?php echo $i; ?>_name"><?php echo esc_html( $prop['name'] ); ?></h3>
               </div>
               <div class="imovel-stats flex items-center justify-between pt-4 border-t border-base-200 text-xs mt-auto">
-                <span class="imovel-reviews text-base-content/70 font-medium" <?php if ( $i <= 3 ) echo 'data-vh="prop_' . $i . '_reviews"'; ?>><?php echo $p_rev; ?> avaliações</span>
-                <a href="<?php echo $p_link; ?>" target="_blank" rel="noopener noreferrer" class="imovel-airbnb btn btn-link btn-xs text-primary font-bold no-underline hover:underline p-0 flex items-center gap-1">
+                <span class="imovel-reviews text-base-content/70 font-medium" data-vh="prop_<?php echo $i; ?>_reviews"><?php echo esc_html( $prop['reviews'] ); ?> avaliações</span>
+                <a href="<?php echo esc_url( $prop['link'] ); ?>" target="_blank" rel="noopener noreferrer" class="imovel-airbnb btn btn-link btn-xs text-primary font-bold no-underline hover:underline p-0 flex items-center gap-1">
                   <span>Ver no Airbnb</span>
                   <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
                 </a>
@@ -525,8 +399,9 @@ get_template_part( 'template-parts/header-site' );
           </article>
         <?php endforeach; ?>
       </div>
-      <div class="text-center mt-12">
-        <a href="<?php echo esc_url( vh_mod( 'footer_airbnb', 'https://www.airbnb.com.br/users/show/148412228' ) ); ?>" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-primary rounded-full px-8 font-bold hover:btn-brand-coral hover:text-white transition-all">Ver perfil completo no Airbnb (15 anúncios) →</a>
+      <div class="text-center mt-12 flex flex-col items-center justify-center gap-3">
+        <a href="<?php echo esc_url( home_url( '/imoveis/' ) ); ?>" class="btn btn-primary btn-brand-coral rounded-full px-8 sm:px-10 py-3 text-white font-bold text-sm sm:text-base shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all">Ver todos os imóveis com filtros (12) →</a>
+        <a href="<?php echo esc_url( vh_mod( 'footer_airbnb', 'https://www.airbnb.com.br/users/show/148412228' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-xs text-base-content/70 hover:text-primary transition-colors underline">Ou veja o perfil completo com 15 anúncios no Airbnb</a>
       </div>
     </div>
   </section>

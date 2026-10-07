@@ -30,7 +30,7 @@ $home_url = esc_url( home_url( '/' ) );
     <nav class="vivahost-nav hidden md:flex items-center gap-1" aria-label="Navegação principal">
       <a href="<?php echo $home_url; ?>#como-funciona" class="btn btn-ghost btn-sm text-sm font-medium rounded-lg">Como funciona</a>
       <a href="<?php echo $home_url; ?>#servicos" class="btn btn-ghost btn-sm text-sm font-medium rounded-lg">Serviços</a>
-      <a href="<?php echo $home_url; ?>#imoveis" class="btn btn-ghost btn-sm text-sm font-medium rounded-lg">Imóveis</a>
+      <a href="<?php echo esc_url( home_url( '/imoveis/' ) ); ?>" class="btn btn-ghost btn-sm text-sm font-medium rounded-lg">Imóveis</a>
       <a href="<?php echo $home_url; ?>#sobre-nos" class="btn btn-ghost btn-sm text-sm font-medium rounded-lg">Sobre</a>
       <a href="<?php echo $home_url; ?>#blog" class="btn btn-ghost btn-sm text-sm font-medium rounded-lg">Blog</a>
       <a href="<?php echo $home_url; ?>#contato" class="btn btn-ghost btn-sm text-sm font-medium rounded-lg">Contato</a>
@@ -48,7 +48,7 @@ $home_url = esc_url( home_url( '/' ) );
 <nav class="vivahost-mobile-nav fixed inset-0 z-40 bg-white/95 backdrop-blur-xl flex flex-col justify-center items-center gap-4" id="vh-mobile-nav" aria-hidden="true">
   <a href="<?php echo $home_url; ?>#como-funciona" class="vh-mobile-link text-2xl font-bold text-neutral hover:text-primary transition-colors py-2">Como funciona</a>
   <a href="<?php echo $home_url; ?>#servicos"      class="vh-mobile-link text-2xl font-bold text-neutral hover:text-primary transition-colors py-2">Serviços</a>
-  <a href="<?php echo $home_url; ?>#imoveis"       class="vh-mobile-link text-2xl font-bold text-neutral hover:text-primary transition-colors py-2">Imóveis</a>
+  <a href="<?php echo esc_url( home_url( '/imoveis/' ) ); ?>" class="vh-mobile-link text-2xl font-bold text-neutral hover:text-primary transition-colors py-2">Imóveis</a>
   <a href="<?php echo $home_url; ?>#sobre-nos"     class="vh-mobile-link text-2xl font-bold text-neutral hover:text-primary transition-colors py-2">Sobre</a>
   <a href="<?php echo $home_url; ?>#blog"         class="vh-mobile-link text-2xl font-bold text-neutral hover:text-primary transition-colors py-2">Blog</a>
   <a href="<?php echo $home_url; ?>#contato"       class="vh-mobile-link text-2xl font-bold text-neutral hover:text-primary transition-colors py-2">Contato</a>

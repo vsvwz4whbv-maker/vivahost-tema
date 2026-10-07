@@ -11,7 +11,7 @@
 defined( 'ABSPATH' ) || exit;
 
 // ─── CONSTANTS ────────────────────────────────────────────────────────────────
-define( 'VH_VER',  '3.9.6' );
+define( 'VH_VER',  '3.9.8' );
 define( 'VH_PATH', get_stylesheet_directory() );
 define( 'VH_URL',  get_stylesheet_directory_uri() );
 
@@ -865,4 +865,222 @@ function vh_seed_salvador_posts() {
 	}
 
 	update_option( 'vh_posts_seeded_v6', 1 );
+}
+
+/**
+ * Restituisce l'elenco completo di tutte le 12 proprietà in gestione VivaHost,
+ * applicando gli override del Customizer (prop_1_*, prop_2_*, prop_3_*).
+ *
+ * @return array
+ */
+function vh_get_all_properties() {
+	$prop_fallbacks = [
+		1 => VH_URL . '/assets/images/prop-ondina-vista.webp',
+		2 => VH_URL . '/assets/images/prop-lar-lisboa.webp',
+		3 => VH_URL . '/assets/images/prop-apartamento-salvador.webp',
+	];
+
+	$properties = [
+		[
+			'name'    => 'Condomínio Ondina, vista para o mar',
+			'loc'     => 'Ondina, Salvador',
+			'filter'  => 'ondina',
+			'rating'  => '4,90',
+			'reviews' => '143',
+			'photo'   => VH_URL . '/assets/images/prop-ondina-vista.webp',
+			'link'    => 'https://www.airbnb.com.br/rooms/42109543',
+		],
+		[
+			'name'    => 'Lar Lisboa — Costa Azul',
+			'loc'     => 'Costa Azul, Salvador',
+			'filter'  => 'costa-azul',
+			'rating'  => '4,92',
+			'reviews' => '83',
+			'photo'   => VH_URL . '/assets/images/prop-lar-lisboa.webp',
+			'link'    => 'https://www.airbnb.com.br/rooms/1197921583374763834',
+		],
+		[
+			'name'    => 'Apartamento em Salvador',
+			'loc'     => 'Barra, Salvador',
+			'filter'  => 'barra',
+			'rating'  => '5,0',
+			'reviews' => '59',
+			'photo'   => VH_URL . '/assets/images/prop-apartamento-salvador.webp',
+			'link'    => 'https://www.airbnb.com.br/rooms/1311644791404145582',
+		],
+		[
+			'name'    => 'Conforto / Temporada Costa Azul',
+			'loc'     => 'Costa Azul, Salvador',
+			'filter'  => 'costa-azul',
+			'rating'  => '4,94',
+			'reviews' => '18',
+			'photo'   => VH_URL . '/assets/images/prop-conforto-costa-azul.webp',
+			'link'    => 'https://www.airbnb.com.br/rooms/1064965973143964840',
+		],
+		[
+			'name'    => 'Studio Amaralina, Conforto e Mar',
+			'loc'     => 'Amaralina, Salvador',
+			'filter'  => 'outros',
+			'rating'  => '5,0',
+			'reviews' => '15',
+			'photo'   => VH_URL . '/assets/images/prop-studio-amaralina.webp',
+			'link'    => 'https://www.airbnb.com.br/rooms/1352825919438529862',
+		],
+		[
+			'name'    => 'Apto Moderno no Costa Azul, Vista Para o Mar',
+			'loc'     => 'Costa Azul, Salvador',
+			'filter'  => 'costa-azul',
+			'rating'  => '4,92',
+			'reviews' => '12',
+			'photo'   => VH_URL . '/assets/images/prop-moderno-costa-azul.webp',
+			'link'    => 'https://www.airbnb.com.br/rooms/1563394501361409294',
+		],
+		[
+			'name'    => 'Apart / 3 Quartos na Barra',
+			'loc'     => 'Barra, Salvador',
+			'filter'  => 'barra',
+			'rating'  => '5,0',
+			'reviews' => '8',
+			'photo'   => VH_URL . '/assets/images/prop-barra-3-quartos.webp',
+			'link'    => 'https://www.airbnb.com.br/rooms/1703976122563823281',
+		],
+		[
+			'name'    => 'Estilo e Conforto na Costa Azul',
+			'loc'     => 'Costa Azul, Salvador',
+			'filter'  => 'costa-azul',
+			'rating'  => '5,0',
+			'reviews' => '6',
+			'photo'   => VH_URL . '/assets/images/prop-estilo-costa-azul.webp',
+			'link'    => 'https://www.airbnb.com.br/rooms/1616242988721327670',
+		],
+		[
+			'name'    => 'Loft Aconchegante em Salvador',
+			'loc'     => 'Salvador, Bahia',
+			'filter'  => 'outros',
+			'rating'  => '5,0',
+			'reviews' => '5',
+			'photo'   => VH_URL . '/assets/images/prop-loft-salvador.webp',
+			'link'    => 'https://www.airbnb.com.br/rooms/1704553564833020627',
+		],
+		[
+			'name'    => 'Aconchego com Vista para o Mar',
+			'loc'     => 'Costa Azul, Salvador',
+			'filter'  => 'costa-azul',
+			'rating'  => '5,0',
+			'reviews' => '4',
+			'photo'   => VH_URL . '/assets/images/prop-aconchego-mar.webp',
+			'link'    => 'https://www.airbnb.com.br/rooms/1743632765287287212',
+		],
+		[
+			'name'    => 'Refúgio Praia do Flamengo',
+			'loc'     => 'Praia do Flamengo, Salvador',
+			'filter'  => 'outros',
+			'rating'  => '5,0',
+			'reviews' => '4',
+			'photo'   => VH_URL . '/assets/images/prop-refugio-flamengo.webp',
+			'link'    => 'https://www.airbnb.com.br/rooms/1636458869058323320',
+		],
+		[
+			'name'    => 'Stúdio Confortável Próximo ao Mar',
+			'loc'     => 'Costa Azul, Salvador',
+			'filter'  => 'costa-azul',
+			'rating'  => '5,0',
+			'reviews' => '3',
+			'photo'   => VH_URL . '/assets/images/prop-studio-confortavel.webp',
+			'link'    => 'https://www.airbnb.com.br/rooms/1735032299246360363',
+		],
+	];
+
+	// Applica gli override Customizer per i primi 3 immobili
+	for ( $i = 1; $i <= 3; $i++ ) {
+		$idx = $i - 1;
+		$ph_id  = (int) vh_mod( "prop_{$i}_photo", 0 );
+		if ( $ph_id ) {
+			$img_url = wp_get_attachment_image_url( $ph_id, 'large' );
+			if ( $img_url ) {
+				$properties[ $idx ]['photo'] = $img_url;
+			}
+		} elseif ( isset( $prop_fallbacks[ $i ] ) ) {
+			$properties[ $idx ]['photo'] = $prop_fallbacks[ $i ];
+		}
+
+		$custom_name = vh_mod( "prop_{$i}_name", '' );
+		if ( $custom_name ) {
+			$properties[ $idx ]['name'] = $custom_name;
+		}
+
+		$custom_loc = vh_mod( "prop_{$i}_loc", '' );
+		if ( $custom_loc ) {
+			$properties[ $idx ]['loc'] = $custom_loc;
+		}
+
+		$custom_rate = vh_mod( "prop_{$i}_rating", '' );
+		if ( $custom_rate ) {
+			$properties[ $idx ]['rating'] = $custom_rate;
+		}
+
+		$custom_rev = vh_mod( "prop_{$i}_reviews", '' );
+		if ( $custom_rev ) {
+			$properties[ $idx ]['reviews'] = $custom_rev;
+		}
+
+		$custom_link = vh_mod( "prop_{$i}_link", '' );
+		if ( $custom_link ) {
+			$properties[ $idx ]['link'] = $custom_link;
+		}
+	}
+
+	return $properties;
+}
+
+/**
+ * Assicura che la pagina 'imoveis' esista nel database WordPress.
+ */
+add_action( 'init', 'vh_setup_imoveis_page' );
+function vh_setup_imoveis_page() {
+	if ( ! get_option( 'vh_imoveis_page_created' ) ) {
+		$existing = new WP_Query( [
+			'name'             => 'imoveis',
+			'post_type'        => 'page',
+			'post_status'      => 'any',
+			'fields'           => 'ids',
+			'posts_per_page'   => 1,
+			'no_found_rows'    => true,
+			'suppress_filters' => true,
+		] );
+
+		if ( ! $existing->have_posts() ) {
+			$page_id = wp_insert_post( [
+				'post_title'     => 'Imóveis',
+				'post_name'      => 'imoveis',
+				'post_status'    => 'publish',
+				'post_type'      => 'page',
+				'page_template'  => 'page-imoveis.php',
+				'comment_status' => 'closed',
+				'ping_status'    => 'closed',
+			] );
+			if ( $page_id && ! is_wp_error( $page_id ) ) {
+				update_post_meta( $page_id, '_vh_seo_title', 'Imóveis em Salvador | Acomodações Superhost VivaHost' );
+				update_post_meta( $page_id, '_vh_seo_desc', 'Conheça nossos apartamentos e studios para aluguel por temporada em Salvador nos melhores bairros: Costa Azul, Barra, Ondina e Amaralina.' );
+			}
+		}
+		update_option( 'vh_imoveis_page_created', 1 );
+	}
+}
+
+/**
+ * Routing trasparente: carica page-imoveis.php se l'URI richiesta è /imoveis o /imoveis/.
+ */
+add_filter( 'template_include', 'vh_route_imoveis_template' );
+function vh_route_imoveis_template( $template ) {
+	$req_uri  = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+	$req_path = trim( (string) parse_url( $req_uri, PHP_URL_PATH ), '/' );
+
+	if ( is_page( 'imoveis' ) || $req_path === 'imoveis' ) {
+		$imoveis_tpl = locate_template( 'page-imoveis.php' );
+		if ( $imoveis_tpl ) {
+			return $imoveis_tpl;
+		}
+	}
+	return $template;
 }

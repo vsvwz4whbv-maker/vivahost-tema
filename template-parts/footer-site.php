@@ -45,7 +45,7 @@ $home_url = esc_url( home_url( '/' ) );
         <ul class="footer-links space-y-2.5 text-xs sm:text-sm text-neutral-content/80">
           <li><a href="<?php echo $home_url; ?>#como-funciona" class="hover:text-white transition-colors">Como funciona</a></li>
           <li><a href="<?php echo $home_url; ?>#servicos" class="hover:text-white transition-colors">Serviços</a></li>
-          <li><a href="<?php echo $home_url; ?>#imoveis" class="hover:text-white transition-colors">Imóveis</a></li>
+          <li><a href="<?php echo esc_url( home_url( '/imoveis/' ) ); ?>" class="hover:text-white transition-colors">Imóveis</a></li>
           <li><a href="<?php echo $home_url; ?>#sobre-nos" class="hover:text-white transition-colors">Sobre a <?php echo esc_html( vh_mod( 'host_name', 'Marcia' ) ); ?></a></li>
           <li><a href="<?php echo $home_url; ?>#blog" class="hover:text-white transition-colors">Blog</a></li>
           <li><a href="<?php echo $home_url; ?>#contato" class="hover:text-white transition-colors">Fale conosco</a></li>
