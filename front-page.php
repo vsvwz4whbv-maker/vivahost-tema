@@ -400,8 +400,8 @@ get_template_part( 'template-parts/header-site' );
         <?php endforeach; ?>
       </div>
       <div class="text-center mt-12 flex flex-col items-center justify-center gap-3">
-        <a href="<?php echo esc_url( home_url( '/imoveis/' ) ); ?>" class="btn btn-primary btn-brand-coral rounded-full px-8 sm:px-10 py-3 text-white font-bold text-sm sm:text-base shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all">Ver todos os imóveis com filtros (12) →</a>
-        <a href="<?php echo esc_url( vh_mod( 'footer_airbnb', 'https://www.airbnb.com.br/users/show/148412228' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-xs text-base-content/70 hover:text-primary transition-colors underline">Ou veja o perfil completo com 15 anúncios no Airbnb</a>
+        <a href="<?php echo esc_url( home_url( '/imoveis/' ) ); ?>" class="btn btn-primary btn-brand-coral rounded-full px-8 sm:px-10 py-3.5 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all">Ver todos os imóveis (12) →</a>
+        <a href="<?php echo esc_url( vh_mod( 'footer_airbnb', 'https://www.airbnb.com.br/users/show/148412228' ) ); ?>" target="_blank" rel="noopener noreferrer" class="text-xs text-base-content/60 hover:text-primary transition-colors underline">Ver perfil no Airbnb</a>
       </div>
     </div>
   </section>
