@@ -108,7 +108,7 @@ $ico_star = '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" cla
           Nossos Imóveis
         </h1>
         <p class="text-sm sm:text-base text-base-content/70 mt-1">
-          Acomodações selecionadas e administradas pela VivaHost em Salvador.
+          Acomodações selecionadas com operação e hospitalidade VivaHost em Salvador.
         </p>
       </div>
 
@@ -176,7 +176,7 @@ $ico_star = '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" cla
     <div class="mt-16 sm:mt-24 p-8 sm:p-12 rounded-3xl bg-base-200/60 border border-base-200 text-center max-w-3xl mx-auto">
       <span class="text-xs font-bold uppercase tracking-wider text-primary mb-2 block">Para Proprietários</span>
       <h2 class="text-2xl sm:text-3xl font-extrabold text-neutral tracking-tight mb-3">
-        Quer seu imóvel administrado com esse mesmo padrão?
+        Quer o seu imóvel operado com esse mesmo padrão?
       </h2>
       <p class="text-sm sm:text-base text-base-content/75 max-w-xl mx-auto mb-8 leading-relaxed">
         Cuidamos de tudo para você ter rentabilidade com tranquilidade — anúncio, precificação diária, limpeza profissional e atendimento aos hóspedes com padrão Superhost.
