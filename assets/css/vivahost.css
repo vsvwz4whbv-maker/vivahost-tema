@@ -322,3 +322,11 @@ body:not(.home) .vivahost-header .vivahost-nav-toggle,
     background-position: center center !important;
   }
 }
+
+/* ── 9. HERO CUSTOM BACKGROUND STABILITY (NO SCROLL MOVEMENT) ─────────────── */
+.vh-hero,
+.vh-hero.has-custom-bg {
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+}

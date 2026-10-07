@@ -92,9 +92,9 @@ get_template_part( 'template-parts/header-site' );
        HERO
   ════════════════════════════════════════ -->
   <section class="vh-hero relative min-h-[85vh] md:min-h-[90vh] flex items-center justify-center text-center text-white bg-cover bg-center <?php echo $hero_bg_url ? 'has-custom-bg' : 'vh-hero--gradient'; ?>" id="hero"
-    <?php if ( $hero_bg_url ) : ?>style="background-image:url('<?php echo esc_url( $hero_bg_url ); ?>')"<?php endif; ?>
+    <?php if ( $hero_bg_url ) : ?>style="background-image:url('<?php echo esc_url( $hero_bg_url ); ?>'); background-position:center center; background-size:cover; background-repeat:no-repeat;"<?php endif; ?>
     aria-label="Introdução">
-    <div class="vh-hero__overlay absolute inset-0 <?php echo $hero_bg_url ? 'bg-gradient-to-b from-black/75 via-black/60 to-black/80' : 'bg-gradient-to-b from-black/15 via-transparent to-black/25'; ?> z-10" aria-hidden="true"></div>
+    <div class="vh-hero__overlay absolute inset-0 <?php echo $hero_bg_url ? 'bg-gradient-to-b from-black/40 via-black/25 to-black/45' : 'bg-gradient-to-b from-black/15 via-transparent to-black/25'; ?> z-10" aria-hidden="true"></div>
     <div class="vh-hero__content inner relative z-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
       <div class="inline-block mb-5">
         <span class="hero-eyebrow badge badge-lg border-white/30 bg-black/25 text-white font-medium tracking-wide backdrop-blur-md px-5 py-3 rounded-full text-xs sm:text-sm shadow-sm" data-vh="hero_eyebrow">

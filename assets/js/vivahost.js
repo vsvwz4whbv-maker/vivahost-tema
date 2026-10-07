@@ -270,16 +270,13 @@
     onScroll();
   }
 
-  // ── Parallax Hero ──────────────────────────────────────────────────────
+  // ── Parallax Hero (Disabilitato su richiesta per mantenere lo sfondo stabile e fisso) ──
   function initParallax() {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var hero = document.querySelector('.vh-hero');
     if (!hero) return;
-    var speed = 0.35;
-    window.addEventListener('scroll', function () {
-      var offset = window.pageYOffset * speed;
-      hero.style.backgroundPositionY = 'calc(50% - ' + offset + 'px)';
-    }, { passive: true });
+    hero.style.backgroundPosition = 'center center';
+    hero.style.backgroundRepeat = 'no-repeat';
+    hero.style.backgroundSize = 'cover';
   }
 
   // ── Stats Counter Animation ───────────────────────────────────────────
